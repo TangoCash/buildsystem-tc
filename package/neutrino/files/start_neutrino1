@@ -1,0 +1,43 @@
+#!/bin/sh
+
+. /etc/init.d/functions
+
+do_cleanup() {
+	# remove files created by neutrino
+	rm -f /tmp/.timer
+}
+
+# the neutrino loop
+until false
+do
+	echo "starting GUI ->"
+	if [ -e /tmp/neutrino ]; then
+		chmod 755 /tmp/neutrino
+		/tmp/neutrino
+	else
+		/usr/bin/neutrino -v 0
+	fi
+	rtv=$?
+	echo "GUI ended <- RTV: " $rtv
+	case "$rtv" in
+		0) echo "$rtv"
+			echo "Restart"
+			echo "Restart ..." > /dev/dbox/oled0
+			sync;;
+		1) echo "$rtv"
+			echo "Shutdown"
+			echo "Shutdown ..." > /dev/dbox/oled0
+			init 0;;
+		2) echo "$rtv"
+			echo "Reboot"
+			echo "Reboot ..." > /dev/dbox/oled0
+			do_cleanup
+			init 6;;
+		*) echo "*"
+			echo -e "\033[01;31mERROR: $rtv\033[00m"
+			echo "    *ERROR*     " > /dev/dbox/oled0
+			;;
+	esac
+done
+
+reboot -f

@@ -1,0 +1,51 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          crond crontab
+# Default-Start:     2345
+# Default-Stop:      016
+# Short-Description: run cron daemon
+# Description: cron is a standard UNIX program that runs user-specified
+#              programs at periodic scheduled times. vixie cron adds a
+#              number of features to the basic UNIX cron, including better
+#              security and more powerful configuration options.
+### END INIT INFO
+
+DAEMON=/usr/sbin/crond
+NAME=crond
+DESC="Busybox Periodic Command Scheduler"
+ARGS="-c /etc/cron/crontabs"
+
+test -f $DAEMON || exit 0
+
+set -e
+
+case "$1" in
+	start)
+		echo -n "Starting $DESC: $NAME... "
+		start-stop-daemon -S -b -n $NAME -a $DAEMON -- $ARGS
+		echo "done."
+		;;
+	stop)
+		echo -n "Stopping $DESC: $NAME... "
+		start-stop-daemon -K -n $NAME
+		echo "done."
+		;;
+	restart)
+		echo -n "Restarting $DESC: $NAME... "
+		$0 stop
+		$0 start
+		echo "done."
+		;;
+	reload)
+		echo -n "Reloading $DESC: $NAME... "
+		killall -HUP $(basename ${DAEMON})
+		echo "done."
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|reload}"
+		exit 1
+		;;
+esac
+
+exit 0
+

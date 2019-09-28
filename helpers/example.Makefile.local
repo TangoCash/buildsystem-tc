@@ -1,0 +1,30 @@
+#
+# User's makefile
+#
+# -----------------------------------------------------------------------------
+
+ifeq ($(FLAVOUR), neutrino-max)
+NEUTRINO_PATCH     +=
+LIBSTB_HAL_PATCH   +=
+#NEUTRINO_BRANCH    =
+#LIBSTB_HAL_BRANCH  =
+else ifeq  ($(FLAVOUR), neutrino-ni)
+NEUTRINO_PATCH     +=
+LIBSTB_HAL_PATCH   +=
+#NEUTRINO_BRANCH    =
+#LIBSTB_HAL_BRANCH  =
+else ifeq  ($(FLAVOUR), neutrino-tangos)
+NEUTRINO_PATCH     +=
+LIBSTB_HAL_PATCH   +=
+#NEUTRINO_BRANCH    =
+#LIBSTB_HAL_BRANCH  =
+else ifeq  ($(FLAVOUR), neutrino-ddt)
+NEUTRINO_PATCH     +=
+LIBSTB_HAL_PATCH   +=
+#NEUTRINO_BRANCH    =
+#LIBSTB_HAL_BRANCH  =
+endif
+
+OSCAM_PATCH +=
+
+# -----------------------------------------------------------------------------

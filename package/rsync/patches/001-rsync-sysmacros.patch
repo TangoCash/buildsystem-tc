@@ -1,0 +1,24 @@
+--- a/xattrs.c
++++ b/xattrs.c
+@@ -23,6 +23,9 @@
+ #include "ifuncs.h"
+ #include "inums.h"
+ #include "lib/sysxattrs.h"
++#ifdef __GLIBC__
++#include <sys/sysmacros.h>
++#endif
+ 
+ #ifdef SUPPORT_XATTRS
+ 
+--- a/flist.c
++++ b/flist.c
+@@ -25,6 +25,9 @@
+ #include "rounding.h"
+ #include "inums.h"
+ #include "io.h"
++#ifdef __GLIBC__
++#include <sys/sysmacros.h>
++#endif
+ 
+ extern int am_root;
+ extern int am_server;

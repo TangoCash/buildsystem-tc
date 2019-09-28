@@ -1,0 +1,13 @@
+--- a/src/lvm.c
++++ b/src/lvm.c
+@@ -539,6 +539,10 @@
+  newframe:  /* reentry point when frame changes (call/return) */
+   lua_assert(ci == L->ci);
+   cl = clLvalue(ci->func);
++  if (cl == NULL) {
++    printf("#####[liblua: src/lvm.c %s:%d] cl: %p, ci->func: %p\n", __FUNCTION__, __LINE__, cl, ci->func);
++    return;
++  }
+   k = cl->p->k;
+   base = ci->u.l.base;
+   /* main loop of interpreter */

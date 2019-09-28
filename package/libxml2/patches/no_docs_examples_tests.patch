@@ -1,0 +1,49 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -379,7 +379,7 @@
+ man3dir = $(mandir)/man3
+ NROFF = nroff
+ MANS = $(man_MANS)
+-DATA = $(cmake_DATA) $(confexec_DATA) $(m4data_DATA) $(pkgconfig_DATA)
++DATA =                                               $(pkgconfig_DATA)
+ RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
+   distclean-recursive maintainer-clean-recursive
+ am__recursive_targets = \
+@@ -691,7 +691,7 @@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ ACLOCAL_AMFLAGS = -I m4
+-SUBDIRS = include . doc example xstc $(PYTHON_SUBDIR)
++SUBDIRS = include .             xstc $(PYTHON_SUBDIR)
+ DIST_SUBDIRS = include . doc example python xstc
+ AM_CPPFLAGS = -I$(top_builddir)/include -I$(srcdir)/include
+ AM_CFLAGS = $(EXTRA_CFLAGS) $(THREAD_CFLAGS) $(Z_CFLAGS) $(LZMA_CFLAGS)
+@@ -1733,7 +1733,7 @@
+ 	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
+ check: $(BUILT_SOURCES)
+ 	$(MAKE) $(AM_MAKEFLAGS) check-recursive
+-all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(SCRIPTS) $(MANS) $(DATA) \
++all-am: Makefile $(LTLIBRARIES)             $(SCRIPTS)         $(DATA) \
+ 		config.h
+ install-binPROGRAMS: install-libLTLIBRARIES
+ 
+@@ -1801,15 +1801,15 @@
+ 
+ info-am:
+ 
+-install-data-am: install-cmakeDATA install-data-local \
+-	install-m4dataDATA install-man install-pkgconfigDATA
++install-data-am: \
++	install-pkgconfigDATA
+ 
+ install-dvi: install-dvi-recursive
+ 
+ install-dvi-am:
+ 
+-install-exec-am: install-binPROGRAMS install-binSCRIPTS \
+-	install-confexecDATA install-libLTLIBRARIES
++install-exec-am: install-binSCRIPTS \
++	install-libLTLIBRARIES
+ 
+ install-html: install-html-recursive
+ 

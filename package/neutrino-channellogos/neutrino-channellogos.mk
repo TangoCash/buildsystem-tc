@@ -1,0 +1,24 @@
+#
+# fred_feuerstein's channellogos
+#
+NEUTRINO_CHANNELLOGOS_VER    = git
+NEUTRINO_CHANNELLOGOS_DIR    = ni-logo-stuff.$(NEUTRINO_CHANNELLOGOS_VER)
+NEUTRINO_CHANNELLOGOS_SOURCE = $(NEUTRINO_CHANNELLOGOS_DIR)
+NEUTRINO_CHANNELLOGOS_URL    = $(GITHUB)/neutrino-images/ni-logo-stuff.git
+
+$(D)/neutrino-channellogos: bootstrap
+	$(START_BUILD)
+	$(REMOVE)/$(NEUTRINO_CHANNELLOGOS_DIR)
+	$(GET-GIT-SOURCE) $(NEUTRINO_CHANNELLOGOS_URL) $(ARCHIVE)/$(NEUTRINO_CHANNELLOGOS_SOURCE)
+	$(CPDIR)/$(NEUTRINO_CHANNELLOGOS_DIR)
+	rm -rf $(NP_LOGOS_DIR)
+	mkdir -p $(NP_LOGOS_DIR)
+	$(INSTALL_DATA) $(BUILD_DIR)/$(NEUTRINO_CHANNELLOGOS_DIR)/logos/* $(NP_LOGOS_DIR)
+	mkdir -p $(NP_LOGOS_DIR)/events
+	$(INSTALL_DATA) $(BUILD_DIR)/$(NEUTRINO_CHANNELLOGOS_DIR)/logos-events/* $(NP_LOGOS_DIR)/events
+	$(CHDIR)/ni-logo-stuff.git/logo-links && \
+		./logo-linker.sh logo-links.db $(NP_LOGOS_DIR)
+	mkdir -p $(NP_DIR)
+	cp -a $(BUILD_DIR)/$(NEUTRINO_CHANNELLOGOS_DIR)/logo-addon/* $(NP_DIR)
+	$(REMOVE)/$(NEUTRINO_CHANNELLOGOS_DIR)
+	$(TOUCH)

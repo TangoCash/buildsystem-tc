@@ -1,0 +1,23 @@
+--- a/axfer/container.h
++++ b/axfer/container.h
+@@ -16,6 +16,8 @@
+ #include <stdbool.h>
+ #include <stdint.h>
+ 
++#include <assert.h>
++
+ #include <alsa/asoundlib.h>
+ 
+ enum container_type {
+diff -Naur a/configure.ac b/configure.ac
+--- a/configure.ac
++++ b/configure.ac
+@@ -3,7 +3,7 @@
+ AC_INIT(alsa-utils, 1.1.9)
+ AC_CONFIG_SRCDIR([aplay/aplay.c])
+ AC_PREFIX_DEFAULT(/usr)
+-AM_INIT_AUTOMAKE
++AM_INIT_AUTOMAKE([subdir-objects])
+ 
+ AM_MAINTAINER_MODE([enable])
+ 

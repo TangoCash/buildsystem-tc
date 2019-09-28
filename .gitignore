@@ -1,0 +1,14 @@
+build_source/
+build_tmp/
+cross/
+helpers/*-local*
+host/
+own-files/
+release/
+release_image/
+root/
+.deps/
+.config
+config.local
+Makefile.local
+*~

@@ -1,0 +1,24 @@
+--- a/Process.c
++++ b/Process.c
+@@ -32,6 +32,9 @@
+ #include <sys/mkdev.h>
+ #elif defined(MAJOR_IN_SYSMACROS) || \
+    (defined(HAVE_SYS_SYSMACROS_H) && HAVE_SYS_SYSMACROS_H)
++#include <sys/sysmacros.h>
++#endif
++#ifdef __GLIBC__
+ #include <sys/sysmacros.h>
+ #endif
+ 
+--- a/linux/LinuxProcessList.c
++++ b/linux/LinuxProcessList.c
+@@ -30,6 +30,9 @@
+ #include <sys/mkdev.h>
+ #elif defined(MAJOR_IN_SYSMACROS) || \
+    (defined(HAVE_SYS_SYSMACROS_H) && HAVE_SYS_SYSMACROS_H)
++#include <sys/sysmacros.h>
++#endif
++#ifdef __GLIBC__
+ #include <sys/sysmacros.h>
+ #endif
+ 

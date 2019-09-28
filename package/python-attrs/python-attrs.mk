@@ -1,0 +1,20 @@
+#
+# python-attrs
+#
+PYTHON_ATTRS_VER    = 16.3.0
+PYTHON_ATTRS_DIR    = attrs-$(PYTHON_ATTRS_VER)
+PYTHON_ATTRS_SOURCE = attrs-$(PYTHON_ATTRS_VER).tar.gz
+PYTHON_ATTRS_URL    = https://pypi.io/packages/source/a/attrs
+
+$(ARCHIVE)/$(PYTHON_ATTRS_SOURCE):
+	$(DOWNLOAD) $(PYTHON_ATTRS_URL)/$(PYTHON_ATTRS_SOURCE)
+
+$(D)/python-attrs: bootstrap python python-setuptools $(ARCHIVE)/$(PYTHON_ATTRS_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/$(PYTHON_ATTRS_DIR)
+	$(UNTAR)/$(PYTHON_ATTRS_SOURCE)
+	$(CHDIR)/$(PYTHON_ATTRS_DIR); \
+		$(PYTHON_BUILD); \
+		$(PYTHON_INSTALL)
+	$(REMOVE)/$(PYTHON_ATTRS_DIR)
+	$(TOUCH)

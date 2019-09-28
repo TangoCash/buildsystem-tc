@@ -1,0 +1,24 @@
+#
+# neutrino-mediathek
+#
+NEUTRINO_MEDIATHEK_VER    = git
+NEUTRINO_MEDIATHEK_DIR    = mediathek.$(NEUTRINO_MEDIATHEK_VER)
+NEUTRINO_MEDIATHEK_SOURCE = $(NEUTRINO_MEDIATHEK_DIR)
+NEUTRINO_MEDIATHEK_URL    = https://github.com/neutrino-mediathek/mediathek.git
+
+NEUTRINO_MEDIATHEK_PATCH  = \
+	neutrino-mediathek.patch
+
+$(D)/neutrino-mediathek:
+	$(START_BUILD)
+	$(REMOVE)/$(NEUTRINO_MEDIATHEK_DIR)
+	$(GET-GIT-SOURCE) $(NEUTRINO_MEDIATHEK_URL) $(ARCHIVE)/$(NEUTRINO_MEDIATHEK_SOURCE)
+	$(CPDIR)/$(NEUTRINO_MEDIATHEK_DIR)
+	mkdir -p $(NP_DIR)
+	$(CHDIR)/$(NEUTRINO_MEDIATHEK_DIR); \
+		$(call apply_patches, $(NEUTRINO_MEDIATHEK_PATCH)); \
+	$(CHDIR)/$(NEUTRINO_MEDIATHEK_DIR); \
+		cp -a plugins/* $(NP_DIR); \
+		cp -a share $(TARGET_DIR)/usr/
+	$(REMOVE)/$(NEUTRINO_MEDIATHEK_DIR)
+	$(TOUCH)

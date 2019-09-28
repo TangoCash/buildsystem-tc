@@ -1,0 +1,70 @@
+#!/bin/sh
+#
+# lcd4linux
+#
+
+DAEMON=/usr/bin/lcd4linux
+DESC=lcd4linux
+
+
+configfile() {
+	read layout < /tmp/lcd/layout
+	test ${layout##*_} = user && CONF_DIR=/var/etc || CONF_DIR=/etc
+
+	chmod 600 ${CONF_DIR}/lcd4linux.conf
+	chown 0:0 ${CONF_DIR}/lcd4linux.conf
+
+	printf "${CONF_DIR}/lcd4linux.conf"
+}
+
+daemon_start() {
+	( # do always run in background
+		while [ ! -e /tmp/.lcd4linux ]; do sleep 2; done
+		echo -n "Starting $DESC "
+		start-stop-daemon --start --quiet --pidfile /var/run/lcd4linux.pid --exec $DAEMON -- -p /var/run/lcd4linux.pid -f $(configfile)
+		echo "done."
+	) &
+}
+
+daemon_stop() {
+	if [ -f /var/run/lcd4linux.pid ]; then
+		echo -n "Stopping $DESC "
+		start-stop-daemon --oknodo --stop --quiet --pidfile /var/run/lcd4linux.pid --exec $DAEMON
+		sleep 2
+		echo "done."
+	fi
+}
+
+daemon_reload() {
+	if [ -f /var/run/lcd4linux.pid ]; then
+		echo -n "Reloading $DESC "
+		start-stop-daemon --stop --signal 1 --quiet --pidfile /var/run/lcd4linux.pid --exec $DAEMON
+		echo "done."
+	fi
+}
+
+doOff() {
+	echo "LCD::backlight(0)" | $DAEMON -i > /dev/null 2>&1
+}
+
+
+case "$1" in
+	start)
+		daemon_start
+		;;
+	stop)
+		daemon_stop
+		;;
+	off)
+		daemon_stop
+		doOff
+		;;
+	restart|reload)
+		daemon_stop
+		daemon_start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|reload|force-reload}" >&2
+		exit
+		;;
+esac

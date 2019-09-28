@@ -1,0 +1,34 @@
+--- a/group.master
++++ b/group.master
+@@ -38,4 +38,11 @@
+ games:*:60:
+ shutdown:*:70:
+ users:*:100:
++rpcuser:*:993:
++rpc:*:994:
++messagebus:*:995:
++netdev:*:996:
++ftp:*:997:
++crontab:*:998:
++avahi:*:999:
+ nogroup:*:65534:
+
+--- a/passwd.master
++++ b/passwd.master
+@@ -1,4 +1,4 @@
+-root::0:0:root:/root:/bin/sh
++root::0:0:root:/home/root:/bin/sh
+ daemon:*:1:1:daemon:/usr/sbin:/bin/sh
+ bin:*:2:2:bin:/bin:/bin/sh
+ sys:*:3:3:sys:/dev:/bin/sh
+@@ -15,4 +15,9 @@
+ list:*:38:38:Mailing List Manager:/var/list:/bin/sh
+ irc:*:39:39:ircd:/var/run/ircd:/bin/sh
+ gnats:*:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/bin/sh
++rpcuser:*:995:993::/var/lib/nfs:/bin/false
++rpc:*:996:994::/:/bin/false
++messagebus:*:997:995::/var/lib/dbus:/bin/false
++ftp:*:998:997::/var/lib/ftp:/bin/false
++avahi:*:999:999::/run/avahi-daemon:/bin/false
+ nobody:*:65534:65534:nobody:/nonexistent:/bin/sh
+

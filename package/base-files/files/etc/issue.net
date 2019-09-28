@@ -1,0 +1,6 @@
+Date:         \d - \t
+Architecture: \m
+OS:           \s
+Kernel:       \r
+Kernel build: \v
+

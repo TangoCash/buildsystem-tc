@@ -1,0 +1,59 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          vsftpd
+# Default-Start:     2345
+# Default-Stop:      016
+# Short-Description: Very Secure Ftp Daemon
+# Description:       vsftpd is a Very Secure FTP daemon. It was written completely from
+#                    scratch
+### END INIT INFO
+
+DAEMON=/usr/sbin/vsftpd
+NAME=vsftpd
+DESC="FTP Server"
+
+test -x $DAEMON || exit 0
+
+# Defaults
+CONFIGFILE="/etc/vsftpd.conf"
+CONFIGDEFAULTFILE="/etc/default/vsftpd"
+USERID=root
+GROUPID=root
+ENABLE="true"
+
+# Reads config file (will override defaults above)
+[ -r "$CONFIGDEFAULTFILE" ] && . $CONFIGDEFAULTFILE
+
+if [ "$ENABLE" != "true" ]; then
+	echo "$NAME daemon disabled - read $CONFIGDEFAULTFILE."
+	exit 0
+fi
+
+set -e
+
+case "$1" in
+	start)
+		echo -n "* starting $DESC: $NAME... "
+		start-stop-daemon --start --quiet --chuid $USERID:$GROUPID --exec $DAEMON -b --
+		echo "done."
+		;;
+	stop)
+		echo -n "* stopping $DESC: $NAME... "
+		start-stop-daemon --stop --oknodo --quiet --exec $DAEMON
+		echo "done."
+		;;
+	restart)
+		echo "* restarting $DESC: $NAME... "
+		start-stop-daemon --stop --oknodo --quiet --exec $DAEMON
+		echo "done."
+		sleep 1
+		start-stop-daemon --start --quiet --chuid $USERID:$GROUPID --exec $DAEMON -b --
+		echo "done."
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+		;;
+esac
+
+exit 0

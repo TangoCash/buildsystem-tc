@@ -1,0 +1,24 @@
+#
+# Local config file
+#
+# -----------------------------------------------------------------------------
+
+# Neutrino API keys
+#OMDB_API_KEY      =
+#TMDB_DEV_KEY      =
+#YOUTUBE_DEV_KEY   =
+#SHOUTCAST_DEV_KEY =
+#WEATHER_DEV_KEY   =
+
+
+#LOCAL_NEUTRINO_BUILD_OPTIONS += --enable-graphlcd
+#LOCAL_NEUTRINO_BUILD_OPTIONS += --enable-lcd4linux
+
+#LOCAL_NEUTRINO_DEPS          += graphlcd
+#LOCAL_NEUTRINO_DEPS          += lcd4linux
+#LOCAL_NEUTRINO_DEPS          += openvpn
+#LOCAL_NEUTRINO_DEPS          += dvbsnoop
+
+
+#GIT_STASH_PULL = stashpull
+

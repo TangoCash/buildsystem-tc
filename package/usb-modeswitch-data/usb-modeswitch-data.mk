@@ -1,0 +1,24 @@
+#
+# usb-modeswitch-data
+#
+USB_MODESWITCH_DATA_VER    = 20170806
+USB_MODESWITCH_DATA_DIR    = usb-modeswitch-data-$(USB_MODESWITCH_DATA_VER)
+USB_MODESWITCH_DATA_SOURCE = usb-modeswitch-data-$(USB_MODESWITCH_DATA_VER).tar.bz2
+USB_MODESWITCH_DATA_URL    = http://www.draisberghof.de/usb_modeswitch
+
+$(ARCHIVE)/$(USB_MODESWITCH_DATA_SOURCE):
+	$(DOWNLOAD) $(USB_MODESWITCH_DATA_URL)/$(USB_MODESWITCH_DATA_SOURCE)
+
+USB_MODESWITCH_DATA_PATCH  = \
+	usb-modeswitch-data.patch
+
+$(D)/usb-modeswitch-data: bootstrap $(ARCHIVE)/$(USB_MODESWITCH_DATA_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/$(USB_MODESWITCH_DATA_DIR)
+	$(UNTAR)/$(USB_MODESWITCH_DATA_SOURCE)
+	$(CHDIR)/$(USB_MODESWITCH_DATA_DIR); \
+		$(call apply_patches, $(USB_MODESWITCH_DATA_PATCH)); \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(TARGET_DIR)
+	$(REMOVE)/$(USB_MODESWITCH_DATA_DIR)
+	$(TOUCH)
