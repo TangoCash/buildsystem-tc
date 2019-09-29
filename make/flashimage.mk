@@ -8,6 +8,9 @@ endif
 ifeq ($(BOXMODEL), hd60)
 	$(MAKE) flash-image-hd60-multi-disk flash-image-hd60-multi-rootfs
 endif
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+	$(MAKE) flash-image-osmio4k-multi-disk flash-image-osmio4k-multi-rootfs
+endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vusolo4k vuduo4k vuultimo4k vuzero4k))
 ifeq ($(VU_MULTIBOOT), 1)
 	$(MAKE) flash-image-vu-multi-rootfs
@@ -29,6 +32,9 @@ endif
 ifeq ($(BOXMODEL), hd60)
 	$(MAKE) ITYPE=ofg flash-image-hd60-multi-rootfs
 endif
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+	$(MAKE) ITYPE=ofg flash-image-osmio4k-multi-rootfs
+endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vusolo4k vuduo4k vuultimo4k vuzero4k))
 	$(MAKE) ITYPE=ofg flash-image-vu-rootfs
 endif
@@ -43,6 +49,9 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
 endif
 ifeq ($(BOXMODEL), hd60)
 	$(MAKE) ITYPE=online flash-image-hd60-online
+endif
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+	$(MAKE) ITYPE=online flash-image-osmio4k-online
 endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vusolo4k vuduo4k vuultimo4k vuzero4k))
 	$(MAKE) ITYPE=online flash-image-vu-online
@@ -324,6 +333,102 @@ flash-image-hd60-online:
 	echo $(BOXMODEL)_DDT_usb_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
 		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
+	# cleanup
+	rm -rf $(IMAGE_BUILD_DIR)
+
+# -----------------------------------------------------------------------------
+
+OSMIO4K_IMAGE_NAME = emmc
+OSMIO4K_IMAGE_LINK = $(OSMIO4K_IMAGE_NAME).ext4
+
+# emmc image
+OSMIO4K_EMMC_IMAGE = $(IMAGE_BUILD_DIR)/$(OSMIO4K_IMAGE_NAME).img
+OSMIO4K_EMMC_IMAGE_SIZE = 7634944
+
+# partition offsets/sizes
+OSMIO4K_IMAGE_ROOTFS_ALIGNMENT = 1024
+OSMIO4K_BOOT_PARTITION_SIZE    = 3072
+OSMIO4K_KERNEL_PARTITION_SIZE  = 8192
+OSMIO4K_ROOTFS_PARTITION_SIZE  = 1898496
+
+OSMIO4K_KERNEL1_PARTITION_OFFSET = $(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT)   + $(OSMIO4K_BOOT_PARTITION_SIZE))
+OSMIO4K_ROOTFS1_PARTITION_OFFSET = $(shell expr $(OSMIO4K_KERNEL1_PARTITION_OFFSET) + $(OSMIO4K_KERNEL_PARTITION_SIZE))
+
+OSMIO4K_KERNEL2_PARTITION_OFFSET = $(shell expr $(OSMIO4K_ROOTFS1_PARTITION_OFFSET) + $(OSMIO4K_ROOTFS_PARTITION_SIZE))
+OSMIO4K_ROOTFS2_PARTITION_OFFSET = $(shell expr $(OSMIO4K_KERNEL2_PARTITION_OFFSET) + $(OSMIO4K_KERNEL_PARTITION_SIZE))
+
+OSMIO4K_KERNEL3_PARTITION_OFFSET = $(shell expr $(OSMIO4K_ROOTFS2_PARTITION_OFFSET) + $(OSMIO4K_ROOTFS_PARTITION_SIZE))
+OSMIO4K_ROOTFS3_PARTITION_OFFSET = $(shell expr $(OSMIO4K_KERNEL3_PARTITION_OFFSET) + $(OSMIO4K_KERNEL_PARTITION_SIZE))
+
+OSMIO4K_KERNEL4_PARTITION_OFFSET = $(shell expr $(OSMIO4K_ROOTFS3_PARTITION_OFFSET) + $(OSMIO4K_ROOTFS_PARTITION_SIZE))
+OSMIO4K_ROOTFS4_PARTITION_OFFSET = $(shell expr $(OSMIO4K_KERNEL4_PARTITION_OFFSET) + $(OSMIO4K_KERNEL_PARTITION_SIZE))
+
+flash-image-osmio4k-multi-disk: host-e2fsprogs
+	rm -rf $(IMAGE_BUILD_DIR) || true
+	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
+	# Create a sparse image block
+	dd if=/dev/zero of=$(IMAGE_BUILD_DIR)/$(OSMIO4K_IMAGE_LINK) seek=$(shell expr $(OSMIO4K_EMMC_IMAGE_SIZE) \* 1024) count=0 bs=1
+	$(HOST_DIR)/bin/mkfs.ext4 -F -m0 $(IMAGE_BUILD_DIR)/$(OSMIO4K_IMAGE_LINK) -d $(RELEASE_DIR)
+	# Error codes 0-3 indicate successfull operation of fsck (no errors or errors corrected)
+	$(HOST_DIR)/bin/fsck.ext4 -pfD $(IMAGE_BUILD_DIR)/$(OSMIO4K_IMAGE_LINK) || [ $? -le 3 ]
+	dd if=/dev/zero of=$(OSMIO4K_EMMC_IMAGE) bs=1 count=0 seek=$(shell expr $(OSMIO4K_EMMC_IMAGE_SIZE) \* 1024)
+	parted -s $(OSMIO4K_EMMC_IMAGE) mklabel gpt
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart boot fat16 $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) $(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) + $(OSMIO4K_BOOT_PARTITION_SIZE))
+	parted -s $(OSMIO4K_EMMC_IMAGE) set 1 boot on
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart kernel1 $(OSMIO4K_KERNEL1_PARTITION_OFFSET) $(shell expr $(OSMIO4K_KERNEL1_PARTITION_OFFSET) + $(OSMIO4K_KERNEL_PARTITION_SIZE))
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart rootfs1 ext4 $(OSMIO4K_ROOTFS1_PARTITION_OFFSET) $(shell expr $(OSMIO4K_ROOTFS1_PARTITION_OFFSET) + $(OSMIO4K_ROOTFS_PARTITION_SIZE))
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart kernel2 $(OSMIO4K_KERNEL2_PARTITION_OFFSET) $(shell expr $(OSMIO4K_KERNEL2_PARTITION_OFFSET) + $(OSMIO4K_KERNEL_PARTITION_SIZE))
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart rootfs2 ext4 $(OSMIO4K_ROOTFS2_PARTITION_OFFSET) $(shell expr $(OSMIO4K_ROOTFS2_PARTITION_OFFSET) + $(OSMIO4K_ROOTFS_PARTITION_SIZE))
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart kernel3 $(OSMIO4K_KERNEL3_PARTITION_OFFSET) $(shell expr $(OSMIO4K_KERNEL3_PARTITION_OFFSET) + $(OSMIO4K_KERNEL_PARTITION_SIZE))
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart rootfs3 ext4 $(OSMIO4K_ROOTFS3_PARTITION_OFFSET) $(shell expr $(OSMIO4K_ROOTFS3_PARTITION_OFFSET) + $(OSMIO4K_ROOTFS_PARTITION_SIZE))
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart kernel4 $(OSMIO4K_KERNEL4_PARTITION_OFFSET) $(shell expr $(OSMIO4K_KERNEL4_PARTITION_OFFSET) + $(OSMIO4K_KERNEL_PARTITION_SIZE))
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB mkpart rootfs4 ext4 $(OSMIO4K_ROOTFS4_PARTITION_OFFSET) $(shell expr $(OSMIO4K_ROOTFS4_PARTITION_OFFSET) + $(OSMIO4K_ROOTFS_PARTITION_SIZE))
+	dd if=/dev/zero of=$(IMAGE_BUILD_DIR)/boot.img bs=1024 count=$(OSMIO4K_BOOT_PARTITION_SIZE)
+	mkfs.msdos -n boot -S 512 $(IMAGE_BUILD_DIR)/boot.img
+	echo "setenv STARTUP \"boot emmcflash0.kernel1 'root=/dev/mmcblk1p3 rootfstype=ext4 rootwait'\"" > $(IMAGE_BUILD_DIR)/STARTUP
+	echo "setenv STARTUP \"boot emmcflash0.kernel1 'root=/dev/mmcblk1p3 rootfstype=ext4 rootwait'\"" > $(IMAGE_BUILD_DIR)/STARTUP_1
+	echo "setenv STARTUP \"boot emmcflash0.kernel2 'root=/dev/mmcblk1p5 rootfstype=ext4 rootwait'\"" > $(IMAGE_BUILD_DIR)/STARTUP_2
+	echo "setenv STARTUP \"boot emmcflash0.kernel3 'root=/dev/mmcblk1p7 rootfstype=ext4 rootwait'\"" > $(IMAGE_BUILD_DIR)/STARTUP_3
+	echo "setenv STARTUP \"boot emmcflash0.kernel4 'root=/dev/mmcblk1p9 rootfstype=ext4 rootwait'\"" > $(IMAGE_BUILD_DIR)/STARTUP_4
+	mcopy -i $(IMAGE_BUILD_DIR)/boot.img -v $(IMAGE_BUILD_DIR)/STARTUP ::
+	mcopy -i $(IMAGE_BUILD_DIR)/boot.img -v $(IMAGE_BUILD_DIR)/STARTUP_1 ::
+	mcopy -i $(IMAGE_BUILD_DIR)/boot.img -v $(IMAGE_BUILD_DIR)/STARTUP_2 ::
+	mcopy -i $(IMAGE_BUILD_DIR)/boot.img -v $(IMAGE_BUILD_DIR)/STARTUP_3 ::
+	mcopy -i $(IMAGE_BUILD_DIR)/boot.img -v $(IMAGE_BUILD_DIR)/STARTUP_4 ::
+	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB print
+	dd conv=notrunc if=$(IMAGE_BUILD_DIR)/boot.img of=$(OSMIO4K_EMMC_IMAGE) seek=1 bs=$(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) \* 1024)
+	dd conv=notrunc if=$(KERNEL_IMAGE_GZ) of=$(OSMIO4K_EMMC_IMAGE) seek=1 bs=$(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) \* 1024 + $(OSMIO4K_BOOT_PARTITION_SIZE) \* 1024)
+	$(HOST_DIR)/bin/resize2fs $(IMAGE_BUILD_DIR)/$(OSMIO4K_IMAGE_LINK) $(OSMIO4K_ROOTFS_PARTITION_SIZE)k
+	# Truncate on purpose
+	dd if=$(IMAGE_BUILD_DIR)/$(OSMIO4K_IMAGE_LINK) of=$(OSMIO4K_EMMC_IMAGE) seek=1 bs=$(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) \* 1024 + $(OSMIO4K_BOOT_PARTITION_SIZE) \* 1024 + $(OSMIO4K_KERNEL_PARTITION_SIZE) \* 1024)
+	mv $(OSMIO4K_EMMC_IMAGE) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/
+
+flash-image-osmio4k-multi-rootfs:
+	# Create final USB-image
+	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
+	cp $(KERNEL_IMAGE_GZ) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
+	$(CD) $(RELEASE_DIR); \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
+	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "rename this file to 'force' to force an update without confirmation" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/noforce; \
+	$(CD) $(IMAGE_BUILD_DIR); \
+		zip -r $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/kernel.bin $(BOXMODEL)/$(OSMIO4K_IMAGE_NAME).img $(BOXMODEL)/imageversion
+	# cleanup
+	rm -rf $(IMAGE_BUILD_DIR)
+
+flash-image-osmio4k-online:
+	# Create final USB-image
+	rm -rf $(IMAGE_BUILD_DIR) || true
+	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
+	cp $(KERNEL_IMAGE_GZ) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
+	$(CD) $(RELEASE_DIR); \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
+	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "rename this file to 'force' to force an update without confirmation" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/noforce; \
+	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
+		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
