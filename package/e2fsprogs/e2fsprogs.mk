@@ -1,7 +1,7 @@
 #
 # e2fsprogs
 #
-E2FSPROGS_VER    = 1.45.3
+E2FSPROGS_VER    = 1.45.4
 E2FSPROGS_DIR    = e2fsprogs-$(E2FSPROGS_VER)
 E2FSPROGS_SOURCE = e2fsprogs-$(E2FSPROGS_VER).tar.gz
 E2FSPROGS_URL    = https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v$(E2FSPROGS_VER)
