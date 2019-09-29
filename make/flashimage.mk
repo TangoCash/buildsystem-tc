@@ -64,10 +64,7 @@ IMAGE_ROOTFS_SIZE = 294912
 
 # emmc image
 EMMC_IMAGE_SIZE = 3817472
-EMMC_IMAGE ?= $(IMAGE_BUILD_DIR)/disk.img
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
 EMMC_IMAGE = $(IMAGE_BUILD_DIR)/$(IMAGE_NAME).img
-endif
 
 BLOCK_SIZE = 512
 BLOCK_SECTOR = 2
@@ -180,7 +177,7 @@ else
 endif
 	# Truncate on purpose
 	dd if=$(IMAGE_BUILD_DIR)/$(IMAGE_LINK) of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(ROOTFS_PARTITION_OFFSET) \* $(BLOCK_SECTOR)) count=$(shell expr $(IMAGE_ROOTFS_SIZE) \* $(BLOCK_SECTOR))
-	mv $(IMAGE_BUILD_DIR)/disk.img $(IMAGE_BUILD_DIR)/$(BOXMODEL)/
+	mv $(IMAGE_BUILD_DIR)/$(IMAGE_NAME).img $(IMAGE_BUILD_DIR)/$(BOXMODEL)/
 
 flash-image-multi-rootfs:
 	# Create final USB-image
@@ -189,9 +186,9 @@ flash-image-multi-rootfs:
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo $(BOXMODEL)_DDT_usb_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/kernel.bin $(BOXMODEL)/disk.img $(BOXMODEL)/imageversion
+		zip -r $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/kernel.bin $(BOXMODEL)/$(IMAGE_NAME).img $(BOXMODEL)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -203,7 +200,7 @@ flash-image-online:
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo $(BOXMODEL)_DDT_usb_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
 		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
 	# cleanup
