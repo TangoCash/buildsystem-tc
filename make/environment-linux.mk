@@ -84,6 +84,18 @@ KERNEL_BUILD_IMAGE = uImage
 KERNEL_PATCHES     = $(HD60_PATCHES)
 endif
 
+ifeq ($(BOXMODEL), hd61)
+KERNEL_VER         = 4.4.35
+KERNEL_DATE        = 20181228
+KERNEL_SOURCE      = linux-$(KERNEL_VER)-$(KERNEL_DATE)-arm.tar.gz
+KERNEL_URL         = http://downloads.mutant-digital.net
+KERNEL_CONFIG      = hd61_defconfig
+KERNEL_DIR         = $(BUILD_DIR)/linux-$(KERNEL_VER)
+KERNEL_DTB_VER     = hi3798mv200.dtb
+KERNEL_BUILD_IMAGE = uImage
+KERNEL_PATCHES     = $(HD61_PATCHES)
+endif
+
 ifeq ($(BOXMODEL), vusolo4k)
 KERNEL_VER         = 3.14.28-1.8
 KERNEL_SOURCE_VER  = 3.14-1.8
