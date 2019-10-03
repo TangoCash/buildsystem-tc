@@ -23,8 +23,6 @@ $(D)/lua: bootstrap host-lua ncurses $(ARCHIVE)/$(LUA_SOURCE)
 	$(UNTAR)/$(LUA_SOURCE)
 	$(CHDIR)/$(LUA_DIR); \
 		$(call apply_patches, $(LUA_PATCH)); \
-		sed -i 's/^V=.*/V= $(LUA_ABIVER)/' etc/lua.pc; \
-		sed -i 's/^R=.*/R= $(LUA_VER)/' etc/lua.pc; \
 		$(MAKE) linux \
 			PKG_VERSION=$(LUA_VER) \
 			$(MAKE_OPTS) \
