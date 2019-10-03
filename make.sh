@@ -69,6 +69,7 @@ case $1 in
 		echo "  11)  BRE2ZE 4K"
 		echo "  21)  Mut@nt HD51"
 		echo "  22)  Mut@nt HD60"
+		echo "  23)  Mut@nt HD61"
 		echo "  30)  Edision OS mio 4K"
 		echo "  31)  Edision OS mio+ 4K"
 		read -p "Select target? [21] "
@@ -84,6 +85,7 @@ case "$REPLY" in
 	11) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="bre2ze4k";;
 	21) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
 	22) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd60";;
+	23) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd61";;
 	30) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4k";;
 	31) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4kplus";;
 	 *) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
