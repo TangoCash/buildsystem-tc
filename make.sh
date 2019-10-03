@@ -143,8 +143,8 @@ case $4 in
 		echo "   2)  neutrino-max   "
 		echo "   3)  neutrino-ni    "
 		echo "   4)  neutrino-tangos"
-		read -p "Select Image to build (1-4)? [2] "
-		REPLY="${REPLY:-2}";;
+		read -p "Select Image to build (1-4)? [4] "
+		REPLY="${REPLY:-4}";;
 esac
 
 case "$REPLY" in
@@ -152,7 +152,7 @@ case "$REPLY" in
 	2) FLAVOUR="neutrino-max";;
 	3) FLAVOUR="neutrino-ni";;
 	4) FLAVOUR="neutrino-tangos";;
-	*) FLAVOUR="neutrino-max";;
+	*) FLAVOUR="neutrino-tangos";;
 esac
 echo "FLAVOUR=$FLAVOUR" >> .config
 
