@@ -137,23 +137,33 @@ HD61_PATCHES = \
 VUDUO_PATCHES = \
 	$(COMMON_VUPLUS_PATCHES_3_9)
 
+VUDUO4K_PATCHES = \
+	$(COMMON_VUPLUS_PATCHES_4_1)
+
 VUSOLO4K_PATCHES = \
 	$(COMMON_VUPLUS_PATCHES_3_14) \
 	vuplus/3_14_linux_rpmb_not_alloc.patch \
 	vuplus/3_14_fix_mmc_3.14.28-1.10.patch
-
-VUDUO4K_PATCHES = \
-	$(COMMON_VUPLUS_PATCHES_4_1)
 
 VUULTIMO4K_PATCHES = \
 	$(COMMON_VUPLUS_PATCHES_3_14) \
 	vuplus/3_14_bcmsysport_3.14.28-1.12.patch \
 	vuplus/3_14_linux_prevent_usb_dma_from_bmem.patch
 
+VUUNO4K_PATCHES = \
+	$(COMMON_VUPLUS_PATCHES_3_14) \
+	vuplus/3_14_bcmsysport_3.14.28-1.12.patch \
+	vuplus/3_14_linux_prevent_usb_dma_from_bmem.patch
+
+VUUNO4KSE_PATCHES = \
+	$(COMMON_PATCHES_4_1) \
+	vuplus/4_1_bcmgenet-recovery-fix.patch \
+	vuplus/4_1_linux_rpmb_not_alloc.patch
+
 VUZERO4K_PATCHES = \
 	$(COMMON_VUPLUS_PATCHES_4_1) \
-	vuplus/4_1_linux_rpmb_not_alloc.patch \
-	vuplus/4_1_bcmgenet-recovery-fix.patch
+	vuplus/4_1_bcmgenet-recovery-fix.patch \
+	vuplus/4_1_linux_rpmb_not_alloc.patch
 
 OSMIO4K_PATCHES =
 
