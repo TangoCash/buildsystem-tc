@@ -46,7 +46,7 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL),hd51 bre2ze4k))
 CUSTOM_KERNEL_VER = $(KERNEL_VER)-arm
 endif
 
-ifeq ($(BOXMODEL), hd60 hd61)
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),hd60 hd61))
 CUSTOM_KERNEL_VER = $(KERNEL_VER)-$(KERNEL_DATE)-arm
 endif
 
