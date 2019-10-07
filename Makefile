@@ -10,6 +10,51 @@ warn:
 	@echo "Aborting the build. Log in as a regular user and retry."
 else
 
+ifndef HOSTAR
+HOSTAR := ar
+endif
+ifndef HOSTAS
+HOSTAS := as
+endif
+ifndef HOSTCC
+HOSTCC := gcc
+HOSTCC := $(shell which $(HOSTCC) || type -p $(HOSTCC) || echo gcc)
+endif
+HOSTCC_NOCCACHE := $(HOSTCC)
+ifndef HOSTCXX
+HOSTCXX := g++
+HOSTCXX := $(shell which $(HOSTCXX) || type -p $(HOSTCXX) || echo g++)
+endif
+HOSTCXX_NOCCACHE := $(HOSTCXX)
+ifndef HOSTCPP
+HOSTCPP := cpp
+endif
+ifndef HOSTLD
+HOSTLD := ld
+endif
+ifndef HOSTLN
+HOSTLN := ln
+endif
+ifndef HOSTNM
+HOSTNM := nm
+endif
+ifndef HOSTOBJCOPY
+HOSTOBJCOPY := objcopy
+endif
+ifndef HOSTRANLIB
+HOSTRANLIB := ranlib
+endif
+HOSTAR := $(shell which $(HOSTAR) || type -p $(HOSTAR) || echo ar)
+HOSTAS := $(shell which $(HOSTAS) || type -p $(HOSTAS) || echo as)
+HOSTCPP := $(shell which $(HOSTCPP) || type -p $(HOSTCPP) || echo cpp)
+HOSTLD := $(shell which $(HOSTLD) || type -p $(HOSTLD) || echo ld)
+HOSTLN := $(shell which $(HOSTLN) || type -p $(HOSTLN) || echo ln)
+HOSTNM := $(shell which $(HOSTNM) || type -p $(HOSTNM) || echo nm)
+HOSTOBJCOPY := $(shell which $(HOSTOBJCOPY) || type -p $(HOSTOBJCOPY) || echo objcopy)
+HOSTRANLIB := $(shell which $(HOSTRANLIB) || type -p $(HOSTRANLIB) || echo ranlib)
+
+export HOSTAR HOSTAS HOSTCC HOSTCXX HOSTLD
+export HOSTCC_NOCCACHE HOSTCXX_NOCCACHE
 export LANG = C
 export LC_ALL = C
 

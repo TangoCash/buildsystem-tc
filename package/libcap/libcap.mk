@@ -25,7 +25,7 @@ $(D)/libcap: bootstrap $(ARCHIVE)/$(LIBCAP_SOURCE)
 	$(CHDIR)/$(LIBCAP_DIR); \
 		$(call apply_patches, $(LIBCAP_PATCH)); \
 		sed 's@^BUILD_GPERF@#\0@' -i Make.Rules; \
-		$(BUILD_ENV) $(MAKE) -C libcap $(LIBCAP_MAKE_FLAGS); \
+		$(BUILD_ENV) $(MAKE) -C libcap $(LIBCAP_MAKE_FLAGS) lib=usr/lib; \
 		$(BUILD_ENV) $(MAKE) -C libcap $(LIBCAP_MAKE_FLAGS) DESTDIR=$(TARGET_DIR) prefix=/usr lib=lib install
 	$(REMOVE)/$(LIBCAP_DIR)
 	$(TOUCH)
