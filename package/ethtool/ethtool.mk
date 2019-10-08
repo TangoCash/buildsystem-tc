@@ -1,7 +1,7 @@
 #
 # ethtool
 #
-ETHTOOL_VER    = 5.2
+ETHTOOL_VER    = 5.3
 ETHTOOL_DIR    = ethtool-$(ETHTOOL_VER)
 ETHTOOL_SOURCE = ethtool-$(ETHTOOL_VER).tar.xz
 ETHTOOL_URL    = https://www.kernel.org/pub/software/network/ethtool
