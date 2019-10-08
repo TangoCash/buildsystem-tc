@@ -1,7 +1,7 @@
 #
 # fribidi
 #
-FRIBIDI_VER    = 1.0.5
+FRIBIDI_VER    = 1.0.7
 FRIBIDI_DIR    = fribidi-$(FRIBIDI_VER)
 FRIBIDI_SOURCE = fribidi-$(FRIBIDI_VER).tar.bz2
 FRIBIDI_URL    = https://github.com/fribidi/fribidi/releases/download/v$(FRIBIDI_VER)
@@ -25,8 +25,6 @@ $(D)/fribidi: bootstrap $(ARCHIVE)/$(FRIBIDI_SOURCE)
 			--enable-static \
 			--disable-debug \
 			--disable-deprecated \
-			--enable-charsets \
-			--with-glib=no \
 			; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
