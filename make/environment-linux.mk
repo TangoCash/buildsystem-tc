@@ -50,149 +50,120 @@ KERNEL_MAKEVARS += \
 
 # -----------------------------------------------------------------------------
 
+#
+# gfutures
+#
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61))
 ifeq ($(BOXMODEL), bre2ze4k)
 KERNEL_VER         = 4.10.12
-KERNEL_SOURCE      = linux-$(KERNEL_VER)-arm.tar.gz
-KERNEL_URL         = http://downloads.mutant-digital.net
-KERNEL_CONFIG      = bre2ze4k_defconfig
-KERNEL_DIR         = $(BUILD_DIR)/linux-$(KERNEL_VER)
-KERNEL_DTB_VER     = bcm7445-bcm97445svmb.dtb
-KERNEL_BUILD_IMAGE = zImage
 KERNEL_PATCHES     = $(BRE2ZE4K_PATCHES)
 endif
-
 ifeq ($(BOXMODEL), hd51)
 KERNEL_VER         = 4.10.12
-KERNEL_SOURCE      = linux-$(KERNEL_VER)-arm.tar.gz
-KERNEL_URL         = http://downloads.mutant-digital.net
-KERNEL_CONFIG      = hd51_defconfig
-KERNEL_DIR         = $(BUILD_DIR)/linux-$(KERNEL_VER)
-KERNEL_DTB_VER     = bcm7445-bcm97445svmb.dtb
-KERNEL_BUILD_IMAGE = zImage
 KERNEL_PATCHES     = $(HD51_PATCHES)
 endif
-
 ifeq ($(BOXMODEL), hd60)
 KERNEL_VER         = 4.4.35
 KERNEL_DATE        = 20181228
-KERNEL_SOURCE      = linux-$(KERNEL_VER)-$(KERNEL_DATE)-arm.tar.gz
-KERNEL_URL         = http://downloads.mutant-digital.net
-KERNEL_CONFIG      = hd60_defconfig
-KERNEL_DIR         = $(BUILD_DIR)/linux-$(KERNEL_VER)
-KERNEL_DTB_VER     = hi3798mv200.dtb
-KERNEL_BUILD_IMAGE = uImage
 KERNEL_PATCHES     = $(HD60_PATCHES)
 endif
-
 ifeq ($(BOXMODEL), hd61)
 KERNEL_VER         = 4.4.35
 KERNEL_DATE        = 20181228
-KERNEL_SOURCE      = linux-$(KERNEL_VER)-$(KERNEL_DATE)-arm.tar.gz
-KERNEL_URL         = http://downloads.mutant-digital.net
-KERNEL_CONFIG      = hd61_defconfig
-KERNEL_DIR         = $(BUILD_DIR)/linux-$(KERNEL_VER)
-KERNEL_DTB_VER     = hi3798mv200.dtb
-KERNEL_BUILD_IMAGE = uImage
 KERNEL_PATCHES     = $(HD61_PATCHES)
 endif
-
-ifeq ($(BOXMODEL), vusolo4k)
-KERNEL_VER         = 3.14.28-1.8
-KERNEL_SOURCE_VER  = 3.14-1.8
-KERNEL_SOURCE      = stblinux-$(KERNEL_SOURCE_VER).tar.bz2
-KERNEL_URL         = http://archive.vuplus.com/download/kernel
-ifeq ($(VU_MULTIBOOT), 1)
-KERNEL_CONFIG      = vusolo4k_defconfig_multi
-else
-KERNEL_CONFIG      = vusolo4k_defconfig
-endif
-KERNEL_DIR         = $(BUILD_DIR)/linux
-KERNEL_DTB_VER     =
+KERNEL_CONFIG      = $(BOXMODEL)_defconfig
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51))
 KERNEL_BUILD_IMAGE = zImage
-KERNEL_PATCHES     = $(VUSOLO4K_PATCHES)
+KERNEL_SOURCE      = linux-$(KERNEL_VER)-arm.tar.gz
+else
+KERNEL_BUILD_IMAGE = uImage
+KERNEL_SOURCE      = linux-$(KERNEL_VER)-$(KERNEL_DATE)-arm.tar.gz
+endif
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51))
+KERNEL_DTB_VER     = bcm7445-bcm97445svmb.dtb
+else
+KERNEL_DTB_VER     = hi3798mv200.dtb
+endif
+KERNEL_URL         = http://downloads.mutant-digital.net
+KERNEL_DIR         = $(BUILD_DIR)/linux-$(KERNEL_VER)
 endif
 
+#
+# vuplus
+#
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
+ifeq ($(BOXMODEL), vuduo)
+KERNEL_VER         = 3.9.6
+KERNEL_PATCHES     = $(VUDUO_PATCHES)
+endif
 ifeq ($(BOXMODEL), vuduo4k)
 KERNEL_VER         = 4.1.45-1.17
 KERNEL_SOURCE_VER  = 4.1-1.17
-KERNEL_SOURCE      = stblinux-${KERNEL_SOURCE_VER}.tar.bz2
-KERNEL_URL         = http://archive.vuplus.com/download/kernel
-ifeq ($(VU_MULTIBOOT), 1)
-KERNEL_CONFIG      = vuduo4k_defconfig_multi
-else
-KERNEL_CONFIG      = vuduo4k_defconfig
-endif
-KERNEL_DIR         = $(BUILD_DIR)/linux
-KERNEL_DTB_VER     =
-KERNEL_BUILD_IMAGE = zImage
 KERNEL_PATCHES     = $(VUDUO4K_PATCHES)
 endif
-
+ifeq ($(BOXMODEL), vusolo4k)
+KERNEL_VER         = 3.14.28-1.8
+KERNEL_SOURCE_VER  = 3.14-1.8
+KERNEL_PATCHES     = $(VUSOLO4K_PATCHES)
+endif
 ifeq ($(BOXMODEL), vuultimo4k)
 KERNEL_VER         = 3.14.28-1.12
 KERNEL_SOURCE_VER  = 3.14-1.12
-KERNEL_SOURCE      = stblinux-${KERNEL_SOURCE_VER}.tar.bz2
-KERNEL_URL         = http://archive.vuplus.com/download/kernel
-ifeq ($(VU_MULTIBOOT), 1)
-KERNEL_CONFIG      = vuultimo4k_defconfig_multi
-else
-KERNEL_CONFIG      = vuultimo4k_defconfig
-endif
-KERNEL_DIR         = $(BUILD_DIR)/linux
-KERNEL_DTB_VER     =
-KERNEL_BUILD_IMAGE = zImage
 KERNEL_PATCHES     = $(VUULTIMO4K_PATCHES)
 endif
-
+ifeq ($(BOXMODEL), vuuno4k)
+KERNEL_VER         = 3.14.28-1.12
+KERNEL_SOURCE_VER  = 3.14-1.12
+KERNEL_PATCHES     = $(VUUNO4K_PATCHES)
+endif
+ifeq ($(BOXMODEL), vuuno4kse)
+KERNEL_VER         = 4.1.20-1.9
+KERNEL_SOURCE_VER  = 4.1-1.9
+KERNEL_PATCHES     = $(VUUNO4KSE_PATCHES)
+endif
 ifeq ($(BOXMODEL), vuzero4k)
 KERNEL_VER         = 4.1.20-1.9
 KERNEL_SOURCE_VER  = 4.1-1.9
-KERNEL_SOURCE      = stblinux-${KERNEL_SOURCE_VER}.tar.bz2
-KERNEL_URL         = http://archive.vuplus.com/download/kernel
-ifeq ($(VU_MULTIBOOT), 1)
-KERNEL_CONFIG      = vuzero4k_defconfig_multi
-else
-KERNEL_CONFIG      = vuzero4k_defconfig
-endif
-KERNEL_DIR         = $(BUILD_DIR)/linux
-KERNEL_DTB_VER     =
-KERNEL_BUILD_IMAGE = zImage
 KERNEL_PATCHES     = $(VUZERO4K_PATCHES)
 endif
-
+ifeq ($(VU_MULTIBOOT), 1)
+KERNEL_CONFIG      = $(BOXMODEL)_defconfig_multi
+else
+KERNEL_CONFIG      = $(BOXMODEL)_defconfig
+endif
 ifeq ($(BOXMODEL), vuduo)
-KERNEL_VER         = 3.9.6
-KERNEL_SOURCE      = stblinux-$(KERNEL_VER).tar.bz2
-KERNEL_URL         = http://archive.vuplus.com/download/kernel
-KERNEL_CONFIG      = vuduo_defconfig
-KERNEL_DIR         = $(BUILD_DIR)/linux
-KERNEL_DTB_VER     =
 KERNEL_BUILD_IMAGE = vmlinux
-KERNEL_PATCHES     = $(VUDUO4K_PATCHES)
+KERNEL_SOURCE      = stblinux-$(KERNEL_VER).tar.bz2
+else
+KERNEL_BUILD_IMAGE = zImage
+KERNEL_SOURCE      = stblinux-${KERNEL_SOURCE_VER}.tar.bz2
+endif
+KERNEL_DTB_VER     =
+KERNEL_URL         = http://archive.vuplus.com/download/kernel
+KERNEL_DIR         = $(BUILD_DIR)/linux
 endif
 
+#
+# edision
+#
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
 ifeq ($(BOXMODEL), osmio4k)
 KERNEL_VER         = 5.3.0
 KERNEL_SOURCE_VER  = 5.3
-KERNEL_SOURCE      = linux-edision-$(KERNEL_SOURCE_VER).tar.gz
-KERNEL_URL         = http://source.mynonpublic.com/edision
-KERNEL_CONFIG      = osmio4kplus_defconfig
-KERNEL_DIR         = $(BUILD_DIR)/linux-brcmstb-$(KERNEL_SOURCE_VER)
-KERNEL_DTB_VER     =
-KERNEL_BUILD_IMAGE = Image.gz
 KERNEL_PATCHES     = $(OSMIO4KPLUS_PATCHES)
 endif
-
 ifeq ($(BOXMODEL), osmio4kplus)
 KERNEL_VER         = 5.3.0
 KERNEL_SOURCE_VER  = 5.3
-KERNEL_SOURCE      = linux-edision-$(KERNEL_SOURCE_VER).tar.gz
-KERNEL_URL         = http://source.mynonpublic.com/edision
-KERNEL_CONFIG      = osmio4kplus_defconfig
-KERNEL_DIR         = $(BUILD_DIR)/linux-brcmstb-$(KERNEL_SOURCE_VER)
-KERNEL_DTB_VER     =
-KERNEL_BUILD_IMAGE = Image.gz
 KERNEL_PATCHES     = $(OSMIO4KPLUS_PATCHES)
+endif
+KERNEL_CONFIG      = $(BOXMODEL)_defconfig
+KERNEL_BUILD_IMAGE = Image.gz
+KERNEL_SOURCE      = linux-edision-$(KERNEL_SOURCE_VER).tar.gz
+KERNEL_DTB_VER     =
+KERNEL_URL         = http://source.mynonpublic.com/edision
+KERNEL_DIR         = $(BUILD_DIR)/linux-brcmstb-$(KERNEL_SOURCE_VER)
 endif
 
 $(ARCHIVE)/$(KERNEL_SOURCE):

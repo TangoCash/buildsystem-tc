@@ -207,11 +207,11 @@ if [ $BOXMODEL == 'hd60' ]; then
 echo "NEWLAYOUT=1" >> .config
 fi
 
-if [ $BOXMODEL == 'vusolo4k' -o $BOXMODEL == 'vuduo' ]; then
+if [ $BOXMODEL == 'vuduo' ]; then
 echo "NEWLAYOUT=0" >> .config
 fi
 
-if [ $BOXMODEL == 'vusolo4k' -o $BOXMODEL == 'vuduo4k' -o $BOXMODEL == 'vuultimo4k' -o $BOXMODEL == 'vuzero4k' ]; then
+if [ $BOXMODEL == 'vuduo4k' -o $BOXMODEL == 'vusolo4k' -o $BOXMODEL == 'vuultimo4k' -o $BOXMODEL == 'vuzero4k' ]; then
 
 case $6 in
 	[1-2]) REPLY=$6;;
@@ -226,6 +226,7 @@ case "$REPLY" in
 	2)  VU_MULTIBOOT="1";;
 	*)  VU_MULTIBOOT="0";;
 esac
+echo "NEWLAYOUT=0" >> .config
 echo "VU_MULTIBOOT=$VU_MULTIBOOT" >> .config
 
 fi

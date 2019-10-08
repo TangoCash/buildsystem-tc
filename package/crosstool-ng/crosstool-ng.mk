@@ -32,33 +32,37 @@ CROSSTOOL_NG_CONFIG  = crosstool-ng-$(BOXARCH)-$(CROSSTOOL_GCC_VER)-$(CROSSTOOL_
 CROSSTOOL_NG_BACKUP  = $(CROSSTOOL_NG_ARCHIVE)/$(CROSSTOOL_NG_CONFIG)-$(BOXMODEL)-backup.tar.gz
 
 CROSSTOOL_NG_PATCH   =
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vusolo4k vuduo4k vuultimo4k vuzero4k vuduo))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k ))
 CROSSTOOL_NG_PATCH  += crosstool-ng-vu-kernel.patch
 endif
 
 $(CROSSTOOL_NG_ARCHIVE):
 	mkdir -p $@
 
+# -----------------------------------------------------------------------------
+
 CUSTOM_KERNEL = $(ARCHIVE)/$(KERNEL_SOURCE)
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL),hd51 bre2ze4k))
 CUSTOM_KERNEL_VER = $(KERNEL_VER)-arm
 endif
 
-ifeq ($(BOXMODEL), hd60)
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),hd60 hd61))
 CUSTOM_KERNEL_VER = $(KERNEL_VER)-$(KERNEL_DATE)-arm
-endif
-
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vusolo4k vuduo4k vuultimo4k vuzero4k))
-CUSTOM_KERNEL_VER = $(KERNEL_SOURCE_VER)
 endif
 
 ifeq ($(BOXMODEL), vuduo)
 CUSTOM_KERNEL_VER = $(KERNEL_VER)
 endif
 
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
+CUSTOM_KERNEL_VER = $(KERNEL_SOURCE_VER)
+endif
+
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
 CUSTOM_KERNEL_VER = edision-$(KERNEL_SOURCE_VER)
 endif
+
+# -----------------------------------------------------------------------------
 
 ifeq ($(wildcard $(CROSS_DIR)/build.log.bz2),)
 CROSSTOOL = crosstool
