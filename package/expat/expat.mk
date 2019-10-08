@@ -1,7 +1,7 @@
 #
 # expat
 #
-EXPAT_VER    = 2.2.7
+EXPAT_VER    = 2.2.9
 EXPAT_DIR    = expat-$(EXPAT_VER)
 EXPAT_SOURCE = expat-$(EXPAT_VER).tar.bz2
 EXPAT_URL    = https://sourceforge.net/projects/expat/files/expat/$(EXPAT_VER)
