@@ -40,6 +40,11 @@ NEUTRINO_DEPS += wireless-tools
 NEUTRINO_DEPS += ntfs-3g
 NEUTRINO_DEPS += gptfdisk
 NEUTRINO_DEPS += mc
+NEUTRINO_DEPS += neutrino-plugins
+NEUTRINO_DEPS += neutrino-iptvplayer
+NEUTRINO_DEPS += neutrino-channellogos
+NEUTRINO_DEPS += neutrino-settings-update
+NEUTRINO_DEPS += neutrino-mediathek
 NEUTRINO_DEPS += $(LOCAL_NEUTRINO_DEPS)
 N_CONFIG_OPTS  = $(LOCAL_NEUTRINO_BUILD_OPTIONS)
 ifeq ($(BOXMODEL), hd60)
