@@ -15,15 +15,13 @@ endif
 # -----------------------------------------------------------------------------
 
 KERNEL_OBJ         = linux-$(KERNEL_VER)-kernel-obj
-KERNEL_DTB         = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/dts/$(KERNEL_DTB_VER)
 KERNEL_MODULES     = linux-$(KERNEL_VER)-modules
 KERNEL_MODULES_DIR = $(BUILD_DIR)/linux-$(KERNEL_VER)-modules/lib/modules/$(KERNEL_VER)
 TARGET_MODULES_DIR = $(TARGET_DIR)/lib/modules/$(KERNEL_VER)
 
-KERNEL_UIMAGE      = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/uImage
-KERNEL_ZIMAGE      = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/zImage
-KERNEL_IMAGE_GZ    = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/Image.gz
-KERNEL_ZIMAGE_DTB  = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/zImage_dtb
+KERNEL_OUTPUT      = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/$(KERNEL_IMAGE_TYPE)
+KERNEL_INPUT_DTB   = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/dts/$(KERNEL_DTB_VER)
+KERNEL_OUTPUT_DTB  = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/zImage_dtb
 
 # -----------------------------------------------------------------------------
 
@@ -74,10 +72,10 @@ KERNEL_PATCHES     = $(HD61_PATCHES)
 endif
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51))
-KERNEL_BUILD_IMAGE = zImage
+KERNEL_IMAGE_TYPE  = zImage
 KERNEL_SOURCE      = linux-$(KERNEL_VER)-arm.tar.gz
 else
-KERNEL_BUILD_IMAGE = uImage
+KERNEL_IMAGE_TYPE  = uImage
 KERNEL_SOURCE      = linux-$(KERNEL_VER)-$(KERNEL_DATE)-arm.tar.gz
 endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51))
@@ -133,10 +131,10 @@ else
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig
 endif
 ifeq ($(BOXMODEL), vuduo)
-KERNEL_BUILD_IMAGE = vmlinux
+KERNEL_IMAGE_TYPE  = vmlinux
 KERNEL_SOURCE      = stblinux-$(KERNEL_VER).tar.bz2
 else
-KERNEL_BUILD_IMAGE = zImage
+KERNEL_IMAGE_TYPE  = zImage
 KERNEL_SOURCE      = stblinux-${KERNEL_SOURCE_VER}.tar.bz2
 endif
 KERNEL_DTB_VER     =
@@ -159,7 +157,7 @@ KERNEL_SOURCE_VER  = 5.3
 KERNEL_PATCHES     = $(OSMIO4KPLUS_PATCHES)
 endif
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig
-KERNEL_BUILD_IMAGE = Image.gz
+KERNEL_IMAGE_TYPE  = Image.gz
 KERNEL_SOURCE      = linux-edision-$(KERNEL_SOURCE_VER).tar.gz
 KERNEL_DTB_VER     =
 KERNEL_URL         = http://source.mynonpublic.com/edision
