@@ -25,6 +25,7 @@ NEUTRINO_DEPS += ffmpeg
 NEUTRINO_DEPS += libsigc
 NEUTRINO_DEPS += libdvbsi
 NEUTRINO_DEPS += libusb
+NEUTRINO_DEPS += zlib
 NEUTRINO_DEPS += pugixml
 NEUTRINO_DEPS += openthreads
 NEUTRINO_DEPS += lua
