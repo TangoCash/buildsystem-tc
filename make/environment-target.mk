@@ -3,6 +3,28 @@
 #
 # -----------------------------------------------------------------------------
 
+SHARE_FLEX      = $(TARGET_SHARE_DIR)/tuxbox/neutrino/flex
+SHARE_ICONS     = $(TARGET_SHARE_DIR)/tuxbox/neutrino/icons
+SHARE_LOGOS     = $(TARGET_SHARE_DIR)/tuxbox/neutrino/icons/logo
+SHARE_PLUGINS   = $(TARGET_SHARE_DIR)/tuxbox/neutrino/plugins
+SHARE_THEMES    = $(TARGET_SHARE_DIR)/tuxbox/neutrino/themes
+SHARE_WEBRADIO  = $(TARGET_SHARE_DIR)/tuxbox/neutrino/webradio
+SHARE_WEBTV     = $(TARGET_SHARE_DIR)/tuxbox/neutrino/webtv
+VAR_CONFIG      = $(TARGET_DIR)/var/tuxbox/config
+VAR_PLUGINS     = $(TARGET_DIR)/var/tuxbox/plugins
+
+$(SHARE_FLEX) \
+$(SHARE_ICONS) \
+$(SHARE_PLUGINS) \
+$(SHARE_THEMES) \
+$(SHARE_WEBRADIO) \
+$(SHARE_WEBTV) \
+$(VAR_CONFIG) \
+$(VAR_PLUGINS) : | $(TARGET_DIR)
+	mkdir -p $(@)
+
+# -----------------------------------------------------------------------------
+
 # https://www.gnu.org/prep/standards/html_node/Directory-Variables.html
 remove-dir             = /.remove
 remove-bindir          = $(remove-dir)/bin
