@@ -181,7 +181,7 @@ endif
 	mcopy -i $(IMAGE_BUILD_DIR)/$(BOOT_IMAGE) -v $(IMAGE_BUILD_DIR)/STARTUP_4 ::
 	parted -s $(EMMC_IMAGE) unit KiB print
 	dd conv=notrunc if=$(IMAGE_BUILD_DIR)/$(BOOT_IMAGE) of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(IMAGE_ROOTFS_ALIGNMENT) \* $(BLOCK_SECTOR))
-	dd conv=notrunc if=$(KERNEL_ZIMAGE_DTB) of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(KERNEL_PARTITION_OFFSET) \* $(BLOCK_SECTOR))
+	dd conv=notrunc if=$(KERNEL_OUTPUT_DTB) of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(KERNEL_PARTITION_OFFSET) \* $(BLOCK_SECTOR))
 ifeq ($(NEWLAYOUT), 1)
 	$(HOST_DIR)/bin/resize2fs $(IMAGE_BUILD_DIR)/$(IMAGE_LINK) $(ROOTFS_PARTITION_SIZE_NL)k
 else
@@ -194,7 +194,7 @@ endif
 flash-image-multi-rootfs:
 	# Create final USB-image
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_ZIMAGE_DTB) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
+	cp $(KERNEL_OUTPUT_DTB) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
@@ -208,7 +208,7 @@ flash-image-online:
 	# Create final USB-image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_ZIMAGE_DTB) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
+	cp $(KERNEL_OUTPUT_DTB) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
@@ -299,7 +299,7 @@ flash-image-hd60-multi-disk: atools $(ARCHIVE)/$(HD60_BOOTARGS_SRC) $(ARCHIVE)/$
 	mcopy -i $(IMAGE_BUILD_DIR)/$(BOXMODEL)/$(HD60_BOOT_IMAGE) -v $(IMAGE_BUILD_DIR)/bootmenu.conf ::
 	mv $(IMAGE_BUILD_DIR)/bootargs-8gb.bin $(IMAGE_BUILD_DIR)/bootargs.bin
 	mv $(IMAGE_BUILD_DIR)/$(BOXMODEL)/bootargs-8gb.bin $(IMAGE_BUILD_DIR)/$(BOXMODEL)/bootargs.bin
-	cp $(KERNEL_UIMAGE) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	rm -rf $(IMAGE_BUILD_DIR)/STARTUP*
 	rm -rf $(IMAGE_BUILD_DIR)/*.txt
 	rm -rf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/*.txt
@@ -313,7 +313,7 @@ flash-image-hd60-multi-disk: atools $(ARCHIVE)/$(HD60_BOOTARGS_SRC) $(ARCHIVE)/$
 flash-image-hd60-multi-rootfs:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_UIMAGE) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
@@ -329,7 +329,7 @@ flash-image-hd60-multi-rootfs:
 flash-image-hd60-online:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_UIMAGE) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
@@ -420,7 +420,7 @@ flash-image-hd61-multi-disk: atools $(ARCHIVE)/$(HD61_BOOTARGS_SRC) $(ARCHIVE)/$
 	mcopy -i $(IMAGE_BUILD_DIR)/$(BOXMODEL)/$(HD61_BOOT_IMAGE) -v $(IMAGE_BUILD_DIR)/bootmenu.conf ::
 	mv $(IMAGE_BUILD_DIR)/bootargs-8gb.bin $(IMAGE_BUILD_DIR)/bootargs.bin
 	mv $(IMAGE_BUILD_DIR)/$(BOXMODEL)/bootargs-8gb.bin $(IMAGE_BUILD_DIR)/$(BOXMODEL)/bootargs.bin
-	cp $(KERNEL_UIMAGE) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	rm -rf $(IMAGE_BUILD_DIR)/STARTUP*
 	rm -rf $(IMAGE_BUILD_DIR)/*.txt
 	rm -rf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/*.txt
@@ -434,7 +434,7 @@ flash-image-hd61-multi-disk: atools $(ARCHIVE)/$(HD61_BOOTARGS_SRC) $(ARCHIVE)/$
 flash-image-hd61-multi-rootfs:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_UIMAGE) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
@@ -450,7 +450,7 @@ flash-image-hd61-multi-rootfs:
 flash-image-hd61-online:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_UIMAGE) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
@@ -521,7 +521,7 @@ flash-image-osmio4k-multi-disk: host-e2fsprogs
 	mcopy -i $(IMAGE_BUILD_DIR)/boot.img -v $(IMAGE_BUILD_DIR)/STARTUP_4 ::
 	parted -s $(OSMIO4K_EMMC_IMAGE) unit KiB print
 	dd conv=notrunc if=$(IMAGE_BUILD_DIR)/boot.img of=$(OSMIO4K_EMMC_IMAGE) seek=1 bs=$(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) \* 1024)
-	dd conv=notrunc if=$(KERNEL_IMAGE_GZ) of=$(OSMIO4K_EMMC_IMAGE) seek=1 bs=$(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) \* 1024 + $(OSMIO4K_BOOT_PARTITION_SIZE) \* 1024)
+	dd conv=notrunc if=$(KERNEL_OUTPUT) of=$(OSMIO4K_EMMC_IMAGE) seek=1 bs=$(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) \* 1024 + $(OSMIO4K_BOOT_PARTITION_SIZE) \* 1024)
 	$(HOST_DIR)/bin/resize2fs $(IMAGE_BUILD_DIR)/$(OSMIO4K_IMAGE_LINK) $(OSMIO4K_ROOTFS_PARTITION_SIZE)k
 	# Truncate on purpose
 	dd if=$(IMAGE_BUILD_DIR)/$(OSMIO4K_IMAGE_LINK) of=$(OSMIO4K_EMMC_IMAGE) seek=1 bs=$(shell expr $(OSMIO4K_IMAGE_ROOTFS_ALIGNMENT) \* 1024 + $(OSMIO4K_BOOT_PARTITION_SIZE) \* 1024 + $(OSMIO4K_KERNEL_PARTITION_SIZE) \* 1024)
@@ -530,7 +530,7 @@ flash-image-osmio4k-multi-disk: host-e2fsprogs
 flash-image-osmio4k-multi-rootfs:
 	# Create final USB-image
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_IMAGE_GZ) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
@@ -545,7 +545,7 @@ flash-image-osmio4k-online:
 	# Create final USB-image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_IMAGE_GZ) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
@@ -585,10 +585,10 @@ flash-image-vu-multi-rootfs:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(VU_PREFIX)
 	cp $(BUILD_DIR)/$(VU_INITRD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/initrd_auto.bin
-	cp $(KERNEL_ZIMAGE) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel1_auto.bin
-	cp $(KERNEL_ZIMAGE) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel2_auto.bin
-	cp $(KERNEL_ZIMAGE) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel3_auto.bin
-	cp $(KERNEL_ZIMAGE) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel4_auto.bin
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel1_auto.bin
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel2_auto.bin
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel3_auto.bin
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel4_auto.bin
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
@@ -609,7 +609,7 @@ flash-image-vu-rootfs:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(VU_PREFIX)
 	cp $(BUILD_DIR)/$(VU_INITRD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/initrd_auto.bin
-	cp $(KERNEL_ZIMAGE) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
@@ -627,7 +627,7 @@ flash-image-vu-online:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(VU_PREFIX)
 	cp $(BUILD_DIR)/$(VU_INITRD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/initrd_auto.bin
-	cp $(KERNEL_ZIMAGE) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
+	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
