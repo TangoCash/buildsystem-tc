@@ -41,6 +41,8 @@ NEUTRINO_DEPS += wireless-tools
 NEUTRINO_DEPS += ntfs-3g
 NEUTRINO_DEPS += gptfdisk
 NEUTRINO_DEPS += mc
+NEUTRINO_DEPS += xupnpd
+NEUTRINO_DEPS += rsync
 NEUTRINO_DEPS += neutrino-plugins
 NEUTRINO_DEPS += neutrino-iptvplayer
 NEUTRINO_DEPS += neutrino-channellogos
@@ -85,10 +87,26 @@ endif
 
 # -----------------------------------------------------------------------------
 
-NEUTRINO_DEPS += neutrino-plugins
-NEUTRINO_DEPS += neutrino-mediathek
-NEUTRINO_DEPS += xupnpd
-NEUTRINO_DEPS += neutrino-channellogos
+N_CONFIG_OPTS += \
+	--with-libdir=/usr/lib \
+	--with-datadir=/usr/share/tuxbox \
+	--with-fontdir=/usr/share/fonts \
+	--with-configdir=/var/tuxbox/config \
+	--with-gamesdir=/var/tuxbox/games \
+	--with-iconsdir=/usr/share/tuxbox/neutrino/icons \
+	--with-iconsdir_var=/var/tuxbox/icons \
+	--with-localedir=/usr/share/tuxbox/neutrino/locale \
+	--with-localedir_var=/var/tuxbox/locale \
+	--with-plugindir=/usr/share/tuxbox/neutrino/plugins \
+	--with-plugindir_var=/var/tuxbox/plugins \
+	--with-luaplugindir=/var/tuxbox/plugins \
+	--with-private_httpddir=/usr/share/tuxbox/neutrino/httpd \
+	--with-themesdir=/usr/share/tuxbox/neutrino/themes \
+	--with-themesdir_var=/var/tuxbox/themes \
+	--with-webtvdir=/usr/share/tuxbox/neutrino/webtv \
+	--with-webtvdir_var=/var/tuxbox/plugins/webtv \
+	--with-controldir=/usr/share/tuxbox/neutrino/control \
+	--with-controldir_var=/var/tuxbox/control
 
 # -----------------------------------------------------------------------------
 
