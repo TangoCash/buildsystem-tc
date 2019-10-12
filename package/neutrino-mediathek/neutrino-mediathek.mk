@@ -9,7 +9,7 @@ NEUTRINO_MEDIATHEK_URL    = https://github.com/neutrino-mediathek/mediathek.git
 NEUTRINO_MEDIATHEK_PATCH  = \
 	neutrino-mediathek.patch
 
-$(D)/neutrino-mediathek: bootstrap $(SHARE_PLUGINS)
+$(D)/neutrino-mediathek: bootstrap | $(SHARE_PLUGINS)
 	$(START_BUILD)
 	$(REMOVE)/$(NEUTRINO_MEDIATHEK_DIR)
 	$(GET-GIT-SOURCE) $(NEUTRINO_MEDIATHEK_URL) $(ARCHIVE)/$(NEUTRINO_MEDIATHEK_SOURCE)

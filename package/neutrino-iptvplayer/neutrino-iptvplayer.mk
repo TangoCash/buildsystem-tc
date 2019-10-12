@@ -7,7 +7,7 @@ NEUTRINO_IPTVPLAYER_SOURCE = $(NEUTRINO_IPTVPLAYER_DIR)
 NEUTRINO_IPTVPLAYER_URL    = https://github.com/TangoCash/crossplatform_iptvplayer.git
 
 $(D)/neutrino-iptvplayer-nightly \
-$(D)/neutrino-iptvplayer: rtmpdump python-twisted $(SHARE_PLUGINS)
+$(D)/neutrino-iptvplayer: rtmpdump python-twisted | $(SHARE_PLUGINS)
 	$(START_BUILD)
 	$(REMOVE)/$(NEUTRINO_IPTVPLAYER_DIR)
 	$(GET-GIT-SOURCE) $(NEUTRINO_IPTVPLAYER_URL) $(ARCHIVE)/$(NEUTRINO_IPTVPLAYER_SOURCE)
