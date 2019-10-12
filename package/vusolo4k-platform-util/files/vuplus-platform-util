@@ -1,4 +1,15 @@
 #!/bin/sh
+### BEGIN INIT INFO
+# Provides:          platform-util
+# Required-Start:    kmod bootmisc
+# Required-Stop:
+# Should-Start:      checkroot
+# Should-Stop:
+# Default-Start:     S
+# Default-Stop:
+# Short-Description: Load the Broadcam platform-util.
+# Description:       Load the Broadcam platform-util.
+### END INIT INFO
 
 if [ -e /sys/class/net/sys0 ]; then
 	ifconfig sys0 up
@@ -16,7 +27,9 @@ case "$1" in
 			insmod $DRV_PATH/dvb_base.ko
 
 			start-stop-daemon --start --quiet --exec /usr/bin/dvb_server -- &
+
 			mknod -m a=rw /dev/brcm0 c 30 0
+
 			start-stop-daemon --start --quiet --exec /usr/bin/init_client $DRV_PATH/dvb-bcm7376.ko $DRV_PATH/brcmfb.ko -- &
 		fi
 
