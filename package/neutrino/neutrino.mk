@@ -11,6 +11,8 @@ WEATHER_DEV_KEY   ?=
 
 # -----------------------------------------------------------------------------
 
+AUDIODEC = ffmpeg
+
 NEUTRINO_DEPS  = bootstrap
 NEUTRINO_DEPS += kernel
 NEUTRINO_DEPS += system-tools
@@ -46,7 +48,7 @@ NEUTRINO_DEPS += rsync
 NEUTRINO_DEPS += neutrino-plugins
 NEUTRINO_DEPS += neutrino-iptvplayer
 NEUTRINO_DEPS += neutrino-channellogos
-NEUTRINO_DEPS += neutrino-settings-update
+NEUTRINO_DEPS += neutrino-settings-updater
 NEUTRINO_DEPS += neutrino-mediathek
 NEUTRINO_DEPS += $(LOCAL_NEUTRINO_DEPS)
 N_CONFIG_OPTS  = $(LOCAL_NEUTRINO_BUILD_OPTIONS)
@@ -67,10 +69,6 @@ NEUTRINO_DEPS += graphlcd
 N_CONFIG_OPTS += --enable-lcd4linux
 NEUTRINO_DEPS += lcd4linux
 endif
-
-# -----------------------------------------------------------------------------
-
-AUDIODEC = ffmpeg
 ifeq ($(AUDIODEC), ffmpeg)
 # enable ffmpeg audio decoder in neutrino
 N_CONFIG_OPTS += --enable-ffmpegdec
