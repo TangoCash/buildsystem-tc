@@ -562,38 +562,32 @@ flash-image-osmio4k-online:
 ifeq ($(BOXMODEL), vuduo4k)
 VU_PREFIX = vuplus/duo4k
 VU_INITRD = vmlinuz-initrd-7278b1
-VU_FORCE  = echo -n
-VU_REBOOT = echo "This file forces a reboot after the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/reboot.update
+VU_FR     = echo "This file forces a reboot after the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/reboot.update
 endif
 ifeq ($(BOXMODEL), vusolo4k)
 VU_PREFIX = vuplus/solo4k
 VU_INITRD = vmlinuz-initrd-7366c0
-VU_FORCE  = echo -n
-VU_REBOOT = echo "This file forces a reboot after the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/reboot.update
+VU_FR     = echo "This file forces a reboot after the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/reboot.update
 endif
 ifeq ($(BOXMODEL), vuultimo4k)
 VU_PREFIX = vuplus/ultimo4k
 VU_INITRD = vmlinuz-initrd-7445d0
-VU_FORCE  = echo -n
-VU_REBOOT = echo "This file forces a reboot after the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/reboot.update
+VU_FR     = echo "This file forces a reboot after the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/reboot.update
 endif
 ifeq ($(BOXMODEL), vuuno4k)
 VU_PREFIX = vuplus/uno4k
 VU_INITRD = vmlinuz-initrd-7439b0
-VU_FORCE  = echo "This file forces the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/force.update
-VU_REBOOT = echo -n
+VU_FR     = echo "This file forces the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/force.update
 endif
 ifeq ($(BOXMODEL), vuuno4kse)
 VU_PREFIX = vuplus/uno4kse
 VU_INITRD = vmlinuz-initrd-7439b0
-VU_FORCE  = echo -n
-VU_REBOOT = echo This file forces a reboot after the update. > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/reboot.update
+VU_FR     = echo This file forces a reboot after the update. > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/reboot.update
 endif
 ifeq ($(BOXMODEL), vuzero4k)
 VU_PREFIX = vuplus/zero4k
 VU_INITRD = vmlinuz-initrd-7260a0
-VU_FORCE  = echo "This file forces the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/force.update
-VU_REBOOT = echo -n
+VU_FR     = echo "This file forces the update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/force.update
 endif
 
 flash-image-vu-multi-rootfs:
@@ -609,8 +603,7 @@ flash-image-vu-multi-rootfs:
 		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
 	mv $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar.bz2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs1.tar.bz2
-	$(VU_FORCE)
-	$(VU_REBOOT)
+	$(VU_FR)
 	echo "This file forces creating partitions." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/mkpart.update
 	echo "Dummy for update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
 	echo "Dummy for update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar.bz2
@@ -629,8 +622,7 @@ flash-image-vu-rootfs:
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
-	$(VU_FORCE)
-	$(VU_REBOOT)
+	$(VU_FR)
 	echo "This file forces creating partitions." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/mkpart.update
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
@@ -647,8 +639,7 @@ flash-image-vu-online:
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
-	$(VU_FORCE)
-	$(VU_REBOOT)
+	$(VU_FR)
 	echo "This file forces creating partitions." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/mkpart.update
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX); \
