@@ -156,7 +156,7 @@ VUUNO4K_PATCHES = \
 	vuplus/3_14_linux_prevent_usb_dma_from_bmem.patch
 
 VUUNO4KSE_PATCHES = \
-	$(COMMON_PATCHES_4_1) \
+	$(COMMON_VUPLUS_PATCHES_4_1) \
 	vuplus/4_1_bcmgenet-recovery-fix.patch \
 	vuplus/4_1_linux_rpmb_not_alloc.patch
 

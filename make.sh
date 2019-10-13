@@ -62,10 +62,12 @@ case $1 in
 	*)
 		echo "Target receivers:"
 		echo "   1)  VU+ Duo"
-		echo "   2)  VU+ Solo 4k"
-		echo "   3)  VU+ Duo 4K"
-		echo "   4)  VU+ Zero 4K"
-		echo "   5)  VU+ Ultimo 4K"
+		echo "   2)  VU+ Duo 4K"
+		echo "   3)  VU+ Solo 4k"
+		echo "   4)  VU+ Ultimo 4K"
+		echo "   5)  VU+ Uno 4K"
+		echo "   6)  VU+ Uno 4K SE"
+		echo "   7)  VU+ Zero 4K"
 		echo "  11)  BRE2ZE 4K"
 		echo "  21)  Mut@nt HD51"
 		echo "  22)  Mut@nt HD60"
@@ -78,10 +80,12 @@ esac
 
 case "$REPLY" in
 	 1) BOXARCH="mips";BOXTYPE="mipsbox";BOXMODEL="vuduo";;
-	 2) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vusolo4k";;
-	 3) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuduo4k";;
-	 4) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuzero4k";;
-	 5) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuultimo4k";;
+	 2) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuduo4k";;
+	 3) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vusolo4k";;
+	 4) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuultimo4k";;
+	 5) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4k";;
+	 6) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4kse";;
+	 7) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuzero4k";;
 	11) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="bre2ze4k";;
 	21) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
 	22) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd60";;
@@ -211,7 +215,13 @@ if [ $BOXMODEL == 'vuduo' ]; then
 echo "NEWLAYOUT=0" >> .config
 fi
 
-if [ $BOXMODEL == 'vuduo4k' -o $BOXMODEL == 'vusolo4k' -o $BOXMODEL == 'vuultimo4k' -o $BOXMODEL == 'vuzero4k' ]; then
+if [ $BOXMODEL == 'vuduo4k' -o \
+     $BOXMODEL == 'vusolo4k' -o \
+     $BOXMODEL == 'vuultimo4k' -o \
+     $BOXMODEL == 'vuuno4k' -o \
+     $BOXMODEL == 'vuuno4kse' -o \
+     $BOXMODEL == 'vuzero4k' \
+    ]; then
 
 case $6 in
 	[1-2]) REPLY=$6;;
