@@ -62,8 +62,8 @@ export LC_ALL = C
 
 -include .config
 -include config.local
-include make/environment-build.mk
 include make/environment-linux.mk
+include make/environment-build.mk
 include make/environment-target.mk
 
 # -----------------------------------------------------------------------------

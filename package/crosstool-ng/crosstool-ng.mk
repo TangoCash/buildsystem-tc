@@ -28,11 +28,11 @@ CROSSTOOL_NG_DIR     = crosstool-ng.$(CROSSTOOL_NG_VER)
 CROSSTOOL_NG_SOURCE  = $(CROSSTOOL_NG_DIR)
 CROSSTOOL_NG_URL     = $(MAX-GIT-GITHUB)/crosstool-ng.git
 CROSSTOOL_NG_ARCHIVE = $(ARCHIVE)/archive-crosstool-ng
-CROSSTOOL_NG_CONFIG  = crosstool-ng-$(BOXARCH)-$(CROSSTOOL_GCC_VER)-$(CROSSTOOL_NG_VER)
-CROSSTOOL_NG_BACKUP  = $(CROSSTOOL_NG_ARCHIVE)/$(CROSSTOOL_NG_CONFIG)-$(BOXMODEL)-backup.tar.gz
+CROSSTOOL_NG_CONFIG  = crosstool-ng-$(CROSSTOOL_NG_VER)-$(CROSSTOOL_GCC_VER)-$(BOXARCH)
+CROSSTOOL_NG_BACKUP  = $(CROSSTOOL_NG_ARCHIVE)/$(CROSSTOOL_NG_CONFIG)-$(KERNEL_VER)-backup.tar.gz
 
 CROSSTOOL_NG_PATCH   =
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k ))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
 CROSSTOOL_NG_PATCH  += crosstool-ng-vu-kernel.patch
 endif
 
