@@ -1,7 +1,7 @@
 #
 # makefile to build kernel
 #
-COMMON_GFUTURES_PATCHES_4_10 = \
+COMMON_GFUTURES_PATCH_4_10 = \
 	gfutures/4_10_0001-export_pmpoweroffprepare.patch \
 	gfutures/4_10_0002-TBS-fixes-for-4.10-kernel.patch \
 	gfutures/4_10_0003-Support-TBS-USB-drivers-for-4.6-kernel.patch \
@@ -16,13 +16,13 @@ COMMON_GFUTURES_PATCHES_4_10 = \
 	gfutures/4_10_reserve_dvb_adapter_0.patch \
 	gfutures/4_10_t230c2.patch
 
-COMMON_GFUTURES_PATCHES_4_4 = \
+COMMON_GFUTURES_PATCH_4_4 = \
 	gfutures/4_4_0001-remote.patch \
 	gfutures/4_4_0002-log2-give-up-on-gcc-constant-optimizations.patch \
 	gfutures/4_4_0003-dont-mark-register-as-const.patch \
 	gfutures/4_4_ieee80211-increase-scan-result-expire-time.patch
 
-COMMON_VUPLUS_PATCHES_3_9 = \
+COMMON_VUPLUS_PATCH_3_9 = \
 	vuplus/3_9_0001-rt2800usb-add-support-for-rt55xx.patch \
 	vuplus/3_9_0001-stv090x-optimized-TS-sync-control.patch \
 	vuplus/3_9_0001-STV-Add-PLS-support.patch \
@@ -59,7 +59,7 @@ COMMON_VUPLUS_PATCHES_3_9 = \
 	vuplus/3_9_tda18271-advertise-supported-delsys.patch \
 	vuplus/3_9_test.patch
 
-COMMON_VUPLUS_PATCHES_3_14 = \
+COMMON_VUPLUS_PATCH_3_14 = \
 	vuplus/3_14_bcm_genet_disable_warn.patch \
 	vuplus/3_14_linux_dvb-core.patch \
 	vuplus/3_14_rt2800usb_fix_warn_tx_status_timeout_to_dbg.patch \
@@ -86,7 +86,7 @@ COMMON_VUPLUS_PATCHES_3_14 = \
 	vuplus/3_14_0006-makefile-disable-warnings.patch \
 	vuplus/3_14_linux_dvb_adapter.patch
 
-COMMON_VUPLUS_PATCHES_4_1 = \
+COMMON_VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_linux_dvb_adapter.patch \
 	vuplus/4_1_linux_dvb-core.patch \
 	vuplus/4_1_linux_4_1_45_dvbs2x.patch \
@@ -122,52 +122,52 @@ COMMON_VUPLUS_PATCHES_4_1 = \
 	vuplus/4_1_0002-log2-give-up-on-gcc-constant-optimizations.patch \
 	vuplus/4_1_0003-uaccess-dont-mark-register-as-const.patch
 
-BRE2ZE4K_PATCHES = \
-	$(COMMON_GFUTURES_PATCHES_4_10)
+BRE2ZE4K_PATCH = \
+	$(COMMON_GFUTURES_PATCH_4_10)
 
-HD51_PATCHES = \
-	$(COMMON_GFUTURES_PATCHES_4_10)
+HD51_PATCH = \
+	$(COMMON_GFUTURES_PATCH_4_10)
 
-HD60_PATCHES = \
-	$(COMMON_GFUTURES_PATCHES_4_4)
+HD60_PATCH = \
+	$(COMMON_GFUTURES_PATCH_4_4)
 
-HD61_PATCHES = \
-	$(COMMON_GFUTURES_PATCHES_4_4)
+HD61_PATCH = \
+	$(COMMON_GFUTURES_PATCH_4_4)
 
-VUDUO_PATCHES = \
-	$(COMMON_VUPLUS_PATCHES_3_9)
+VUDUO_PATCH = \
+	$(COMMON_VUPLUS_PATCH_3_9)
 
-VUDUO4K_PATCHES = \
-	$(COMMON_VUPLUS_PATCHES_4_1)
+VUDUO4K_PATCH = \
+	$(COMMON_VUPLUS_PATCH_4_1)
 
-VUSOLO4K_PATCHES = \
-	$(COMMON_VUPLUS_PATCHES_3_14) \
+VUSOLO4K_PATCH = \
+	$(COMMON_VUPLUS_PATCH_3_14) \
 	vuplus/3_14_linux_rpmb_not_alloc.patch \
 	vuplus/3_14_fix_mmc_3.14.28-1.10.patch
 
-VUULTIMO4K_PATCHES = \
-	$(COMMON_VUPLUS_PATCHES_3_14) \
+VUULTIMO4K_PATCH = \
+	$(COMMON_VUPLUS_PATCH_3_14) \
 	vuplus/3_14_bcmsysport_3.14.28-1.12.patch \
 	vuplus/3_14_linux_prevent_usb_dma_from_bmem.patch
 
-VUUNO4K_PATCHES = \
-	$(COMMON_VUPLUS_PATCHES_3_14) \
+VUUNO4K_PATCH = \
+	$(COMMON_VUPLUS_PATCH_3_14) \
 	vuplus/3_14_bcmsysport_3.14.28-1.12.patch \
 	vuplus/3_14_linux_prevent_usb_dma_from_bmem.patch
 
-VUUNO4KSE_PATCHES = \
-	$(COMMON_VUPLUS_PATCHES_4_1) \
+VUUNO4KSE_PATCH = \
+	$(COMMON_VUPLUS_PATCH_4_1) \
 	vuplus/4_1_bcmgenet-recovery-fix.patch \
 	vuplus/4_1_linux_rpmb_not_alloc.patch
 
-VUZERO4K_PATCHES = \
-	$(COMMON_VUPLUS_PATCHES_4_1) \
+VUZERO4K_PATCH = \
+	$(COMMON_VUPLUS_PATCH_4_1) \
 	vuplus/4_1_bcmgenet-recovery-fix.patch \
 	vuplus/4_1_linux_rpmb_not_alloc.patch
 
-OSMIO4K_PATCHES =
+OSMIO4K_PATCH =
 
-OSMIO4KPLUS_PATCHES =
+OSMIO4KPLUS_PATCH =
 
 # -----------------------------------------------------------------------------
 
@@ -176,7 +176,7 @@ $(D)/kernel.do_prepare:
 	rm -rf $(KERNEL_DIR)
 	$(UNTAR)/$(KERNEL_SOURCE)
 	$(CD) $(KERNEL_DIR); \
-		$(call apply_patches, $(KERNEL_PATCHES))
+		$(call apply_patches, $(KERNEL_PATCH))
 	@touch $@
 
 $(D)/kernel.do_compile: kernel.do_prepare
@@ -184,9 +184,9 @@ $(D)/kernel.do_compile: kernel.do_prepare
 	$(REMOVE)/$(KERNEL_MODULES)
 	$(MKDIR)/$(KERNEL_OBJ)
 	$(MKDIR)/$(KERNEL_MODULES)
-	$(INSTALL_DATA) $(PKG_FILES_DIR)/$(KERNEL_CONFIG) $(BUILD_DIR)/$(KERNEL_OBJ)/.config
+	$(INSTALL_DATA) $(PKG_FILES_DIR)/$(KERNEL_CONFIG) $(KERNEL_OBJ_DIR)/.config
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61))
-	$(INSTALL_DATA) $(PKG_FILES_DIR)/initramfs-subdirboot.cpio.gz $(BUILD_DIR)/$(KERNEL_OBJ)
+	$(INSTALL_DATA) $(PKG_FILES_DIR)/initramfs-subdirboot.cpio.gz $(KERNEL_OBJ_DIR)
 endif
 	$(CD) $(KERNEL_DIR); \
 		$(MAKE) $(KERNEL_MAKEVARS) oldconfig; \
@@ -216,7 +216,7 @@ kernel-config: bootstrap kernel.do_compile
 	@echo ""
 	@echo -e "You have to edit $(KERNEL_CONFIG) $(TERM_YELLOW)m a n u a l l y$(TERM_NORMAL) to make changes permanent !!!"
 	@echo ""
-	diff $(BUILD_DIR)/$(KERNEL_OBJ)/.config.old $(BUILD_DIR)/$(KERNEL_OBJ)/.config
+	diff $(KERNEL_OBJ_DIR)/.config.old $(KERNEL_OBJ_DIR)/.config
 	@echo ""
 
 # -----------------------------------------------------------------------------

@@ -15,13 +15,14 @@ endif
 # -----------------------------------------------------------------------------
 
 KERNEL_OBJ         = linux-$(KERNEL_VER)-kernel-obj
+KERNEL_OBJ_DIR     = $(BUILD_DIR)/$(KERNEL_OBJ)
 KERNEL_MODULES     = linux-$(KERNEL_VER)-modules
 KERNEL_MODULES_DIR = $(BUILD_DIR)/linux-$(KERNEL_VER)-modules/lib/modules/$(KERNEL_VER)
 TARGET_MODULES_DIR = $(TARGET_DIR)/lib/modules/$(KERNEL_VER)
 
-KERNEL_OUTPUT      = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/$(KERNEL_IMAGE_TYPE)
-KERNEL_INPUT_DTB   = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/dts/$(KERNEL_DTB_VER)
-KERNEL_OUTPUT_DTB  = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/zImage_dtb
+KERNEL_OUTPUT      = $(KERNEL_OBJ_DIR)/arch/$(KERNEL_ARCH)/boot/$(KERNEL_IMAGE_TYPE)
+KERNEL_INPUT_DTB   = $(KERNEL_OBJ_DIR)/arch/$(KERNEL_ARCH)/boot/dts/$(KERNEL_DTB_VER)
+KERNEL_OUTPUT_DTB  = $(KERNEL_OBJ_DIR)/arch/$(KERNEL_ARCH)/boot/zImage_dtb
 
 # -----------------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ KERNEL_MAKEVARS = \
 	ARCH=$(KERNEL_ARCH) \
 	CROSS_COMPILE=$(TARGET_CROSS) \
 	INSTALL_MOD_PATH=$(BUILD_DIR)/$(KERNEL_MODULES) \
-	O=$(BUILD_DIR)/$(KERNEL_OBJ)
+	O=$(KERNEL_OBJ_DIR)
 
 # Compatibility variables
 KERNEL_MAKEVARS += \
@@ -54,21 +55,21 @@ KERNEL_MAKEVARS += \
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61))
 ifeq ($(BOXMODEL), bre2ze4k)
 KERNEL_VER         = 4.10.12
-KERNEL_PATCHES     = $(BRE2ZE4K_PATCHES)
+KERNEL_PATCH       = $(BRE2ZE4K_PATCH)
 endif
 ifeq ($(BOXMODEL), hd51)
 KERNEL_VER         = 4.10.12
-KERNEL_PATCHES     = $(HD51_PATCHES)
+KERNEL_PATCH       = $(HD51_PATCH)
 endif
 ifeq ($(BOXMODEL), hd60)
 KERNEL_VER         = 4.4.35
 KERNEL_DATE        = 20181228
-KERNEL_PATCHES     = $(HD60_PATCHES)
+KERNEL_PATCH       = $(HD60_PATCH)
 endif
 ifeq ($(BOXMODEL), hd61)
 KERNEL_VER         = 4.4.35
 KERNEL_DATE        = 20181228
-KERNEL_PATCHES     = $(HD61_PATCHES)
+KERNEL_PATCH       = $(HD61_PATCH)
 endif
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51))
@@ -93,37 +94,37 @@ endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
 ifeq ($(BOXMODEL), vuduo)
 KERNEL_VER         = 3.9.6
-KERNEL_PATCHES     = $(VUDUO_PATCHES)
+KERNEL_PATCH       = $(VUDUO_PATCH)
 endif
 ifeq ($(BOXMODEL), vuduo4k)
 KERNEL_VER         = 4.1.45-1.17
 KERNEL_SOURCE_VER  = 4.1-1.17
-KERNEL_PATCHES     = $(VUDUO4K_PATCHES)
+KERNEL_PATCH       = $(VUDUO4K_PATCH)
 endif
 ifeq ($(BOXMODEL), vusolo4k)
 KERNEL_VER         = 3.14.28-1.8
 KERNEL_SOURCE_VER  = 3.14-1.8
-KERNEL_PATCHES     = $(VUSOLO4K_PATCHES)
+KERNEL_PATCH       = $(VUSOLO4K_PATCH)
 endif
 ifeq ($(BOXMODEL), vuultimo4k)
 KERNEL_VER         = 3.14.28-1.12
 KERNEL_SOURCE_VER  = 3.14-1.12
-KERNEL_PATCHES     = $(VUULTIMO4K_PATCHES)
+KERNEL_PATCH       = $(VUULTIMO4K_PATCH)
 endif
 ifeq ($(BOXMODEL), vuuno4k)
 KERNEL_VER         = 3.14.28-1.12
 KERNEL_SOURCE_VER  = 3.14-1.12
-KERNEL_PATCHES     = $(VUUNO4K_PATCHES)
+KERNEL_PATCH       = $(VUUNO4K_PATCH)
 endif
 ifeq ($(BOXMODEL), vuuno4kse)
 KERNEL_VER         = 4.1.20-1.9
 KERNEL_SOURCE_VER  = 4.1-1.9
-KERNEL_PATCHES     = $(VUUNO4KSE_PATCHES)
+KERNEL_PATCH       = $(VUUNO4KSE_PATCH)
 endif
 ifeq ($(BOXMODEL), vuzero4k)
 KERNEL_VER         = 4.1.20-1.9
 KERNEL_SOURCE_VER  = 4.1-1.9
-KERNEL_PATCHES     = $(VUZERO4K_PATCHES)
+KERNEL_PATCH       = $(VUZERO4K_PATCH)
 endif
 ifeq ($(VU_MULTIBOOT), 1)
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig_multi
@@ -149,12 +150,12 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
 ifeq ($(BOXMODEL), osmio4k)
 KERNEL_VER         = 5.3.0
 KERNEL_SOURCE_VER  = 5.3
-KERNEL_PATCHES     = $(OSMIO4KPLUS_PATCHES)
+KERNEL_PATCH       = $(OSMIO4KPLUS_PATCH)
 endif
 ifeq ($(BOXMODEL), osmio4kplus)
 KERNEL_VER         = 5.3.0
 KERNEL_SOURCE_VER  = 5.3
-KERNEL_PATCHES     = $(OSMIO4KPLUS_PATCHES)
+KERNEL_PATCH       = $(OSMIO4KPLUS_PATCH)
 endif
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig
 KERNEL_IMAGE_TYPE  = Image.gz

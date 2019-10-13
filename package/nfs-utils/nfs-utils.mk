@@ -19,7 +19,10 @@ NFS_UTILS_PATCH  = \
 	Makefile.am-update-the-path-of-libnfs.a.patch \
 	Makefile.am-fix-undefined-function-for-libnsm.a.patch \
 	Don-t-build-tools-with-CC_FOR_BUILD.patch \
-	configure.ac-Do-not-fatalize-Wmissing-prototypes.patch
+	configure.ac-Do-not-fatalize-Wmissing-prototypes.patch \
+	disabled-ip6-support.patch
+
+NFS-UTILS_CONF = $(if $(filter $(BOXMODEL), vuduo), --disable-ipv6, --enable-ipv6)
 
 $(D)/nfs-utils: bootstrap rpcbind e2fsprogs $(ARCHIVE)/$(NFS_UTILS_SOURCE)
 	$(START_BUILD)
@@ -36,7 +39,7 @@ $(D)/nfs-utils: bootstrap rpcbind e2fsprogs $(ARCHIVE)/$(NFS_UTILS_SOURCE)
 			--disable-gss \
 			--disable-nfsv4 \
 			--disable-nfsv41 \
-			--enable-ipv6 \
+			$(NFS-UTILS_CONF) \
 			--enable-mount \
 			--enable-libmount-mount \
 			--without-tcp-wrappers \
