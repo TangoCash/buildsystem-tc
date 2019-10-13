@@ -343,14 +343,13 @@ $(D)/neutrino.config.status:
 			--enable-mdev \
 			--enable-pugixml \
 			--enable-reschange \
+			--disable-upnp \
 			\
 			$(N_CONFIG_KEYS) \
 			\
 			$(N_CONFIG_OPTS) \
 			\
 			--with-tremor \
-			--with-target=cdk \
-			--with-targetprefix=/usr \
 			--with-boxtype=$(BOXTYPE) \
 			--with-boxmodel=$(BOXMODEL) \
 			--with-stb-hal-includes=$(SOURCE_DIR)/$(LIBSTB_HAL)/include \
