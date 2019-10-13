@@ -1,7 +1,9 @@
 #
 # makefile to build kernel
 #
-COMMON_GFUTURES_PATCH_4_10 = \
+
+# arm bre2ze4k/hd51
+GFUTURES_PATCH_4_10 = \
 	gfutures/4_10_0001-export_pmpoweroffprepare.patch \
 	gfutures/4_10_0002-TBS-fixes-for-4.10-kernel.patch \
 	gfutures/4_10_0003-Support-TBS-USB-drivers-for-4.6-kernel.patch \
@@ -16,13 +18,15 @@ COMMON_GFUTURES_PATCH_4_10 = \
 	gfutures/4_10_reserve_dvb_adapter_0.patch \
 	gfutures/4_10_t230c2.patch
 
-COMMON_GFUTURES_PATCH_4_4 = \
+# arm hd60/hd61
+GFUTURES_PATCH_4_4 = \
 	gfutures/4_4_0001-remote.patch \
 	gfutures/4_4_0002-log2-give-up-on-gcc-constant-optimizations.patch \
 	gfutures/4_4_0003-dont-mark-register-as-const.patch \
 	gfutures/4_4_ieee80211-increase-scan-result-expire-time.patch
 
-COMMON_VUPLUS_PATCH_3_9 = \
+# mips vuduo
+VUPLUS_PATCH_3_9 = \
 	vuplus/3_9_0001-rt2800usb-add-support-for-rt55xx.patch \
 	vuplus/3_9_0001-stv090x-optimized-TS-sync-control.patch \
 	vuplus/3_9_0001-STV-Add-PLS-support.patch \
@@ -59,7 +63,8 @@ COMMON_VUPLUS_PATCH_3_9 = \
 	vuplus/3_9_tda18271-advertise-supported-delsys.patch \
 	vuplus/3_9_test.patch
 
-COMMON_VUPLUS_PATCH_3_14 = \
+# arm vusolo4k/vuultimo4k/vuuno4k
+VUPLUS_PATCH_3_14 = \
 	vuplus/3_14_bcm_genet_disable_warn.patch \
 	vuplus/3_14_linux_dvb-core.patch \
 	vuplus/3_14_rt2800usb_fix_warn_tx_status_timeout_to_dbg.patch \
@@ -86,7 +91,8 @@ COMMON_VUPLUS_PATCH_3_14 = \
 	vuplus/3_14_0006-makefile-disable-warnings.patch \
 	vuplus/3_14_linux_dvb_adapter.patch
 
-COMMON_VUPLUS_PATCH_4_1 = \
+# arm vuduo4k/vuuno4kse/vuzero4k
+VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_linux_dvb_adapter.patch \
 	vuplus/4_1_linux_dvb-core.patch \
 	vuplus/4_1_linux_4_1_45_dvbs2x.patch \
@@ -123,45 +129,45 @@ COMMON_VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_0003-uaccess-dont-mark-register-as-const.patch
 
 BRE2ZE4K_PATCH = \
-	$(COMMON_GFUTURES_PATCH_4_10)
+	$(GFUTURES_PATCH_4_10)
 
 HD51_PATCH = \
-	$(COMMON_GFUTURES_PATCH_4_10)
+	$(GFUTURES_PATCH_4_10)
 
 HD60_PATCH = \
-	$(COMMON_GFUTURES_PATCH_4_4)
+	$(GFUTURES_PATCH_4_4)
 
 HD61_PATCH = \
-	$(COMMON_GFUTURES_PATCH_4_4)
+	$(GFUTURES_PATCH_4_4)
 
 VUDUO_PATCH = \
-	$(COMMON_VUPLUS_PATCH_3_9)
+	$(VUPLUS_PATCH_3_9)
 
 VUDUO4K_PATCH = \
-	$(COMMON_VUPLUS_PATCH_4_1)
+	$(VUPLUS_PATCH_4_1)
 
 VUSOLO4K_PATCH = \
-	$(COMMON_VUPLUS_PATCH_3_14) \
+	$(VUPLUS_PATCH_3_14) \
 	vuplus/3_14_linux_rpmb_not_alloc.patch \
 	vuplus/3_14_fix_mmc_3.14.28-1.10.patch
 
 VUULTIMO4K_PATCH = \
-	$(COMMON_VUPLUS_PATCH_3_14) \
+	$(VUPLUS_PATCH_3_14) \
 	vuplus/3_14_bcmsysport_3.14.28-1.12.patch \
 	vuplus/3_14_linux_prevent_usb_dma_from_bmem.patch
 
 VUUNO4K_PATCH = \
-	$(COMMON_VUPLUS_PATCH_3_14) \
+	$(VUPLUS_PATCH_3_14) \
 	vuplus/3_14_bcmsysport_3.14.28-1.12.patch \
 	vuplus/3_14_linux_prevent_usb_dma_from_bmem.patch
 
 VUUNO4KSE_PATCH = \
-	$(COMMON_VUPLUS_PATCH_4_1) \
+	$(VUPLUS_PATCH_4_1) \
 	vuplus/4_1_bcmgenet-recovery-fix.patch \
 	vuplus/4_1_linux_rpmb_not_alloc.patch
 
 VUZERO4K_PATCH = \
-	$(COMMON_VUPLUS_PATCH_4_1) \
+	$(VUPLUS_PATCH_4_1) \
 	vuplus/4_1_bcmgenet-recovery-fix.patch \
 	vuplus/4_1_linux_rpmb_not_alloc.patch
 
