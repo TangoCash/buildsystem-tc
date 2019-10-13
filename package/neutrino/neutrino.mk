@@ -4,10 +4,39 @@
 # -----------------------------------------------------------------------------
 
 OMDB_API_KEY      ?=
+ifneq ($(strip $(OMDB_API_KEY)),)
+N_CONFIG_KEYS += \
+	--with-omdb-api-key="$(OMDB_API_KEY)" \
+	--enable-omdb-key-manage=no
+endif
+
 TMDB_DEV_KEY      ?=
+ifneq ($(strip $(TMDB_DEV_KEY)),)
+N_CONFIG_KEYS += \
+	--with-tmdb-dev-key="$(TMDB_DEV_KEY)" \
+	--enable-tmdb-key-manage=no
+endif
+
 YOUTUBE_DEV_KEY   ?=
+ifneq ($(strip $(YOUTUBE_DEV_KEY)),)
+N_CONFIG_KEYS += \
+	--with-youtube-dev-key="$(YOUTUBE_DEV_KEY)" \
+	--enable-youtube-key-manage=no
+endif
+
 SHOUTCAST_DEV_KEY ?=
+ifneq ($(strip $(SHOUTCAST_DEV_KEY)),)
+N_CONFIG_KEYS += \
+	--with-shoutcast-dev-key="$(SHOUTCAST_DEV_KEY)" \
+	--enable-shoutcast-key-manage=no
+endif
+
 WEATHER_DEV_KEY   ?=
+ifneq ($(strip $(WEATHER_DEV_KEY)),)
+N_CONFIG_KEYS += \
+	--with-weather-dev-key="$(WEATHER_DEV_KEY)" \
+	--enable-weather-key-manage=no
+endif
 
 # -----------------------------------------------------------------------------
 
@@ -314,13 +343,10 @@ $(D)/neutrino.config.status:
 			--enable-mdev \
 			--enable-pugixml \
 			--enable-reschange \
-			$(N_CONFIG_OPTS) \
 			\
-			--with-omdb-api-key="$(OMDB_API_KEY)" \
-			--with-tmdb-dev-key="$(TMDB_DEV_KEY)" \
-			--with-youtube-dev-key="$(YOUTUBE_DEV_KEY)" \
-			--with-shoutcast-dev-key="$(SHOUTCAST_DEV_KEY)" \
-			--with-weather-dev-key="$(WEATHER_DEV_KEY)" \
+			$(N_CONFIG_KEYS) \
+			\
+			$(N_CONFIG_OPTS) \
 			\
 			--with-tremor \
 			--with-target=cdk \
