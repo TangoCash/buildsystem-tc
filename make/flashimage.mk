@@ -657,8 +657,8 @@ flash-image-vuduo: host-mtd-utils
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)
 	touch $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/reboot.update
-	gzip -9c < "$(KERNEL_OBJ)/vmlinux" > "$(KERNEL_OBJ)/kernel_cfe_auto.bin"
-	cp $(KERNEL_OBJ)/kernel_cfe_auto.bin $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)
+	gzip -9c < "$(KERNEL_OBJ_DIR)/vmlinux" > "$(KERNEL_OBJ_DIR)/kernel_cfe_auto.bin"
+	cp $(KERNEL_OBJ_DIR)/kernel_cfe_auto.bin $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)
 	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/root_cfe_auto.ubi -m 2048 -e 126976 -c 4096 -F
 	echo '[ubifs]' > $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/ubinize.cfg
 	echo 'mode=ubi' >> $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/ubinize.cfg

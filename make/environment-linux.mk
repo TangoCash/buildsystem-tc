@@ -15,13 +15,14 @@ endif
 # -----------------------------------------------------------------------------
 
 KERNEL_OBJ         = linux-$(KERNEL_VER)-kernel-obj
+KERNEL_OBJ_DIR     = $(BUILD_DIR)/$(KERNEL_OBJ)
 KERNEL_MODULES     = linux-$(KERNEL_VER)-modules
 KERNEL_MODULES_DIR = $(BUILD_DIR)/linux-$(KERNEL_VER)-modules/lib/modules/$(KERNEL_VER)
 TARGET_MODULES_DIR = $(TARGET_DIR)/lib/modules/$(KERNEL_VER)
 
-KERNEL_OUTPUT      = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/$(KERNEL_IMAGE_TYPE)
-KERNEL_INPUT_DTB   = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/dts/$(KERNEL_DTB_VER)
-KERNEL_OUTPUT_DTB  = $(BUILD_DIR)/$(KERNEL_OBJ)/arch/$(KERNEL_ARCH)/boot/zImage_dtb
+KERNEL_OUTPUT      = $(KERNEL_OBJ_DIR)/arch/$(KERNEL_ARCH)/boot/$(KERNEL_IMAGE_TYPE)
+KERNEL_INPUT_DTB   = $(KERNEL_OBJ_DIR)/arch/$(KERNEL_ARCH)/boot/dts/$(KERNEL_DTB_VER)
+KERNEL_OUTPUT_DTB  = $(KERNEL_OBJ_DIR)/arch/$(KERNEL_ARCH)/boot/zImage_dtb
 
 # -----------------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ KERNEL_MAKEVARS = \
 	ARCH=$(KERNEL_ARCH) \
 	CROSS_COMPILE=$(TARGET_CROSS) \
 	INSTALL_MOD_PATH=$(BUILD_DIR)/$(KERNEL_MODULES) \
-	O=$(BUILD_DIR)/$(KERNEL_OBJ)
+	O=$(KERNEL_OBJ_DIR)
 
 # Compatibility variables
 KERNEL_MAKEVARS += \

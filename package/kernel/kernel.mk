@@ -184,9 +184,9 @@ $(D)/kernel.do_compile: kernel.do_prepare
 	$(REMOVE)/$(KERNEL_MODULES)
 	$(MKDIR)/$(KERNEL_OBJ)
 	$(MKDIR)/$(KERNEL_MODULES)
-	$(INSTALL_DATA) $(PKG_FILES_DIR)/$(KERNEL_CONFIG) $(BUILD_DIR)/$(KERNEL_OBJ)/.config
+	$(INSTALL_DATA) $(PKG_FILES_DIR)/$(KERNEL_CONFIG) $(KERNEL_OBJ_DIR)/.config
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61))
-	$(INSTALL_DATA) $(PKG_FILES_DIR)/initramfs-subdirboot.cpio.gz $(BUILD_DIR)/$(KERNEL_OBJ)
+	$(INSTALL_DATA) $(PKG_FILES_DIR)/initramfs-subdirboot.cpio.gz $(KERNEL_OBJ_DIR)
 endif
 	$(CD) $(KERNEL_DIR); \
 		$(MAKE) $(KERNEL_MAKEVARS) oldconfig; \
@@ -216,7 +216,7 @@ kernel-config: bootstrap kernel.do_compile
 	@echo ""
 	@echo -e "You have to edit $(KERNEL_CONFIG) $(TERM_YELLOW)m a n u a l l y$(TERM_NORMAL) to make changes permanent !!!"
 	@echo ""
-	diff $(BUILD_DIR)/$(KERNEL_OBJ)/.config.old $(BUILD_DIR)/$(KERNEL_OBJ)/.config
+	diff $(KERNEL_OBJ_DIR)/.config.old $(KERNEL_OBJ_DIR)/.config
 	@echo ""
 
 # -----------------------------------------------------------------------------
