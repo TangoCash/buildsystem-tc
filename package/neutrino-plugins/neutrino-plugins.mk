@@ -20,6 +20,11 @@ NP_CONFIGURE_ADDITIONS += \
 	--disable-stbup \
 	--disable-vinfo
 
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
+NP_CONFIGURE_ADDITIONS += \
+	--enable-stb_startup_vuplus
+endif
+
 $(D)/neutrino-plugins.do_prepare: | bootstrap ffmpeg libcurl libpng libjpeg-turbo giflib freetype
 	$(START_BUILD)
 	rm -rf $(SOURCE_DIR)/$(NEUTRINO_PLUGINS_DIR)
