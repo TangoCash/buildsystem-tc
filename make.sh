@@ -228,13 +228,13 @@ case $6 in
 	*)	echo -e "\nNormal or MultiBoot:"
 		echo "   1)  Normal"
 		echo "   2)  Multiboot"
-		read -p "Select mode (1-2)? [1] ";;
+		read -p "Select mode (1-2)? [2] ";;
 esac
 
 case "$REPLY" in
 	1)  VU_MULTIBOOT="0";;
 	2)  VU_MULTIBOOT="1";;
-	*)  VU_MULTIBOOT="0";;
+	*)  VU_MULTIBOOT="1";;
 esac
 echo "NEWLAYOUT=0" >> .config
 echo "VU_MULTIBOOT=$VU_MULTIBOOT" >> .config

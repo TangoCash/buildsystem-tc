@@ -634,16 +634,13 @@ flash-image-vu-online:
 	# Create final USB-image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(VU_PREFIX)
-	cp $(BUILD_DIR)/$(VU_INITRD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/initrd_auto.bin
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
 	$(CD) $(RELEASE_DIR); \
 		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
-	$(VU_FR)
-	echo "This file forces creating partitions." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/mkpart.update
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX); \
-		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 initrd_auto.bin kernel_auto.bin *.update imageversion
+		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel_auto.bin imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 

@@ -9,6 +9,11 @@ GRAPHLCD_URL    = git://projects.vdr-developer.org/graphlcd-base.git
 GRAPHLCD_PATCH  = \
 	graphlcd.patch
 
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4kse))
+GRAPHLCD_PATCH += \
+	graphlcd-vuplus.patch
+endif
+
 $(D)/graphlcd: bootstrap freetype libiconv libusb
 	$(START_BUILD)
 	$(REMOVE)/$(GRAPHLCD_DIR)

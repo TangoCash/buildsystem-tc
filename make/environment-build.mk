@@ -39,10 +39,9 @@ IMAGE_DIR              = $(BASE_DIR)/release_image
 HELPERS_DIR            = $(BASE_DIR)/helpers
 OWN_FILES             ?= $(BASE_DIR)/own-files
 CROSS_BASE             = $(BASE_DIR)/cross
-CROSS_DIR              = $(CROSS_BASE)/$(BOXARCH)-$(CROSSTOOL_GCC_VER)-$(BOXMODEL)
+CROSS_DIR              = $(CROSS_BASE)/$(CROSSTOOL_GCC_VER)-$(BOXARCH)-kernel-$(KERNEL_VER)
 
 BUILD                 ?= $(shell /usr/share/libtool/config.guess 2>/dev/null || /usr/share/libtool/config/config.guess 2>/dev/null || /usr/share/misc/config.guess 2>/dev/null)
-
 
 PKG_NAME               = $(basename $(@F))
 PKG_HELPER             = $(shell echo $(PKG_NAME) | tr '[:lower:]-' '[:upper:]_')
