@@ -93,4 +93,12 @@ endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) createswap.sh start 98 3 .
 endif
+# fstab boot
+ifeq ($(BOXMODEL), vuduo4k)
+	printf "/dev/mmcblk0p6\t\t/boot\t\tauto\t\tdefaults\t\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
+else ifeq ($(BOXMODEL), vuzero4k)
+	printf "/dev/mmcblk0p4\t\t/boot\t\tauto\t\tdefaults\t\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
+else
+	printf "/dev/mmcblk0p1\t\t/boot\t\tauto\t\tdefaults\t\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
+endif
 	$(TOUCH)
