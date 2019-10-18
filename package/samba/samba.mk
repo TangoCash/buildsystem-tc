@@ -72,7 +72,7 @@ $(D)/samba: bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 			--with-codepagedir=/etc/samba \
 			--with-piddir=/var/run \
 			--with-lockdir=/var/lock \
-			--with-logfilebase=/var/log \
+			--with-logfilebase=/var/log/samba \
 			--with-swatdir=/usr/share/swat \
 			--with-nmbdsocketdir=/var/nmbd \
 			--with-included-iniparser \
