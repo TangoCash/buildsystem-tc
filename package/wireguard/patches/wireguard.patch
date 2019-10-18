@@ -1,0 +1,10 @@
+--- a/Makefile
++++ b/Makefile
+@@ -46,7 +46,6 @@
+ 
+ module-install:
+ 	@$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
+-	$(DEPMOD) -a $(KERNELRELEASE)
+ 
+ install: module-install tools-install
+ 
