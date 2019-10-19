@@ -180,7 +180,6 @@ PATH                  := $(HOST_DIR)/bin:$(CROSS_DIR)/bin:$(PATH)
 PKG_CONFIG             = $(HOST_DIR)/bin/$(TARGET)-pkg-config
 PKG_CONFIG_LIBDIR      = $(TARGET_LIB_DIR)/pkgconfig
 PKG_CONFIG_PATH        = $(TARGET_LIB_DIR)/pkgconfig
-PKG_CONFIG_SYSROOT_DIR = $(TARGET_DIR)
 
 # -----------------------------------------------------------------------------
 
@@ -269,7 +268,7 @@ BUILD_ENV = \
 BUILD_ENV += \
 	PKG_CONFIG_PATH="" \
 	PKG_CONFIG_LIBDIR=$(PKG_CONFIG_LIBDIR) \
-	PKG_CONFIG_SYSROOT_DIR=$(PKG_CONFIG_SYSROOT_DIR)
+	PKG_CONFIG_SYSROOT_DIR=$(TARGET_DIR)
 
 CONFIGURE_OPTS = \
 	--build=$(BUILD) \
