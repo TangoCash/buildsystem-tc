@@ -25,9 +25,13 @@ endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/mountall.sh $(TARGET_DIR)/etc/init.d/mountall.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/mountnfs.sh $(TARGET_DIR)/etc/init.d/mountnfs.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/networking $(TARGET_DIR)/etc/init.d/networking
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 hd60 bre2ze4k))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/partitions-by-name $(TARGET_DIR)/etc/init.d/partitions-by-name
+endif
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/resizerootfs $(TARGET_DIR)/etc/init.d/resizerootfs
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/resizerootfs_mio $(TARGET_DIR)/etc/init.d/resizerootfs
 endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/populate-volatile.sh $(TARGET_DIR)/etc/init.d/populate-volatile.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/rc.local $(TARGET_DIR)/etc/init.d/rc.local
@@ -86,7 +90,7 @@ endif
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) populate-volatile.sh start 37 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) volatile-media.sh start 02 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) urandom start 38 S 0 6 .
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 hd60 bre2ze4k))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus))
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) resizerootfs start 7 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) partitions-by-name start 04 S .
 endif
