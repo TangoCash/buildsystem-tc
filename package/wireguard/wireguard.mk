@@ -12,7 +12,7 @@ $(ARCHIVE)/$(WIREGUARD_SOURCE):
 WIREGUARD_PATCH = \
 	wireguard.patch
 
-WIREGUARD_MAKE_OPTS = WITH_SYSTEMDUNITS=no WITH_BASHCOMPLETION=no WITH_WGQUICK=no
+WIREGUARD_MAKE_OPTS = WITH_SYSTEMDUNITS=no WITH_BASHCOMPLETION=yes WITH_WGQUICK=yes
 
 $(D)/wireguard: bootstrap kernel libmnl $(ARCHIVE)/$(WIREGUARD_SOURCE)
 	$(START_BUILD)
@@ -21,10 +21,10 @@ $(D)/wireguard: bootstrap kernel libmnl $(ARCHIVE)/$(WIREGUARD_SOURCE)
 	$(CHDIR)/$(WIREGUARD_DIR)/src; \
 		$(call apply_patches, $(WIREGUARD_PATCH)); \
 		$(BUILD_ENV) \
-		$(MAKE) all     $(KERNEL_MAKEVARS) KERNELDIR=$(KERNEL_MODULES_DIR)/build $(WIREGUARD_MAKE_OPTS) PREFIX=/usr; \
-		$(MAKE) install $(KERNEL_MAKEVARS) KERNELDIR=$(KERNEL_MODULES_DIR)/build $(WIREGUARD_MAKE_OPTS) INSTALL_MOD_PATH=$(TARGET_DIR) DESTDIR=$(TARGET_DIR) MANDIR=/.remove
+		$(MAKE) all     $(KERNEL_MAKEVARS) $(WIREGUARD_MAKE_OPTS) PREFIX=/usr; \
+		$(MAKE) install $(KERNEL_MAKEVARS) $(WIREGUARD_MAKE_OPTS) INSTALL_MOD_PATH=$(TARGET_DIR) DESTDIR=$(TARGET_DIR) MANDIR=/.remove
 	mkdir -p ${TARGET_DIR}/etc/modules-load.d
-	for i in wireguard.ko; do \
+	for i in wireguard; do \
 		echo $$i >> ${TARGET_DIR}/etc/modules-load.d/wireguard.conf; \
 	done
 	make depmod
