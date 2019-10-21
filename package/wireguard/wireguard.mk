@@ -14,7 +14,7 @@ WIREGUARD_PATCH = \
 
 WIREGUARD_MAKE_OPTS = WITH_SYSTEMDUNITS=no WITH_BASHCOMPLETION=yes WITH_WGQUICK=yes
 
-$(D)/wireguard: bootstrap kernel libmnl $(ARCHIVE)/$(WIREGUARD_SOURCE)
+$(D)/wireguard: bootstrap kernel libmnl openresolv $(ARCHIVE)/$(WIREGUARD_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/$(WIREGUARD_DIR)
 	$(UNTAR)/$(WIREGUARD_SOURCE)
