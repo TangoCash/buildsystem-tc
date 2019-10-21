@@ -10,6 +10,8 @@ $(ARCHIVE)/$(WGET_SOURCE):
 	$(DOWNLOAD) $(WGET_URL)/$(WGET_SOURCE)
 
 WGET_PATCH  = \
+	change_DEFAULT_LOGFILE.patch \
+	set-check_cert-false-by-default.patch \
 	wget-improve-reproducibility.patch \
 	wget-Strip-long-version-output.patch
 
