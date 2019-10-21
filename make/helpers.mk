@@ -6,7 +6,7 @@
 # BS Revision
 BS_REV=$(shell cd $(BASE_DIR); git log | grep "^commit" | wc -l)
 # Neutrino mp Revision
-NMP_REV=$(shell cd $(SOURCE_DIR)/$(NEUTRINO_MP); git log | grep "^commit" | wc -l)
+NMP_REV=$(shell cd $(SOURCE_DIR)/$(NEUTRINO); git log | grep "^commit" | wc -l)
 # libstb-hal Revision
 HAL_REV=$(shell cd $(SOURCE_DIR)/$(LIBSTB_HAL); git log | grep "^commit" | wc -l)
 
