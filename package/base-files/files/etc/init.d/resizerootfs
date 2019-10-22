@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:           resize2fs mmcblk0p3
+# Provides:           resize2fs
 # Required-Start:     $local_fs
 # Required-Stop:      $local_fs
 # Default-Start:      S

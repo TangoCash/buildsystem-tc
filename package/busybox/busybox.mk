@@ -41,8 +41,6 @@ $(D)/busybox: bootstrap $(ARCHIVE)/$(BUSYBOX_SOURCE)
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/inetd.busybox $(TARGET_DIR)/etc/init.d/inetd.busybox
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/telnetd.busybox $(TARGET_DIR)/etc/init.d/telnetd.busybox
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/syslog.busybox $(TARGET_DIR)/etc/init.d/syslog.busybox
-	$(INSTALL_EXEC) $(PKG_FILES_DIR)/mdev-mount.sh $(TARGET_DIR)/etc/mdev/mdev-mount.sh
-	$(INSTALL_EXEC) $(PKG_FILES_DIR)/mdev-mount-mmc.sh $(TARGET_DIR)/etc/mdev/mdev-mount-mmc.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/55ntp $(TARGET_DIR)/etc/udhcpc.d/55ntp
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/50default $(TARGET_DIR)/etc/udhcpc.d/50default
 	$(INSTALL_EXEC) -D $(PKG_FILES_DIR)/default.script $(TARGET_SHARE_DIR)/udhcpc/default.script
