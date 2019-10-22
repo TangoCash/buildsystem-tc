@@ -1,12 +1,4 @@
 #!/bin/sh
-### BEGIN INIT INFO
-# Provides:           resize2fs
-# Required-Start:     $local_fs
-# Required-Stop:      $local_fs
-# Default-Start:      S
-# Default-Stop:
-# Short-Description:  Resizes once linuxrootfs and userdata to full partition size
-### END INIT INFO
 
 if [ ! -f "/.resize-linuxrootfs" ] && [ -e "/dev/block/by-name/linuxrootfs" ]
   then
