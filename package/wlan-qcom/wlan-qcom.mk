@@ -21,9 +21,9 @@ $(D)/wlan-qcom: bootstrap kernel wlan-qcom-firmware $(ARCHIVE)/$(WLAN_QCOM_SOURC
 		$(MAKE) $(KERNEL_MAKEVARS); \
 	$(INSTALL_DATA) wlan.ko $(TARGET_MODULES_DIR)/extra
 	mkdir -p ${TARGET_DIR}/etc/modules-load.d
-	for i in wlan; do \
-		echo $$i >> ${TARGET_DIR}/etc/modules-load.d/wlan.conf; \
-	done
+#	for i in wlan; do \
+#		echo $$i >> ${TARGET_DIR}/etc/modules-load.d/wlan.conf; \
+#	done
 	make depmod
 	$(REMOVE)/$(WLAN_QCOM_DIR)
 	$(TOUCH)
