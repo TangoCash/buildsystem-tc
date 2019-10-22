@@ -3,9 +3,9 @@
 #
 
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
-MTD_BLACK = "mmcblk1"
+MTD_BLACK = mmcblk1
 else
-MTD_BLACK = "mmcblk0"
+MTD_BLACK = mmcblk0
 endif
 
 $(D)/base-files: directories
@@ -108,7 +108,9 @@ endif
 	# Inject machine specific blacklists into mount-helper
 	perl -i -pe 's:(\@BLACKLISTED\@):${MTD_BLACK}:s' $(TARGET_DIR)/etc/udev/mount-helper.sh
 	#  Inject the /boot partition into /etc/fstab
-ifeq ($(BOXMODEL), vuduo4k)
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+	printf "/dev/mmcblk1p1\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
+else ifeq ($(BOXMODEL), vuduo4k)
 	printf "/dev/mmcblk0p6\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
 else ifeq ($(BOXMODEL), vuzero4k)
 	printf "/dev/mmcblk0p4\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
