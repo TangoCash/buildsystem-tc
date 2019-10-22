@@ -67,6 +67,8 @@ VUPLUS_PATCH_3_9 = \
 VUPLUS_PATCH_3_14 = \
 	vuplus/3_14_bcm_genet_disable_warn.patch \
 	vuplus/3_14_linux_dvb-core.patch \
+	vuplus/3_14_dvbs2x.patch \
+	vuplus/3_14_dmx_source_dvr.patch \
 	vuplus/3_14_rt2800usb_fix_warn_tx_status_timeout_to_dbg.patch \
 	vuplus/3_14_usb_core_hub_msleep.patch \
 	vuplus/3_14_rtl8712_fix_build_error.patch \
@@ -96,6 +98,7 @@ VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_linux_dvb_adapter.patch \
 	vuplus/4_1_linux_dvb-core.patch \
 	vuplus/4_1_linux_4_1_45_dvbs2x.patch \
+	vuplus/4_1_dmx_source_dvr.patch \
 	vuplus/4_1_bcmsysport_4_1_45.patch \
 	vuplus/4_1_linux_usb_hub.patch \
 	vuplus/4_1_0001-regmap-add-regmap_write_bits.patch \
