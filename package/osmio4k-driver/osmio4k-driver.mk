@@ -1,7 +1,7 @@
 #
 # osmio4k-driver
 #
-OSMIO4K_DRIVER_DATE   = 20190917
+OSMIO4K_DRIVER_DATE   = 20191010
 OSMIO4K_DRIVER_VER    = 5.3.0-$(OSMIO4K_DRIVER_DATE)
 OSMIO4K_DRIVER_SOURCE = osmio4k-drivers-$(OSMIO4K_DRIVER_VER).zip
 OSMIO4K_DRIVER_URL    = http://source.mynonpublic.com/edision
