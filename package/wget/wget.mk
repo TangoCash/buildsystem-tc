@@ -15,6 +15,8 @@ WGET_PATCH  = \
 	wget-improve-reproducibility.patch \
 	wget-Strip-long-version-output.patch
 
+WGET_CFLAGS = $(TARGET_CFLAGS) -DOPENSSL_NO_ENGINE
+
 $(D)/wget: bootstrap openssl $(ARCHIVE)/$(WGET_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/$(WGET_DIR)
@@ -25,9 +27,7 @@ $(D)/wget: bootstrap openssl $(ARCHIVE)/$(WGET_SOURCE)
 			--prefix=/usr \
 			--mandir=/.remove \
 			--infodir=/.remove \
-			--with-openssl \
 			--with-ssl=openssl \
-			--with-libssl-prefix=$(TARGET_DIR) \
 			--disable-ipv6 \
 			--disable-debug \
 			--disable-nls \
@@ -37,6 +37,7 @@ $(D)/wget: bootstrap openssl $(ARCHIVE)/$(WGET_SOURCE)
 			--disable-iri \
 			--disable-pcre \
 			--without-libpsl \
+			CFLAGS="$(WGET_CFLAGS)" \
 			; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
