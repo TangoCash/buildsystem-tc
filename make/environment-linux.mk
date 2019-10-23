@@ -192,5 +192,21 @@ KERNEL_URL         = http://source.mynonpublic.com/edision
 KERNEL_DIR         = $(BUILD_DIR)/linux-brcmstb-$(KERNEL_SOURCE_VER)
 endif
 
+#
+# AirDigital
+#
+ifeq ($(BOXMODEL), zgemmah7)
+KERNEL_VER         = 4.10.12
+KERNEL_PATCH       = $(ZGEMMAH7_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p1
+KERNEL_CONFIG      = $(BOXMODEL)_defconfig
+KERNEL_IMAGE_TYPE  = zImage
+KERNEL_SOURCE      = linux-$(KERNEL_VER)-arm.tar.gz
+KERNEL_DTB_VER     = bcm7445-bcm97445svmb.dtb
+KERNEL_URL         = http://www.zgemma.org/downloads/
+KERNEL_DIR         = $(BUILD_DIR)/linux-$(KERNEL_VER)
+endif
+
 $(ARCHIVE)/$(KERNEL_SOURCE):
 	$(DOWNLOAD) $(KERNEL_URL)/$(KERNEL_SOURCE)

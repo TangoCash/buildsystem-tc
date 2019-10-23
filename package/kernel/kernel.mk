@@ -131,6 +131,11 @@ VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_0002-log2-give-up-on-gcc-constant-optimizations.patch \
 	vuplus/4_1_0003-uaccess-dont-mark-register-as-const.patch
 
+# arm zgemmah7
+AIRDIGITAL_PATCH_4_10 = \
+	$(GFUTURES_PATCH_4_10)
+
+
 BRE2ZE4K_PATCH = \
 	$(GFUTURES_PATCH_4_10)
 
@@ -178,6 +183,9 @@ OSMIO4K_PATCH =
 
 OSMIO4KPLUS_PATCH =
 
+ZGEMMAH7_PATCH = \
+	$(AIRDIGITAL_PATCH_4_10)
+
 # -----------------------------------------------------------------------------
 
 $(D)/kernel.do_prepare:
@@ -194,14 +202,14 @@ $(D)/kernel.do_compile: kernel.do_prepare
 	$(MKDIR)/$(KERNEL_OBJ)
 	$(MKDIR)/$(KERNEL_MODULES)
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/$(KERNEL_CONFIG) $(KERNEL_OBJ_DIR)/.config
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61 zgemmah7))
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/initramfs-subdirboot.cpio.gz $(KERNEL_OBJ_DIR)
 endif
 	$(CD) $(KERNEL_DIR); \
 		$(MAKE) $(KERNEL_MAKEVARS) oldconfig; \
 		$(MAKE) $(KERNEL_MAKEVARS) modules $(KERNEL_DTB_VER) $(KERNEL_IMAGE_TYPE); \
 		$(MAKE) $(KERNEL_MAKEVARS) modules_install
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 zgemmah7))
 	cat $(KERNEL_OUTPUT) $(KERNEL_INPUT_DTB) > $(KERNEL_OUTPUT_DTB)
 endif
 	@touch $@
