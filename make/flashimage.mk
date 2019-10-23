@@ -77,7 +77,7 @@ IMAGE_ROOTFS_SIZE = 294912
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
 IMAGE_DIR  = $(BOXMODEL)
 else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), h7))
-IMAGE_DIR  = zegmma/$(BOXMODEL)
+IMAGE_DIR  = zgemma/$(BOXMODEL)
 endif
 
 # emmc image
