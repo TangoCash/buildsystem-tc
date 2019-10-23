@@ -68,13 +68,13 @@ case $1 in
 		echo "   5)  VU+ Uno 4K"
 		echo "   6)  VU+ Uno 4K SE"
 		echo "   7)  VU+ Zero 4K"
-		echo "  11)  BRE2ZE 4K"
-		echo "  21)  Mut@nt HD51"
-		echo "  22)  Mut@nt HD60"
-		echo "  23)  Mut@nt HD61"
+		echo "  11)  WWIO BRE2ZE 4K"
+		echo "  21)  AX/Mut@nt HD51"
+		echo "  22)  AX/Mut@nt HD60"
+		echo "  23)  AX/Mut@nt HD61"
 		echo "  30)  Edision OS mio 4K"
 		echo "  31)  Edision OS mio+ 4K"
-		echo "  40)  AirDigital Zgemma H7"
+		echo "  40)  AirDigital Zgemma H7C / H7S"
 		read -p "Select target? [21] "
 		REPLY="${REPLY:-21}";;
 esac
