@@ -2,12 +2,6 @@
 # base-files
 #
 
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
-MTD_BLACK = mmcblk1
-else
-MTD_BLACK = mmcblk0
-endif
-
 $(D)/base-files: directories
 	$(START_BUILD)
 	$(INSTALL_EXEC) $(HELPERS_DIR)/update-rc.d $(TARGET_DIR)/usr/sbin/update-rc.d
@@ -106,15 +100,12 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
 endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/udev/mount-helper.sh $(TARGET_DIR)/etc/udev/mount-helper.sh
 	# Inject machine specific blacklists into mount-helper
-	perl -i -pe 's:(\@BLACKLISTED\@):${MTD_BLACK}:s' $(TARGET_DIR)/etc/udev/mount-helper.sh
-	#  Inject the /boot partition into /etc/fstab
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
-	printf "/dev/mmcblk1p1\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
-else ifeq ($(BOXMODEL), vuduo4k)
-	printf "/dev/mmcblk0p6\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
-else ifeq ($(BOXMODEL), vuzero4k)
-	printf "/dev/mmcblk0p4\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
-else
-	printf "/dev/mmcblk0p1\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
-endif
+	perl -i -pe 's:(\@BLACKLISTED\@):$(MTD_BLACK):s' $(TARGET_DIR)/etc/udev/mount-helper.sh
+	# Inject the /boot partition into /etc/fstab
+	# or replace the placeholder @rootfs@ by the verbatim label "rootfs" (plus one tab)
+	if [ -n "${MTD_BOOTFS}" ]; then \
+		perl -i -pe 's:(\@rootfs\@):/dev/'$(MTD_BOOTFS)'\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\nrootfs\t:s' $(TARGET_DIR)/etc/fstab; \
+	else \
+		perl -i -pe 's:(\@rootfs\@):rootfs\t:s' $(TARGET_DIR)/etc/fstab; \
+	fi
 	$(TOUCH)

@@ -57,20 +57,28 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61))
 ifeq ($(BOXMODEL), bre2ze4k)
 KERNEL_VER         = 4.10.12
 KERNEL_PATCH       = $(BRE2ZE4K_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p1
 endif
 ifeq ($(BOXMODEL), hd51)
 KERNEL_VER         = 4.10.12
 KERNEL_PATCH       = $(HD51_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p1
 endif
 ifeq ($(BOXMODEL), hd60)
 KERNEL_VER         = 4.4.35
 KERNEL_DATE        = 20181228
 KERNEL_PATCH       = $(HD60_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p4
 endif
 ifeq ($(BOXMODEL), hd61)
 KERNEL_VER         = 4.4.35
 KERNEL_DATE        = 20181228
 KERNEL_PATCH       = $(HD61_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p4
 endif
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51))
@@ -96,36 +104,50 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo vuduo4k vusolo4k vuultimo4k vuuno
 ifeq ($(BOXMODEL), vuduo)
 KERNEL_VER         = 3.9.6
 KERNEL_PATCH       = $(VUDUO_PATCH)
+MTD_BLACK          = $(EMPTY)
+MTD_BOOTFS         = $(EMPTY)
 endif
 ifeq ($(BOXMODEL), vuduo4k)
 KERNEL_VER         = 4.1.45-1.17
 KERNEL_SOURCE_VER  = 4.1-1.17
 KERNEL_PATCH       = $(VUDUO4K_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p6
 endif
 ifeq ($(BOXMODEL), vusolo4k)
 KERNEL_VER         = 3.14.28-1.8
 KERNEL_SOURCE_VER  = 3.14-1.8
 KERNEL_PATCH       = $(VUSOLO4K_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p1
 endif
 ifeq ($(BOXMODEL), vuultimo4k)
 KERNEL_VER         = 3.14.28-1.12
 KERNEL_SOURCE_VER  = 3.14-1.12
 KERNEL_PATCH       = $(VUULTIMO4K_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p1
 endif
 ifeq ($(BOXMODEL), vuuno4k)
 KERNEL_VER         = 3.14.28-1.12
 KERNEL_SOURCE_VER  = 3.14-1.12
 KERNEL_PATCH       = $(VUUNO4K_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p1
 endif
 ifeq ($(BOXMODEL), vuuno4kse)
 KERNEL_VER         = 4.1.20-1.9
 KERNEL_SOURCE_VER  = 4.1-1.9
 KERNEL_PATCH       = $(VUUNO4KSE_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p1
 endif
 ifeq ($(BOXMODEL), vuzero4k)
 KERNEL_VER         = 4.1.20-1.9
 KERNEL_SOURCE_VER  = 4.1-1.9
 KERNEL_PATCH       = $(VUZERO4K_PATCH)
+MTD_BLACK          = mmcblk0
+MTD_BOOTFS         = mmcblk0p4
 endif
 ifeq ($(VU_MULTIBOOT), 1)
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig_multi
@@ -152,11 +174,15 @@ ifeq ($(BOXMODEL), osmio4k)
 KERNEL_VER         = 5.3.0
 KERNEL_SOURCE_VER  = 5.3
 KERNEL_PATCH       = $(OSMIO4KPLUS_PATCH)
+MTD_BLACK          = mmcblk1
+MTD_BOOTFS         = mmcblk1p1
 endif
 ifeq ($(BOXMODEL), osmio4kplus)
 KERNEL_VER         = 5.3.0
 KERNEL_SOURCE_VER  = 5.3
 KERNEL_PATCH       = $(OSMIO4KPLUS_PATCH)
+MTD_BLACK          = mmcblk1
+MTD_BOOTFS         = mmcblk1p1
 endif
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig
 KERNEL_IMAGE_TYPE  = Image.gz
