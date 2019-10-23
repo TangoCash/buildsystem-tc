@@ -1,12 +1,11 @@
 #!/bin/sh
 
-##LOG='/tmp/mdev-mount.log'
-#LOG='/etc/mdev/mdev-mount.log'
+#LOG='/etc/udev/mdev-mount.log'
 
 # (e)udev compatibility
 [[ -z $MDEV ]] && MDEV=$(basename $DEVNAME)
 
-BLACKLISTED="mmcblk0"
+BLACKLISTED="@BLACKLISTED@"
 FIRST_MEDIA="hdd"
 
 ## device information log
@@ -28,13 +27,6 @@ FIRST_MEDIA="hdd"
 #echo "Working directory= "$PWD >> $LOG
 #echo  >> $LOG
 
-
-notify() {
-	# we don't really depend on the hotplug_e2_helper, but when it exists, call it
-	if [ -x /usr/bin/hotplug_e2_helper ] ; then
-		/usr/bin/hotplug_e2_helper $ACTION /dev/$MDEV /block/$DEVBASE/device
-	fi
-}
 
 case $ACTION in
 	add|"")
@@ -268,4 +260,4 @@ case $ACTION in
 		;;
 esac
 
-notify
+

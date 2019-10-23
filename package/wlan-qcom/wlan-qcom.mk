@@ -12,14 +12,18 @@ $(ARCHIVE)/$(WLAN_QCOM_SOURCE):
 WLAN_QCOM_PATCH  = \
 	qcacld-2.0-support.patch
 
-$(D)/wlan-qcom: bootstrap kernel $(ARCHIVE)/$(WLAN_QCOM_SOURCE)
+$(D)/wlan-qcom: bootstrap kernel wlan-qcom-firmware $(ARCHIVE)/$(WLAN_QCOM_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/$(WLAN_QCOM_DIR)
 	$(UNTAR)/$(WLAN_QCOM_SOURCE)
 	$(CHDIR)/$(WLAN_QCOM_DIR); \
 		$(call apply_patches, $(WLAN_QCOM_PATCH)); \
 		$(MAKE) $(KERNEL_MAKEVARS); \
-	$(INSTALL_DATA) wlan.ko $(TARGET_MODULES_DIR)/extra/
+	$(INSTALL_DATA) wlan.ko $(TARGET_MODULES_DIR)/extra
+	mkdir -p ${TARGET_DIR}/etc/modules-load.d
+	for i in wlan; do \
+		echo $$i >> ${TARGET_DIR}/etc/modules-load.d/wlan.conf; \
+	done
 	make depmod
 	$(REMOVE)/$(WLAN_QCOM_DIR)
 	$(TOUCH)

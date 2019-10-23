@@ -58,7 +58,7 @@ echo "KBUILD_VERBOSE=$KBUILD_VERBOSE" > .config
 ##############################################
 
 case $1 in
-	[1-9] | 1[0-9] | 2[0-9] | 3[0-9]) REPLY=$1;;
+	[1-9] | 1[0-9] | 2[0-9] | 3[0-9] | 4[0-9]) REPLY=$1;;
 	*)
 		echo "Target receivers:"
 		echo "   1)  VU+ Duo"
@@ -68,12 +68,13 @@ case $1 in
 		echo "   5)  VU+ Uno 4K"
 		echo "   6)  VU+ Uno 4K SE"
 		echo "   7)  VU+ Zero 4K"
-		echo "  11)  BRE2ZE 4K"
-		echo "  21)  Mut@nt HD51"
-		echo "  22)  Mut@nt HD60"
-		echo "  23)  Mut@nt HD61"
+		echo "  11)  WWIO BRE2ZE 4K"
+		echo "  21)  AX/Mut@nt HD51"
+		echo "  22)  AX/Mut@nt HD60"
+		echo "  23)  AX/Mut@nt HD61"
 		echo "  30)  Edision OS mio 4K"
 		echo "  31)  Edision OS mio+ 4K"
+		echo "  40)  AirDigital Zgemma H7C / H7S"
 		read -p "Select target? [21] "
 		REPLY="${REPLY:-21}";;
 esac
@@ -92,6 +93,7 @@ case "$REPLY" in
 	23) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd61";;
 	30) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4k";;
 	31) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4kplus";;
+	40) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="zgemmah7";;
 	 *) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
 esac
 echo "BOXARCH=$BOXARCH" >> .config
@@ -184,7 +186,7 @@ echo "EXTERNAL_LCD=$EXTERNAL_LCD" >> .config
 
 ##############################################
 
-if [ $BOXMODEL == 'hd51' -o $BOXMODEL == 'bre2ze4k' ]; then
+if [ $BOXMODEL == 'hd51' -o $BOXMODEL == 'bre2ze4k'  -o $BOXMODEL == 'zgemmah7' ]; then
 
 case $6 in
 	[1-3]) REPLY=$6;;

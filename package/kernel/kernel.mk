@@ -67,6 +67,8 @@ VUPLUS_PATCH_3_9 = \
 VUPLUS_PATCH_3_14 = \
 	vuplus/3_14_bcm_genet_disable_warn.patch \
 	vuplus/3_14_linux_dvb-core.patch \
+	vuplus/3_14_dvbs2x.patch \
+	vuplus/3_14_dmx_source_dvr.patch \
 	vuplus/3_14_rt2800usb_fix_warn_tx_status_timeout_to_dbg.patch \
 	vuplus/3_14_usb_core_hub_msleep.patch \
 	vuplus/3_14_rtl8712_fix_build_error.patch \
@@ -96,6 +98,7 @@ VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_linux_dvb_adapter.patch \
 	vuplus/4_1_linux_dvb-core.patch \
 	vuplus/4_1_linux_4_1_45_dvbs2x.patch \
+	vuplus/4_1_dmx_source_dvr.patch \
 	vuplus/4_1_bcmsysport_4_1_45.patch \
 	vuplus/4_1_linux_usb_hub.patch \
 	vuplus/4_1_0001-regmap-add-regmap_write_bits.patch \
@@ -127,6 +130,11 @@ VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_0001-stv090x-optimized-TS-sync-control.patch \
 	vuplus/4_1_0002-log2-give-up-on-gcc-constant-optimizations.patch \
 	vuplus/4_1_0003-uaccess-dont-mark-register-as-const.patch
+
+# arm zgemmah7
+AIRDIGITAL_PATCH_4_10 = \
+	$(GFUTURES_PATCH_4_10)
+
 
 BRE2ZE4K_PATCH = \
 	$(GFUTURES_PATCH_4_10)
@@ -175,6 +183,9 @@ OSMIO4K_PATCH =
 
 OSMIO4KPLUS_PATCH =
 
+ZGEMMAH7_PATCH = \
+	$(AIRDIGITAL_PATCH_4_10)
+
 # -----------------------------------------------------------------------------
 
 $(D)/kernel.do_prepare:
@@ -191,14 +202,14 @@ $(D)/kernel.do_compile: kernel.do_prepare
 	$(MKDIR)/$(KERNEL_OBJ)
 	$(MKDIR)/$(KERNEL_MODULES)
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/$(KERNEL_CONFIG) $(KERNEL_OBJ_DIR)/.config
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61 zgemmah7))
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/initramfs-subdirboot.cpio.gz $(KERNEL_OBJ_DIR)
 endif
 	$(CD) $(KERNEL_DIR); \
 		$(MAKE) $(KERNEL_MAKEVARS) oldconfig; \
 		$(MAKE) $(KERNEL_MAKEVARS) modules $(KERNEL_DTB_VER) $(KERNEL_IMAGE_TYPE); \
 		$(MAKE) $(KERNEL_MAKEVARS) modules_install
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 zgemmah7))
 	cat $(KERNEL_OUTPUT) $(KERNEL_INPUT_DTB) > $(KERNEL_OUTPUT_DTB)
 endif
 	@touch $@
@@ -237,22 +248,35 @@ kernel-modules-clean:
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/mfd
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/ppp
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/slip
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/ath/ar5523
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/ath/ath10k
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/ath/ath6kl
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/ath/ath9k/ath9k.ko
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/atmel
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/broadcom
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/intersil
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/marvell
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/mediatek
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/realtek/rtl8xxxu
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/rsi
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/st
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/ti
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/net/wireless/zydas/zd1201.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/staging/rtl8192e
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/staging/rtl8192u
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/staging/wlan-ng
 	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/usb/class
-#	rm -fr $(TARGET_MODULES_DIR)/kernel/lib
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/usb/serial/ark3116.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/usb/serial/ch341.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/usb/serial/cp210x.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/usb/serial/f81232.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/usb/serial/option.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/drivers/usb/serial/usb_wwan.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/lib/crc7.ko
 	rm -fr $(TARGET_MODULES_DIR)/kernel/fs/ext2
 	rm -fr $(TARGET_MODULES_DIR)/kernel/fs/f2fs
 	rm -fr $(TARGET_MODULES_DIR)/kernel/fs/jffs2
 	rm -fr $(TARGET_MODULES_DIR)/kernel/fs/nfs
-#	rm -fr $(TARGET_MODULES_DIR)/kernel/fs/nfs/flexfilelayout
 	rm -fr $(TARGET_MODULES_DIR)/kernel/fs/nls
 	rm -fr $(TARGET_MODULES_DIR)/kernel/fs/ntfs
 	rm -fr $(TARGET_MODULES_DIR)/kernel/fs/squashfs
@@ -261,10 +285,11 @@ kernel-modules-clean:
 	rm -fr $(TARGET_MODULES_DIR)/kernel/net/bluetooth
 	rm -fr $(TARGET_MODULES_DIR)/kernel/net/bridge
 	rm -fr $(TARGET_MODULES_DIR)/kernel/net/core
-	rm -fr $(TARGET_MODULES_DIR)/kernel/net/ipv4
-	rm -fr $(TARGET_MODULES_DIR)/kernel/net/ipv6
+	rm -fr $(TARGET_MODULES_DIR)/kernel/net/ipv6/ah6.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/net/ipv6/esp6.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/net/ipv6/ipcomp6.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/net/ipv6/mip6.ko
+	rm -fr $(TARGET_MODULES_DIR)/kernel/net/ipv6/sit.ko
 	rm -fr $(TARGET_MODULES_DIR)/kernel/net/llc
-	rm -fr $(TARGET_MODULES_DIR)/kernel/net/netfilter
 	rm -fr $(TARGET_MODULES_DIR)/kernel/net/sunrpc
-	rm -fr $(TARGET_MODULES_DIR)/kernel/net/xfrm
 	@touch $(D)/$(notdir $@)

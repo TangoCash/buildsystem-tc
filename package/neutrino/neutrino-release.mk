@@ -51,6 +51,10 @@ neutrino-release-base:
 	cp -a $(TARGET_DIR)/usr/sbin/* $(RELEASE_DIR)/usr/sbin/
 	cp -a $(TARGET_DIR)/lib/* $(RELEASE_DIR)/lib/
 	cp -a $(TARGET_DIR)/usr/lib/* $(RELEASE_DIR)/usr/lib/
+	if [ $(BOXARCH) = "aarch64" ]; then \
+		cd ${RELEASE_DIR}; ln -sf lib lib64; \
+		cd ${RELEASE_DIR}/usr; ln -sf lib lib64; \
+	fi
 	cp -a $(TARGET_DIR)/var/* $(RELEASE_DIR)/var/
 	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
 	ln -sf /.version $(RELEASE_DIR)/var/etc/.version

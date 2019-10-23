@@ -32,7 +32,6 @@ $(D)/fuse: bootstrap $(ARCHIVE)/$(FUSE_SOURCE)
 			; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
-	-rm -rf $(TARGET_DIR)/etc/udev
 	$(REWRITE_LIBTOOL)/libfuse.la
 	$(REWRITE_LIBTOOL)/libulockmgr.la
 	$(REMOVE)/$(FUSE_DIR)

@@ -1,6 +1,7 @@
 #
 # base-files
 #
+
 $(D)/base-files: directories
 	$(START_BUILD)
 	$(INSTALL_EXEC) $(HELPERS_DIR)/update-rc.d $(TARGET_DIR)/usr/sbin/update-rc.d
@@ -25,9 +26,13 @@ endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/mountall.sh $(TARGET_DIR)/etc/init.d/mountall.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/mountnfs.sh $(TARGET_DIR)/etc/init.d/mountnfs.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/networking $(TARGET_DIR)/etc/init.d/networking
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 hd60 bre2ze4k))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/partitions-by-name $(TARGET_DIR)/etc/init.d/partitions-by-name
+endif
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/resizerootfs $(TARGET_DIR)/etc/init.d/resizerootfs
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/resizerootfs_mio $(TARGET_DIR)/etc/init.d/resizerootfs
 endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/populate-volatile.sh $(TARGET_DIR)/etc/init.d/populate-volatile.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/rc.local $(TARGET_DIR)/etc/init.d/rc.local
@@ -86,19 +91,21 @@ endif
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) populate-volatile.sh start 37 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) volatile-media.sh start 02 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) urandom start 38 S 0 6 .
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 hd60 bre2ze4k))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus))
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) resizerootfs start 7 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) partitions-by-name start 04 S .
 endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) createswap.sh start 98 3 .
 endif
-# fstab boot
-ifeq ($(BOXMODEL), vuduo4k)
-	printf "/dev/mmcblk0p6\t\t/boot\t\tauto\t\tdefaults\t\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
-else ifeq ($(BOXMODEL), vuzero4k)
-	printf "/dev/mmcblk0p4\t\t/boot\t\tauto\t\tdefaults\t\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
-else
-	printf "/dev/mmcblk0p1\t\t/boot\t\tauto\t\tdefaults\t\t\t1\t1\n" >> $(TARGET_DIR)/etc/fstab
-endif
+	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/udev/mount-helper.sh $(TARGET_DIR)/etc/udev/mount-helper.sh
+	# Inject machine specific blacklists into mount-helper
+	perl -i -pe 's:(\@BLACKLISTED\@):$(MTD_BLACK):s' $(TARGET_DIR)/etc/udev/mount-helper.sh
+	# Inject the /boot partition into /etc/fstab
+	# or replace the placeholder @rootfs@ by the verbatim label "rootfs" (plus one tab)
+	if [ -n "${MTD_BOOTFS}" ]; then \
+		perl -i -pe 's:(\@rootfs\@):/dev/'$(MTD_BOOTFS)'\t/boot\t\t\tauto\t\tdefaults\t\t1\t1\nrootfs\t:s' $(TARGET_DIR)/etc/fstab; \
+	else \
+		perl -i -pe 's:(\@rootfs\@):rootfs\t:s' $(TARGET_DIR)/etc/fstab; \
+	fi
 	$(TOUCH)
