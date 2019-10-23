@@ -11,7 +11,7 @@ $(D)/base-files: directories
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/camd $(TARGET_DIR)/etc/init.d/camd
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/camd_datefix $(TARGET_DIR)/etc/init.d/camd_datefix
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/checkroot.sh $(TARGET_DIR)/etc/init.d/checkroot.sh
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 h7))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/createswap.sh $(TARGET_DIR)/etc/init.d/createswap.sh
 endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/devpts.sh $(TARGET_DIR)/etc/init.d/devpts.sh
@@ -26,10 +26,10 @@ endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/mountall.sh $(TARGET_DIR)/etc/init.d/mountall.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/mountnfs.sh $(TARGET_DIR)/etc/init.d/mountnfs.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/networking $(TARGET_DIR)/etc/init.d/networking
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus h7))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/partitions-by-name $(TARGET_DIR)/etc/init.d/partitions-by-name
 endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 h7))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/resizerootfs $(TARGET_DIR)/etc/init.d/resizerootfs
 else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/resizerootfs_mio $(TARGET_DIR)/etc/init.d/resizerootfs
@@ -91,11 +91,11 @@ endif
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) populate-volatile.sh start 37 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) volatile-media.sh start 02 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) urandom start 38 S 0 6 .
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus h7))
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) resizerootfs start 7 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) partitions-by-name start 04 S .
 endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 h7))
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) createswap.sh start 98 3 .
 endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/udev/mount-helper.sh $(TARGET_DIR)/etc/udev/mount-helper.sh

@@ -74,7 +74,7 @@ case $1 in
 		echo "  23)  AX/Mut@nt HD61"
 		echo "  30)  Edision OS mio 4K"
 		echo "  31)  Edision OS mio+ 4K"
-		echo "  40)  AirDigital Zgemma H7C / H7S"
+		echo "  40)  AirDigital Zgemma H7C/H7S"
 		read -p "Select target? [21] "
 		REPLY="${REPLY:-21}";;
 esac
@@ -93,7 +93,7 @@ case "$REPLY" in
 	23) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd61";;
 	30) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4k";;
 	31) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4kplus";;
-	40) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="zgemmah7";;
+	40) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="h7";;
 	 *) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
 esac
 echo "BOXARCH=$BOXARCH" >> .config
@@ -186,7 +186,7 @@ echo "EXTERNAL_LCD=$EXTERNAL_LCD" >> .config
 
 ##############################################
 
-if [ $BOXMODEL == 'hd51' -o $BOXMODEL == 'bre2ze4k'  -o $BOXMODEL == 'zgemmah7' ]; then
+if [ $BOXMODEL == 'hd51' -o $BOXMODEL == 'bre2ze4k'  -o $BOXMODEL == 'h7' ]; then
 
 case $6 in
 	[1-3]) REPLY=$6;;

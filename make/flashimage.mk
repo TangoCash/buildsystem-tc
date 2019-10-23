@@ -2,7 +2,7 @@
 # flashimage
 #
 flashimage:
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k h7))
 	$(MAKE) flash-image-multi-disk flash-image-multi-rootfs
 endif
 ifeq ($(BOXMODEL), hd60)
@@ -29,7 +29,7 @@ endif
 # -----------------------------------------------------------------------------
 
 ofgimage:
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k h7))
 	$(MAKE) ITYPE=ofg flash-image-multi-rootfs
 endif
 ifeq ($(BOXMODEL), hd60)
@@ -47,7 +47,7 @@ endif
 
 oi \
 online-image:
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k h7))
 	$(MAKE) ITYPE=online flash-image-online
 endif
 ifeq ($(BOXMODEL), hd60)

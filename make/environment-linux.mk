@@ -195,9 +195,9 @@ endif
 #
 # AirDigital
 #
-ifeq ($(BOXMODEL), zgemmah7)
+ifeq ($(BOXMODEL), h7)
 KERNEL_VER         = 4.10.12
-KERNEL_PATCH       = $(ZGEMMAH7_PATCH)
+KERNEL_PATCH       = $(H7_PATCH)
 MTD_BLACK          = mmcblk0
 MTD_BOOTFS         = mmcblk0p1
 KERNEL_CONFIG      = $(BOXMODEL)_defconfig
