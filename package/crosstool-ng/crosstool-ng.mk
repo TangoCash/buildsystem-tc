@@ -42,7 +42,7 @@ $(CROSSTOOL_NG_ARCHIVE):
 # -----------------------------------------------------------------------------
 
 CUSTOM_KERNEL = $(ARCHIVE)/$(KERNEL_SOURCE)
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL),hd51 bre2ze4k))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),hd51 bre2ze4k zgemmah7))
 CUSTOM_KERNEL_VER = $(KERNEL_VER)-arm
 endif
 
