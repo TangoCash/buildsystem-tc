@@ -11,7 +11,7 @@ $(D)/base-files: directories
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/camd $(TARGET_DIR)/etc/init.d/camd
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/camd_datefix $(TARGET_DIR)/etc/init.d/camd_datefix
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/checkroot.sh $(TARGET_DIR)/etc/init.d/checkroot.sh
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 zgemmah7))
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/createswap.sh $(TARGET_DIR)/etc/init.d/createswap.sh
 endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/devpts.sh $(TARGET_DIR)/etc/init.d/devpts.sh
@@ -95,7 +95,7 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4k
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) resizerootfs start 7 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) partitions-by-name start 04 S .
 endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 zgemmah7))
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) createswap.sh start 98 3 .
 endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/udev/mount-helper.sh $(TARGET_DIR)/etc/udev/mount-helper.sh
