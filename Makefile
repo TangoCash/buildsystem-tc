@@ -87,7 +87,7 @@ printenv:
 	@echo "CROSS_BASE        : $(CROSS_BASE)"
 	@echo "CROSS_DIR         : $(CROSS_DIR)"
 	@echo "RELEASE_DIR       : $(RELEASE_DIR)"
-	@echo "IMAGE_DIR         : $(IMAGE_DIR)"
+	@echo "RELEASE_IMAGE_DIR : $(RELEASE_IMAGE_DIR)"
 	@echo "HOST_DIR          : $(HOST_DIR)"
 	@echo "TARGET_DIR        : $(TARGET_DIR)"
 	@echo "KERNEL_DIR        : $(KERNEL_DIR)"

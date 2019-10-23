@@ -78,9 +78,9 @@ $(D)/oscam.do_compile:
 	@touch $@
 
 $(D)/oscam: bootstrap openssl libusb oscam.do_prepare oscam.do_compile
-	rm -rf $(IMAGE_DIR)/$(OSCAM_FLAVOUR)
-	mkdir $(IMAGE_DIR)/$(OSCAM_FLAVOUR)
-	cp -pR $(BUILD_DIR)/$(OSCAM_FLAVOUR_DIR)/Distribution/* $(IMAGE_DIR)/$(OSCAM_FLAVOUR)/
+	rm -rf $(RELEASE_IMAGE_DIR)/$(OSCAM_FLAVOUR)
+	mkdir $(RELEASE_IMAGE_DIR)/$(OSCAM_FLAVOUR)
+	cp -pR $(BUILD_DIR)/$(OSCAM_FLAVOUR_DIR)/Distribution/* $(RELEASE_IMAGE_DIR)/$(OSCAM_FLAVOUR)/
 	$(REMOVE)/$(OSCAM_FLAVOUR_DIR)
 	$(TOUCH)
 

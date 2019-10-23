@@ -35,7 +35,7 @@ D                      = $(BASE_DIR)/.deps
 HOST_DIR               = $(BASE_DIR)/host
 TARGET_DIR             = $(BASE_DIR)/root
 SOURCE_DIR             = $(BASE_DIR)/build_source
-IMAGE_DIR              = $(BASE_DIR)/release_image
+RELEASE_IMAGE_DIR      = $(BASE_DIR)/release_image
 HELPERS_DIR            = $(BASE_DIR)/helpers
 OWN_FILES             ?= $(BASE_DIR)/own-files
 CROSS_BASE             = $(BASE_DIR)/cross
@@ -321,7 +321,7 @@ TUXBOX_CUSTOMIZE = [ -x $(HELPERS_DIR)/$(notdir $@)-local.sh ] && \
 	$(TARGET_DIR) \
 	$(BASE_DIR) \
 	$(SOURCE_DIR) \
-	$(IMAGE_DIR) \
+	$(RELEASE_IMAGE_DIR) \
 	$(BOXMODEL) \
 	$(FLAVOUR) \
 	$(DATE) \

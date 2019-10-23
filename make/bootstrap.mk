@@ -33,9 +33,8 @@ $(D)/directories:
 	mkdir -p $(ARCHIVE)
 	mkdir -p $(BUILD_DIR)
 	mkdir -p $(HOST_DIR)
-	mkdir -p $(IMAGE_DIR)
+	mkdir -p $(RELEASE_IMAGE_DIR)
 	mkdir -p $(SOURCE_DIR)
-	mkdir -p $(IMAGE_DIR)
 	mkdir -p $(HOST_DIR)/{bin,lib,share}
 	mkdir -p $(TARGET_DIR)/{bin,boot,etc,lib,sbin,usr,var}
 	mkdir -p $(TARGET_DIR)/etc/{default,init.d,udev,network,ssl}

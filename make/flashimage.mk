@@ -74,6 +74,12 @@ BOOT_IMAGE = boot.img
 IMAGE_LINK = $(IMAGE_NAME).ext4
 IMAGE_ROOTFS_SIZE = 294912
 
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
+IMAGE_DIR  = $(BOXMODEL)
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), h7))
+IMAGE_DIR  = zegmma/$(BOXMODEL)
+endif
+
 # emmc image
 EMMC_IMAGE_SIZE = 3817472
 EMMC_IMAGE = $(IMAGE_BUILD_DIR)/$(IMAGE_NAME).img
@@ -122,7 +128,7 @@ STORAGE_PARTITION_OFFSET_NL = $(shell expr $(LINUX_SWAP_PARTITION_OFFSET_NL) \+ 
 
 flash-image-multi-disk: host-e2fsprogs
 	rm -rf $(IMAGE_BUILD_DIR) || true
-	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
+	mkdir -p $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)
 	# Create a sparse image block
 	dd if=/dev/zero of=$(IMAGE_BUILD_DIR)/$(IMAGE_LINK) seek=$(shell expr $(IMAGE_ROOTFS_SIZE) \* $(BLOCK_SECTOR)) count=0 bs=$(BLOCK_SIZE)
 ifeq ($(NEWLAYOUT), 1)
@@ -189,18 +195,18 @@ else
 endif
 	# Truncate on purpose
 	dd if=$(IMAGE_BUILD_DIR)/$(IMAGE_LINK) of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(ROOTFS_PARTITION_OFFSET) \* $(BLOCK_SECTOR)) count=$(shell expr $(IMAGE_ROOTFS_SIZE) \* $(BLOCK_SECTOR))
-	mv $(IMAGE_BUILD_DIR)/$(IMAGE_NAME).img $(IMAGE_BUILD_DIR)/$(BOXMODEL)/
+	mv $(IMAGE_BUILD_DIR)/$(IMAGE_NAME).img $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/
 
 flash-image-multi-rootfs:
 	# Create final USB-image
-	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
-	cp $(KERNEL_OUTPUT_DTB) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
+	mkdir -p $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)
+	cp $(KERNEL_OUTPUT_DTB) $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
-		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+		tar -cvf $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/rootfs.tar . >/dev/null 2>&1; \
+		bzip2 $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/rootfs.tar
+	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/kernel.bin $(BOXMODEL)/$(IMAGE_NAME).img $(BOXMODEL)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(IMAGE_DIR)/rootfs.tar.bz2 $(IMAGE_DIR)/kernel.bin $(IMAGE_DIR)/$(IMAGE_NAME).img $(IMAGE_DIR)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -214,7 +220,7 @@ flash-image-online:
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
-		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -306,7 +312,7 @@ flash-image-hd60-multi-disk: atools $(ARCHIVE)/$(HD60_BOOTARGS_SRC) $(ARCHIVE)/$
 	rm -rf $(IMAGE_BUILD_DIR)/$(HD60_IMAGE_LINK)
 	echo "To access the recovery image press immediately by power-up the frontpanel button or hold down a remote button key untill the display says boot" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/recovery.txt
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip *
+		zip -r $(RELEASE_IMAGE_DIR)/$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip *
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -322,7 +328,7 @@ flash-image-hd60-multi-rootfs:
 	echo "Rename the unforce_$(BOXMODEL).txt to force_$(BOXMODEL).txt and move it to the root of your usb-stick" > $(IMAGE_BUILD_DIR)/force_$(BOXMODEL)_READ.ME; \
 	echo "When you enter the recovery menu then it will force to install the image $$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip in the image-slot1" >> $(IMAGE_BUILD_DIR)/force_$(BOXMODEL)_READ.ME; \
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip unforce_$(BOXMODEL).txt force_$(BOXMODEL)_READ.ME $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/uImage $(BOXMODEL)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip unforce_$(BOXMODEL).txt force_$(BOXMODEL)_READ.ME $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/uImage $(BOXMODEL)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -335,7 +341,7 @@ flash-image-hd60-online:
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
 	echo $(BOXMODEL)_DDT_usb_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
-		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -427,7 +433,7 @@ flash-image-hd61-multi-disk: atools $(ARCHIVE)/$(HD61_BOOTARGS_SRC) $(ARCHIVE)/$
 	rm -rf $(IMAGE_BUILD_DIR)/$(HD61_IMAGE_LINK)
 	echo "To access the recovery image press immediately by power-up the frontpanel button or hold down a remote button key untill the display says boot" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/recovery.txt
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip *
+		zip -r $(RELEASE_IMAGE_DIR)/$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip *
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -443,7 +449,7 @@ flash-image-hd61-multi-rootfs:
 	echo "Rename the unforce_$(BOXMODEL).txt to force_$(BOXMODEL).txt and move it to the root of your usb-stick" > $(IMAGE_BUILD_DIR)/force_$(BOXMODEL)_READ.ME; \
 	echo "When you enter the recovery menu then it will force to install the image $$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip in the image-slot1" >> $(IMAGE_BUILD_DIR)/force_$(BOXMODEL)_READ.ME; \
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip unforce_$(BOXMODEL).txt force_$(BOXMODEL)_READ.ME $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/uImage $(BOXMODEL)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip unforce_$(BOXMODEL).txt force_$(BOXMODEL)_READ.ME $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/uImage $(BOXMODEL)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -456,7 +462,7 @@ flash-image-hd61-online:
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
 	echo $(BOXMODEL)_DDT_usb_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
-		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -537,7 +543,7 @@ flash-image-osmio4k-multi-rootfs:
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	echo "rename this file to 'force' to force an update without confirmation" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/noforce; \
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/kernel.bin $(BOXMODEL)/$(OSMIO4K_IMAGE_NAME).img $(BOXMODEL)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/kernel.bin $(BOXMODEL)/$(OSMIO4K_IMAGE_NAME).img $(BOXMODEL)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -552,7 +558,7 @@ flash-image-osmio4k-online:
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	echo "rename this file to 'force' to force an update without confirmation" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/noforce; \
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
-		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -609,7 +615,7 @@ flash-image-vu-multi-rootfs:
 	echo "Dummy for update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar.bz2
 	echo "$(BOXMODEL)_DDT_multi_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$(BOXMODEL)_multi_usb_$(DATE).zip $(VU_PREFIX)/rootfs*.tar.bz2 $(VU_PREFIX)/initrd_auto.bin $(VU_PREFIX)/kernel*_auto.bin $(VU_PREFIX)/*.update $(VU_PREFIX)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_usb_$(DATE).zip $(VU_PREFIX)/rootfs*.tar.bz2 $(VU_PREFIX)/initrd_auto.bin $(VU_PREFIX)/kernel*_auto.bin $(VU_PREFIX)/*.update $(VU_PREFIX)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -626,7 +632,7 @@ flash-image-vu-rootfs:
 	echo "This file forces creating partitions." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/mkpart.update
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(VU_PREFIX)/rootfs.tar.bz2 $(VU_PREFIX)/initrd_auto.bin $(VU_PREFIX)/kernel_auto.bin $(VU_PREFIX)/*.update $(VU_PREFIX)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(VU_PREFIX)/rootfs.tar.bz2 $(VU_PREFIX)/initrd_auto.bin $(VU_PREFIX)/kernel_auto.bin $(VU_PREFIX)/*.update $(VU_PREFIX)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -640,7 +646,7 @@ flash-image-vu-online:
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX); \
-		tar -cvzf $(IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel_auto.bin imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel_auto.bin imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -669,6 +675,6 @@ flash-image-vuduo: host-mtd-utils
 	rm -f $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/ubinize.cfg
 	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(IMAGE_DIR)/$(BOXMODEL)_usb_$(DATE).zip $(VUDUO_PREFIX)*
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_usb_$(DATE).zip $(VUDUO_PREFIX)*
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
