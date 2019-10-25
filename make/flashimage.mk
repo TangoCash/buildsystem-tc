@@ -4,25 +4,22 @@
 flashimage:
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k h7))
 	$(MAKE) flash-image-multi-disk flash-image-multi-rootfs
-endif
-ifeq ($(BOXMODEL), hd60)
+else ifeq ($(BOXMODEL), hd60)
 	$(MAKE) flash-image-hd60-multi-disk flash-image-hd60-multi-rootfs
-endif
-ifeq ($(BOXMODEL), hd61)
+else ifeq ($(BOXMODEL), hd61)
 	$(MAKE) flash-image-hd61-multi-disk flash-image-hd61-multi-rootfs
-endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
 	$(MAKE) flash-image-osmio4k-multi-disk flash-image-osmio4k-multi-rootfs
-endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
 ifeq ($(VU_MULTIBOOT), 1)
 	$(MAKE) flash-image-vu-multi-rootfs
 else
 	$(MAKE) flash-image-vu-rootfs
 endif
-endif
-ifeq ($(BOXMODEL), vuduo)
+else ifeq ($(BOXMODEL), vuduo)
 	$(MAKE) flash-image-vuduo
+else
+	echo -e "$(TERM_RED_BOLD)unsupported box model$(TERM_NORMAL)"
 endif
 	$(TUXBOX_CUSTOMIZE)
 
@@ -31,15 +28,14 @@ endif
 ofgimage:
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k h7))
 	$(MAKE) ITYPE=ofg flash-image-multi-rootfs
-endif
-ifeq ($(BOXMODEL), hd60)
+else ifeq ($(BOXMODEL), hd60)
 	$(MAKE) ITYPE=ofg flash-image-hd60-multi-rootfs
-endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
 	$(MAKE) ITYPE=ofg flash-image-osmio4k-multi-rootfs
-endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
 	$(MAKE) ITYPE=ofg flash-image-vu-rootfs
+else
+	echo -e "$(TERM_RED_BOLD)unsupported box model$(TERM_NORMAL)"
 endif
 	$(TUXBOX_CUSTOMIZE)
 
@@ -49,15 +45,14 @@ oi \
 online-image:
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k h7))
 	$(MAKE) ITYPE=online flash-image-online
-endif
-ifeq ($(BOXMODEL), hd60)
+else ifeq ($(BOXMODEL), hd60)
 	$(MAKE) ITYPE=online flash-image-hd60-online
-endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), osmio4k osmio4kplus))
 	$(MAKE) ITYPE=online flash-image-osmio4k-online
-endif
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
 	$(MAKE) ITYPE=online flash-image-vu-online
+else
+	echo -e "$(TERM_RED_BOLD)unsupported box model$(TERM_NORMAL)"
 endif
 	$(TUXBOX_CUSTOMIZE)
 

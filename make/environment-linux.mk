@@ -193,7 +193,7 @@ KERNEL_DIR         = $(BUILD_DIR)/linux-brcmstb-$(KERNEL_SOURCE_VER)
 endif
 
 #
-# AirDigital
+# Air Digital
 #
 ifeq ($(BOXMODEL), h7)
 KERNEL_VER         = 4.10.12
