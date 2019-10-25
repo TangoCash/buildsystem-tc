@@ -15,7 +15,7 @@ $(D)/h7-driver: bootstrap $(ARCHIVE)/$(H7_DRIVER_SOURCE)
 	unzip -o $(SILENT_Q) $(ARCHIVE)/$(H7_DRIVER_SOURCE) -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
 	mkdir -p ${TARGET_DIR}/etc/modules-load.d
 	for i in h7_1 h7_2 h7_3 h7_4; do \
-		echo $$i >> ${TARGET_DIR}/etc/modules-load.d/_h7.conf; \
+		echo $$i >> ${TARGET_DIR}/etc/modules-load.d/_zgemmah7.conf; \
 	done
 	make depmod
 	$(TOUCH)
