@@ -1,6 +1,8 @@
 #
 # flashimage
 #
+# -----------------------------------------------------------------------------
+
 flashimage:
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k h7))
 	$(MAKE) flash-image-multi-disk flash-image-multi-rootfs

@@ -207,7 +207,7 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61 h7))
 endif
 	$(CD) $(KERNEL_DIR); \
 		$(MAKE) $(KERNEL_MAKEVARS) oldconfig; \
-		$(MAKE) $(KERNEL_MAKEVARS) modules $(KERNEL_DTB_VER) $(KERNEL_IMAGE_TYPE); \
+		$(MAKE) $(KERNEL_MAKEVARS) modules $(KERNEL_DTB) $(KERNEL_IMAGE_TYPE); \
 		$(MAKE) $(KERNEL_MAKEVARS) modules_install
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 h7))
 	cat $(KERNEL_OUTPUT) $(KERNEL_INPUT_DTB) > $(KERNEL_OUTPUT_DTB)
