@@ -15,7 +15,7 @@ $(D)/openresolv: bootstrap $(ARCHIVE)/$(OPENRESOLV_SOURCE)
 	$(UNTAR)/$(OPENRESOLV_SOURCE)
 	$(CHDIR)/$(OPENRESOLV_DIR); \
 		$(CONFIGURE) \
-			--prefix=/usr \
+			--prefix= \
 			--sysconfdir=/etc \
 			--mandir=/.remove \
 			--rundir=/var/run/resolvconf \
