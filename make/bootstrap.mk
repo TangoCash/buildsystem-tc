@@ -94,6 +94,7 @@ SYSTEM_TOOLS += tzdata
 SYSTEM_TOOLS += hd-idle
 SYSTEM_TOOLS += rpcbind
 #SYSTEM_TOOLS += portmap
+SYSTEM_TOOLS += openresolv
 SYSTEM_TOOLS += nfs-utils
 SYSTEM_TOOLS += htop
 SYSTEM_TOOLS += vsftpd
