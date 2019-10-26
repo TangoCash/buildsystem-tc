@@ -8,9 +8,6 @@
 CONFIG_SITE =
 export CONFIG_SITE
 
-LD_LIBRARY_PATH =
-export LD_LIBRARY_PATH
-
 # -----------------------------------------------------------------------------
 
 # set up default parallelism
