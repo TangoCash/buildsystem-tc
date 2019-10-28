@@ -115,5 +115,7 @@ $(D)/util-linux: bootstrap ncurses zlib $(ARCHIVE)/$(UTIL_LINUX_SOURCE)
 	rm -f $(addprefix $(TARGET_DIR)/sbin/,blkdiscard blkzone blockdev cfdisk chcpu ctrlaltdel fsfreeze fstrim mkfs wipefs)
 	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,choom col colcrt colrm column fincore flock getopt ipcmk isosize linux32 linux64 look lscpu lsipc lslocks lsns mcookie namei prlimit renice rev script scriptreplay setarch setsid uname26 uuidgen uuidparse whereis)
 	rm -f $(addprefix $(TARGET_DIR)/usr/sbin/,ldattach readprofile rtcwake)
+	$(INSTALL) -d $(TARGET_DIR)/etc/default/
+	echo 'MOUNTALL="-t nonfs,nosmbfs,noncpfs"' > $(TARGET_DIR)/etc/default/mountall
 	$(REMOVE)/$(UTIL_LINUX_DIR)
 	$(TOUCH)
