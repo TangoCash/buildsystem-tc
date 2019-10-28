@@ -5,6 +5,7 @@
 $(D)/base-files: directories
 	$(START_BUILD)
 	$(INSTALL_EXEC) $(HELPERS_DIR)/update-rc.d $(TARGET_DIR)/usr/sbin/update-rc.d
+	$(INSTALL_EXEC) $(PKG_FILES_DIR)/bin/autologin $(TARGET_DIR)/bin/autologin
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/alignment.sh $(TARGET_DIR)/etc/init.d/alignment.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/banner.sh $(TARGET_DIR)/etc/init.d/banner.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/bootmisc.sh $(TARGET_DIR)/etc/init.d/bootmisc.sh
@@ -12,7 +13,7 @@ $(D)/base-files: directories
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/camd_datefix $(TARGET_DIR)/etc/init.d/camd_datefix
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/checkroot.sh $(TARGET_DIR)/etc/init.d/checkroot.sh
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 h7))
-	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/createswap.sh $(TARGET_DIR)/etc/init.d/createswap.sh
+	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/createswap.sh $(TARGET_DIR)/etc/init.d/createswap
 endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/devpts.sh $(TARGET_DIR)/etc/init.d/devpts.sh
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/init.d/functions $(TARGET_DIR)/etc/init.d/functions
@@ -46,7 +47,6 @@ endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/umountnfs.sh $(TARGET_DIR)/etc/init.d/umountnfs.sh
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/urandom $(TARGET_DIR)/etc/init.d/urandom
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/init.d/volatile-media.sh $(TARGET_DIR)/etc/init.d/volatile-media.sh
-
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/default/devpts $(TARGET_DIR)/etc/default/devpts
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/filesystems $(TARGET_DIR)/etc/filesystems
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/fstab $(TARGET_DIR)/etc/fstab
@@ -61,12 +61,12 @@ endif
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/rc.local $(TARGET_DIR)/etc/rc.local
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/services $(TARGET_DIR)/etc/services
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/shells $(TARGET_DIR)/etc/shells
-
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/network/interfaces $(TARGET_DIR)/etc/network/interfaces
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/network/options $(TARGET_DIR)/etc/network/options
-
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/default/volatiles/00_core $(TARGET_DIR)/etc/default/volatiles/00_core
-
+	#
+	# Create runlevel links
+	#
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) banner.sh start 02 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) sysfs.sh start 02 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) mountall.sh start 03 S .
@@ -86,7 +86,7 @@ endif
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) reboot start 90 6 .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) networking start 10 2 3 4 5 . stop 80 0 1 6 .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) rc.local start 99 2 3 4 5 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) camd start 20 2 3 4 5 . stop 20 0 1 6 .
+	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) camd start 50 2 3 4 5 . stop 50 0 1 6 .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) read-only-rootfs-hook.sh start 29 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) populate-volatile.sh start 37 S .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) volatile-media.sh start 02 S .
@@ -96,8 +96,11 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4k
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) partitions-by-name start 04 S .
 endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 h7))
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) createswap.sh start 98 3 .
+	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) createswap start 98 3 .
 endif
+	#
+	#
+	#
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/udev/mount-helper.sh $(TARGET_DIR)/etc/udev/mount-helper.sh
 	# Inject machine specific blacklists into mount-helper
 	perl -i -pe 's:(\@BLACKLISTED\@):$(MTD_BLACK):s' $(TARGET_DIR)/etc/udev/mount-helper.sh

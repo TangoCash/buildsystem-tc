@@ -78,7 +78,6 @@ case $ACTION in
 		if [ "${DEVBASE}" == "${MDEV}" ] ; then
 			if [ -d /sys/block/${DEVBASE}/${DEVBASE}1 -o -d /sys/block/${DEVBASE}/${DEVBASE}p1 ] ; then
 				# Partition detected, just tell and quit
-				notify
 				exit 0
 			fi
 			if [ ! -f /sys/block/${DEVBASE}/size ] ; then
