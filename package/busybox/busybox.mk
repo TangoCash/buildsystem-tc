@@ -10,6 +10,10 @@ $(ARCHIVE)/$(BUSYBOX_SOURCE):
 	$(DOWNLOAD) $(BUSYBOX_URL)/$(BUSYBOX_SOURCE)
 
 BUSYBOX_PATCH  = \
+	0001-Prevent-telnet-connections-from-the-internet-to-the.patch \
+	0002-Extended-network-interfaces-support.patch \
+	0003-Revert-ip-fix-ip-oneline-a.patch \
+	use_ipv6_when_ipv4_unroutable.patch \
 	fix-config-header.patch \
 	fix-partition-size.patch \
 	insmod-hack.patch \
