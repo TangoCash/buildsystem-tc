@@ -49,7 +49,7 @@ $(D)/glib2: bootstrap host-glib2 libffi util-linux zlib libiconv $(ARCHIVE)/$(GL
 	$(REWRITE_LIBTOOL)/libgio-2.0.la
 	$(REWRITE_LIBTOOL)/libgobject-2.0.la
 	$(REWRITE_LIBTOOL)/libgthread-2.0.la
-	rm -rf $(addprefix $(TARGET_DIR)/usr/share/,bash-completion gettext gdb glib-2.0)
+	rm -rf $(addprefix $(TARGET_DIR)/usr/share/,gettext gdb glib-2.0)
 	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,gdbus-codegen glib-compile-schemas glib-compile-resources glib-genmarshal glib-gettextize glib-mkenums gobject-query gtester gtester-report)
 	$(REMOVE)/$(GLIB2_DIR)
 	$(TOUCH)
