@@ -1,7 +1,7 @@
 #
 # hd51-driver
 #
-HD51_DRIVER_DATE   = 20180424
+HD51_DRIVER_DATE   = 20191101
 HD51_DRIVER_VER    = 4.10.12-$(HD51_DRIVER_DATE)
 HD51_DRIVER_SOURCE = hd51-drivers-$(HD51_DRIVER_VER).zip
 HD51_DRIVER_URL    = http://source.mynonpublic.com/gfutures

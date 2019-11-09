@@ -1,7 +1,7 @@
 #
 # hd51-libgles
 #
-HD51_LIBGLES_DATE   = 20170322
+HD51_LIBGLES_DATE   = 20191101
 HD51_LIBGLES_VER    = $(HD51_LIBGLES_DATE)
 HD51_LIBGLES_SOURCE = hd51-v3ddriver-$(HD51_LIBGLES_VER).zip
 HD51_LIBGLES_URL    = http://downloads.mutant-digital.net/v3ddriver
