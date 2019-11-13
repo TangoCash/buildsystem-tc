@@ -11,9 +11,14 @@ $(ARCHIVE)/links-$(LINKS_VER).tar.bz2:
 
 LINKS_PATCH  = \
 	links.patch \
-	links-input.patch \
 	links-ac-prog-cxx.patch \
 	links-accept_https_play.patch
+
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL), hd51 bre2ze4k))
+LINKS_PATCH += links-input-event1.patch
+else ifeq ($(BOXMODEL), $(filter $(BOXMODEL), h7))
+LINKS_PATCH += links-input-event2.patch
+endif
 
 $(D)/links: bootstrap freetype libpng libjpeg-turbo openssl $(ARCHIVE)/$(LINKS_SOURCE)
 	$(START_BUILD)
