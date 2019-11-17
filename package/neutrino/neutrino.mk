@@ -83,7 +83,6 @@ NEUTRINO_DEPS += xupnpd
 # -----------------------------------------------------------------------------
 
 N_CFLAGS       = -Wall -W -Wshadow -pipe -Os -Wno-psabi
-N_CFLAGS      += -D__KERNEL_STRICT_NAMES
 N_CFLAGS      += -D__STDC_FORMAT_MACROS
 N_CFLAGS      += -D__STDC_CONSTANT_MACROS
 N_CFLAGS      += -fno-strict-aliasing
@@ -95,8 +94,6 @@ N_CFLAGS      += $(LOCAL_NEUTRINO_CFLAGS)
 
 N_CPPFLAGS     = -I$(TARGET_DIR)/usr/include
 N_CPPFLAGS    += -ffunction-sections -fdata-sections
-
-N_CPPFLAGS    += -I$(CROSS_DIR)/$(TARGET)/sys-root/usr/include
 
 LH_CONFIG_OPTS =
 #LH_CONFIG_OPTS += --enable-flv2mpeg4
@@ -163,7 +160,7 @@ e2-multiboot:
 	#
 	echo -e "$(FLAVOUR) `sed -n 's/\#define PACKAGE_VERSION "//p' $(N_OBJ_DIR)/config.h | sed 's/"//'` \\\n \\\l\n" > $(TARGET_DIR)/etc/issue
 	#
-	touch $(TARGET_DIR)/var/lib/opkg/status 
+	touch $(TARGET_DIR)/var/lib/opkg/status
 	#
 	cp -a $(TARGET_DIR)/.version $(TARGET_DIR)/etc/image-version
 
