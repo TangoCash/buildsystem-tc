@@ -74,7 +74,7 @@ $(D)/samba: bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 			--with-lockdir=/var/lock \
 			--with-logfilebase=/var/log/samba \
 			--with-swatdir=/usr/share/swat \
-			--with-nmbdsocketdir=/var/nmbd \
+			--with-nmbdsocketdir=/var/run/nmbd \
 			--with-included-iniparser \
 			--with-included-popt \
 			--with-sendfile-support \
