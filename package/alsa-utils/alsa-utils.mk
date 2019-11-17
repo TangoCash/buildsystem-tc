@@ -1,7 +1,7 @@
 #
 # alsa-utils
 #
-ALSA_UTILS_VER    = 1.1.9
+ALSA_UTILS_VER    = 1.2.1
 ALSA_UTILS_DIR    = alsa-utils-$(ALSA_UTILS_VER)
 ALSA_UTILS_SOURCE = alsa-utils-$(ALSA_UTILS_VER).tar.bz2
 ALSA_UTILS_URL    = https://www.alsa-project.org/files/pub/utils
@@ -41,5 +41,5 @@ $(D)/alsa-utils: bootstrap ncurses alsa-lib $(ARCHIVE)/$(ALSA_UTILS_SOURCE)
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) alsa-state start 39 S . stop 31 0 6 .
 	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,aserver)
 	rm -f $(addprefix $(TARGET_DIR)/usr/sbin/,alsa-info.sh)
-	$(REMOVE)/$(ALSA_UTILS_DIR)
+#	$(REMOVE)/$(ALSA_UTILS_DIR)
 	$(TOUCH)
