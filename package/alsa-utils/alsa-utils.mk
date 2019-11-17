@@ -41,5 +41,5 @@ $(D)/alsa-utils: bootstrap ncurses alsa-lib $(ARCHIVE)/$(ALSA_UTILS_SOURCE)
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) alsa-state start 39 S . stop 31 0 6 .
 	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,aserver)
 	rm -f $(addprefix $(TARGET_DIR)/usr/sbin/,alsa-info.sh)
-#	$(REMOVE)/$(ALSA_UTILS_DIR)
+	$(REMOVE)/$(ALSA_UTILS_DIR)
 	$(TOUCH)
