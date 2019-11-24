@@ -19,13 +19,13 @@ $(D)/rpcbind: bootstrap libtirpc $(ARCHIVE)/$(RPCBIND_SOURCE)
 	$(CHDIR)/$(RPCBIND_DIR); \
 		$(call apply_patches, $(RPCBIND_PATCH)); \
 		autoreconf -fi $(SILENT_OPT); \
-		$(CONFIGURE) CFLAGS="$(TARGET_CFLAGS) `$(PKG_CONFIG) --cflags libtirpc`"\
+		$(CONFIGURE) CFLAGS="$(TARGET_CFLAGS) `$(PKG_CONFIG) --cflags libtirpc`" \
 			--prefix=/usr \
 			--bindir=/usr/sbin \
 			--mandir=/.remove \
 			--enable-silent-rules \
 			--with-rpcuser=root \
-			--without-systemdsystemunitdir \
+			--with-systemdsystemunitdir=no \
 			; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
