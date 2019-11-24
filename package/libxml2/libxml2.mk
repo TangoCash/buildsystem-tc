@@ -33,7 +33,7 @@ $(D)/libxml2: bootstrap zlib $(ARCHIVE)/$(LIBXML2_SOURCE)
 			--without-docbook \
 			--without-mem-debug \
 			--without-lzma \
-			--with-zlib \
+			--with-zlib=$(TARGET_DIR)/usr \
 			; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR); \
