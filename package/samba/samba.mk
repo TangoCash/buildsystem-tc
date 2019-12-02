@@ -46,8 +46,7 @@ $(D)/samba: bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 		./configure $(SILENT_OPT) \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
-			--prefix=/ \
-			--exec-prefix=/usr \
+			--prefix=/usr \
 			--includedir=/usr/include \
 			--datarootdir=/.remove \
 			--disable-pie \

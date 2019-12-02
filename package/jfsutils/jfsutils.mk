@@ -21,8 +21,8 @@ $(D)/jfsutils: bootstrap e2fsprogs $(ARCHIVE)/$(JFSUTILS_SOURCE)
 		sed -i "/unistd.h/a#include <sys/types.h>" fscklog/extract.c; \
 		sed -i "/ioctl.h/a#include <sys/sysmacros.h>" libfs/devices.c; \
 		$(CONFIGURE) \
-			--prefix= \
 			--target=$(TARGET) \
+			--prefix= \
 			--mandir=/.remove \
 			; \
 		$(MAKE); \

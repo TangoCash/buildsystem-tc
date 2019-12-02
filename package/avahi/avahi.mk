@@ -15,8 +15,8 @@ $(D)/avahi: bootstrap expat libdaemon dbus $(ARCHIVE)/$(AVAHI_SOURCE)
 	$(UNTAR)/$(AVAHI_SOURCE)
 	$(CHDIR)/$(AVAHI_DIR); \
 		$(CONFIGURE) \
-			--prefix=/usr \
 			--target=$(TARGET) \
+			--prefix=/usr \
 			--mandir=/.remove \
 			--localedir=/.remove/locale \
 			--sysconfdir=/etc \
