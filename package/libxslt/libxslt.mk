@@ -1,7 +1,7 @@
 #
 # libxslt
 #
-LIBXSLT_VER    = 1.1.32
+LIBXSLT_VER    = 1.1.34
 LIBXSLT_DIR    = libxslt-$(LIBXSLT_VER)
 LIBXSLT_SOURCE = libxslt-$(LIBXSLT_VER).tar.gz
 LIBXSLT_URL    = ftp://xmlsoft.org/libxml2
