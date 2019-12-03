@@ -52,7 +52,7 @@ $(D)/busybox: bootstrap $(ARCHIVE)/$(BUSYBOX_SOURCE)
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) telnetd.busybox start 20 2 3 4 5 . stop 20 0 1 6 .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) syslog.busybox start 20 2 3 4 5 . stop 20 0 1 6 .
 	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) cron.busybox start 90 2 3 4 5 . stop 60 0 1 6 .
-	$(REMOVE)/$(BUSYBOX_DIR)
+#	$(REMOVE)/$(BUSYBOX_DIR)
 	$(TOUCH)
 
 busybox-config: bootstrap $(ARCHIVE)/$(BUSYBOX_SOURCE)

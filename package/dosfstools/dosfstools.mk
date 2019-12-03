@@ -12,7 +12,7 @@ $(ARCHIVE)/$(DOSFSTOOLS_SOURCE):
 DOSFSTOOLS_PATCH  = \
 	switch-to-AC_CHECK_LIB-for-iconv-library-linking.patch
 
-DOSFSTOOLS_CFLAGS = $(TARGET_CFLAGS) -D_GNU_SOURCE -fomit-frame-pointer -D_FILE_OFFSET_BITS=64
+DOSFSTOOLS_CFLAGS = $(TARGET_CFLAGS) -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -fomit-frame-pointer
 
 $(D)/dosfstools: bootstrap libiconv $(ARCHIVE)/$(DOSFSTOOLS_SOURCE)
 	$(START_BUILD)
