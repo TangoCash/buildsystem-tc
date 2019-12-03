@@ -1,7 +1,7 @@
 #
 # alsa-lib
 #
-ALSA_LIB_VER    = 1.2.1
+ALSA_LIB_VER    = 1.2.1.2
 ALSA_LIB_DIR    = alsa-lib-$(ALSA_LIB_VER)
 ALSA_LIB_SOURCE = alsa-lib-$(ALSA_LIB_VER).tar.bz2
 ALSA_LIB_URL    = https://www.alsa-project.org/files/pub/lib
