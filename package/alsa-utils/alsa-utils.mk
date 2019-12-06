@@ -38,7 +38,7 @@ $(D)/alsa-utils: bootstrap ncurses alsa-lib $(ARCHIVE)/$(ALSA_UTILS_SOURCE)
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/asound.conf $(TARGET_DIR)/etc/asound.conf
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/alsa-state.init $(TARGET_DIR)/etc/init.d/alsa-state
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) alsa-state start 39 S . stop 31 0 6 .
+	$(UPDATE-RC.D) alsa-state start 39 S . stop 31 0 6 .
 	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,aserver)
 	rm -f $(addprefix $(TARGET_DIR)/usr/sbin/,alsa-info.sh)
 	$(REMOVE)/$(ALSA_UTILS_DIR)

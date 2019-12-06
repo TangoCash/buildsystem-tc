@@ -66,36 +66,36 @@ endif
 	#
 	# Create runlevel links
 	#
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) banner.sh start 02 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) sysfs.sh start 02 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) mountall.sh start 03 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) mdev start 04 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) modutils.sh start 04 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) alignment.sh start 06 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) checkroot.sh start 06 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) devpts.sh start 06 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) modload.sh start 05 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) hostname.sh start 39 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) bootmisc.sh start 55 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) sendsigs start 20 0 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) mountnfs.sh start 15 2 3 4 5 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) umountnfs.sh start 31 0 1 6 . stop 31 0 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) umountfs start 40 0 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) halt start 90 0 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) reboot start 90 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) networking start 10 2 3 4 5 . stop 80 0 1 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) rc.local start 99 2 3 4 5 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) camd start 50 2 3 4 5 . stop 50 0 1 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) read-only-rootfs-hook.sh start 29 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) populate-volatile.sh start 37 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) volatile-media.sh start 02 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) urandom start 38 S 0 6 .
+	$(UPDATE-RC.D) banner.sh start 02 S .
+	$(UPDATE-RC.D) sysfs.sh start 02 S .
+	$(UPDATE-RC.D) mountall.sh start 03 S .
+	$(UPDATE-RC.D) mdev start 04 S .
+	$(UPDATE-RC.D) modutils.sh start 05 S .
+	$(UPDATE-RC.D) alignment.sh start 06 S .
+	$(UPDATE-RC.D) checkroot.sh start 06 S .
+	$(UPDATE-RC.D) devpts.sh start 06 S .
+	$(UPDATE-RC.D) modload.sh start 06 S .
+	$(UPDATE-RC.D) hostname.sh start 39 S .
+	$(UPDATE-RC.D) bootmisc.sh start 55 S .
+	$(UPDATE-RC.D) sendsigs start 20 0 6 .
+	$(UPDATE-RC.D) mountnfs.sh start 15 2 3 4 5 .
+	$(UPDATE-RC.D) umountnfs.sh start 31 0 1 6 . stop 31 0 6 .
+	$(UPDATE-RC.D) umountfs start 40 0 6 .
+	$(UPDATE-RC.D) halt start 90 0 .
+	$(UPDATE-RC.D) reboot start 90 6 .
+	$(UPDATE-RC.D) networking start 01 2 3 4 5 . stop 80 0 1 6 .
+	$(UPDATE-RC.D) rc.local start 99 2 3 4 5 .
+	$(UPDATE-RC.D) camd start 50 2 3 4 5 . stop 50 0 1 6 .
+	$(UPDATE-RC.D) read-only-rootfs-hook.sh start 29 S .
+	$(UPDATE-RC.D) populate-volatile.sh start 37 S .
+	$(UPDATE-RC.D) volatile-media.sh start 02 S .
+	$(UPDATE-RC.D) urandom start 38 S 0 6 .
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 hd60 hd61 osmio4k osmio4kplus h7))
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) resizerootfs start 7 S .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) partitions-by-name start 04 S .
+	$(UPDATE-RC.D) resizerootfs start 7 S .
+	$(UPDATE-RC.D) partitions-by-name start 04 S .
 endif
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), bre2ze4k hd51 h7))
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) createswap start 98 3 .
+	$(UPDATE-RC.D) createswap start 98 3 .
 endif
 	#
 	#

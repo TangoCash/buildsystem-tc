@@ -34,8 +34,8 @@ $(D)/sysvinit: bootstrap $(ARCHIVE)/$(SYSVINIT_SOURCE)
 #	$(INSTALL_EXEC) $(PKG_FILES_DIR)/bootlogd.init $(TARGET_DIR)/etc/init.d/bootlogd
 #	$(INSTALL_DATA) $(PKG_FILES_DIR)/volatiles.01_bootlogd $(TARGET_DIR)/etc/default/volatiles/01_bootlogd
 #	ln -sf bootlogd $(TARGET_DIR)/etc/init.d/stop-bootlogd
-#	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) bootlogd start 07 S .
-#	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) stop-bootlogd start 99 2 3 4 5 .
+#	$(UPDATE-RC.D) bootlogd start 07 S .
+#	$(UPDATE-RC.D) stop-bootlogd start 99 2 3 4 5 .
 	rm -f $(addprefix $(TARGET_DIR)/sbin/,fstab-decode runlevel telinit)
 	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,lastb)
 	$(REMOVE)/$(SYSVINIT_DIR)

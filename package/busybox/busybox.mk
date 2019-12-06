@@ -48,11 +48,11 @@ $(D)/busybox: bootstrap $(ARCHIVE)/$(BUSYBOX_SOURCE)
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/55ntp $(TARGET_DIR)/etc/udhcpc.d/55ntp
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/50default $(TARGET_DIR)/etc/udhcpc.d/50default
 	$(INSTALL_EXEC) -D $(PKG_FILES_DIR)/default.script $(TARGET_SHARE_DIR)/udhcpc/default.script
-#	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) inetd.busybox start 20 2 3 4 5 . stop 20 0 1 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) telnetd.busybox start 20 2 3 4 5 . stop 20 0 1 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) syslog.busybox start 20 2 3 4 5 . stop 20 0 1 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) cron.busybox start 90 2 3 4 5 . stop 60 0 1 6 .
-#	$(REMOVE)/$(BUSYBOX_DIR)
+#	$(UPDATE-RC.D) inetd.busybox start 20 2 3 4 5 . stop 20 0 1 6 .
+	$(UPDATE-RC.D) telnetd.busybox start 20 2 3 4 5 . stop 20 0 1 6 .
+	$(UPDATE-RC.D) syslog.busybox start 20 2 3 4 5 . stop 20 0 1 6 .
+	$(UPDATE-RC.D) cron.busybox start 90 2 3 4 5 . stop 60 0 1 6 .
+	$(REMOVE)/$(BUSYBOX_DIR)
 	$(TOUCH)
 
 busybox-config: bootstrap $(ARCHIVE)/$(BUSYBOX_SOURCE)

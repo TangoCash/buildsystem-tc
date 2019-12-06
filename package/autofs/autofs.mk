@@ -59,7 +59,7 @@ $(D)/autofs: bootstrap libnsl e2fsprogs openssl libxml2 $(ARCHIVE)/$(AUTOFS_SOUR
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/autofs $(TARGET_DIR)/etc/default/autofs
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/autofs.init $(TARGET_DIR)/etc/init.d/autofs
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/volatiles.99_autofs $(TARGET_DIR)/etc/default/volatiles/99_autofs
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) autofs defaults 17
+	$(UPDATE-RC.D) autofs defaults 17
 	rm -f $(addprefix $(TARGET_DIR)/etc/,autofs_ldap_auth.conf)
 	$(REMOVE)/$(AUTOFS_DIR)
 	$(TOUCH)

@@ -32,6 +32,6 @@ $(D)/rpcbind: bootstrap libtirpc $(ARCHIVE)/$(RPCBIND_SOURCE)
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/rpc $(TARGET_DIR)/etc/rpc
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/rpcbind.conf $(TARGET_DIR)/etc/rpcbind.conf
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/rpcbind.init $(TARGET_DIR)/etc/init.d/rpcbind
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) rpcbind start 12 2 3 4 5 . stop 60 0 1 6 .
+	$(UPDATE-RC.D) rpcbind start 12 2 3 4 5 . stop 60 0 1 6 .
 	$(REMOVE)/$(RPCBIND_DIR)
 	$(TOUCH)

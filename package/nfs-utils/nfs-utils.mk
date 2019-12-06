@@ -51,8 +51,8 @@ $(D)/nfs-utils: bootstrap rpcbind e2fsprogs $(ARCHIVE)/$(NFS_UTILS_SOURCE)
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/idmapd.conf $(TARGET_DIR)/etc/idmapd.conf
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/nfscommon.init $(TARGET_DIR)/etc/init.d/nfscommon
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/nfsserver.init $(TARGET_DIR)/etc/init.d/nfsserver
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) nfsserver defaults 13
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) nfscommon defaults 19 11
+	$(UPDATE-RC.D) nfsserver defaults 13
+	$(UPDATE-RC.D) nfscommon defaults 19 11
 	chmod 0755 $(TARGET_DIR)/sbin/mount.nfs
 	rm -f $(addprefix $(TARGET_DIR)/sbin/,mount.nfs4 umount.nfs umount.nfs4)
 	rm -f $(addprefix $(TARGET_DIR)/usr/sbin/,mountstats nfsiostat)

@@ -27,6 +27,6 @@ $(D)/xupnpd: bootstrap lua openssl neutrino-plugins
 	$(INSTALL_DATA) $(ARCHIVE)/$(NEUTRINO_PLUGINS_DIR)/scripts-lua/xupnpd/xupnpd_youtube.lua ${TARGET_DIR}/usr/share/xupnpd/plugins/
 	: $(INSTALL_DATA) $(ARCHIVE)/$(NEUTRINO_PLUGINS_DIR)/scripts-lua/xupnpd/xupnpd_coolstream.lua ${TARGET_DIR}/usr/share/xupnpd/plugins/
 	$(INSTALL_DATA) $(ARCHIVE)/$(NEUTRINO_PLUGINS_DIR)/scripts-lua/xupnpd/xupnpd_cczwei.lua ${TARGET_DIR}/usr/share/xupnpd/plugins/
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) xupnpd defaults 50
+	$(UPDATE-RC.D) xupnpd defaults 50
 	$(REMOVE)/$(XUPNPD_DIR)
 	$(TOUCH)

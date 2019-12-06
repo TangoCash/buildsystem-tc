@@ -29,6 +29,6 @@ $(D)/portmap: bootstrap lsb $(ARCHIVE)/$(PORTMAP_SOURCE) $(ARCHIVE)/portmap_$(PO
 		$(INSTALL_EXEC) pmap_dump $(TARGET_DIR)/sbin; \
 		$(INSTALL_EXEC) pmap_set $(TARGET_DIR)/sbin; \
 		$(INSTALL_EXEC) debian/init.d $(TARGET_DIR)/etc/init.d/portmap
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) portmap start 12 2 3 4 5 . stop 60 0 1 6 .
+	$(UPDATE-RC.D) portmap start 12 2 3 4 5 . stop 60 0 1 6 .
 	$(REMOVE)/$(PORTMAP_DIR)
 	$(TOUCH)
