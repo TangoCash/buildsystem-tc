@@ -112,7 +112,7 @@ LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-ni)
-GIT_URL           ?= $(GITHUB)/neutrino-images
+GIT_URL           ?= https://github.com/neutrino-images
 NEUTRINO           = ni-neutrino
 LIBSTB_HAL         = ni-libstb-hal
 NEUTRINO_BRANCH   ?= master
@@ -120,7 +120,7 @@ LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     = neutrino/neutrino-ni.patch
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-tangos)
-GIT_URL           ?= $(GITHUB)/TangoCash
+GIT_URL           ?= https://github.com/TangoCash
 NEUTRINO           = neutrino-mp-tangos
 LIBSTB_HAL         = libstb-hal-tangos
 NEUTRINO_BRANCH   ?= master
@@ -128,7 +128,7 @@ LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-ddt)
-GIT_URL           ?= $(GITHUB)/Duckbox-Developers
+GIT_URL           ?= https://github.com/Duckbox-Developers
 NEUTRINO           = neutrino-mp-ddt
 LIBSTB_HAL         = libstb-hal-ddt
 NEUTRINO_BRANCH   ?= master
@@ -181,7 +181,8 @@ LIBSTB_HAL_DEPS += ffmpeg
 LIBSTB_HAL_DEPS += openthreads
 
 LIBSTB_HAL_VER    = git
-LIBSTB_HAL_SOURCE = $(LIBSTB_HAL).$(LIBSTB_HAL_VER)
+LIBSTB_HAL_DIR    = $(LIBSTB_HAL).$(LIBSTB_HAL_VER)
+LIBSTB_HAL_SOURCE = $(LIBSTB_HAL_DIR)
 
 $(D)/libstb-hal.do_prepare: | $(LIBSTB_HAL_DEPS)
 	$(START_BUILD)
@@ -250,7 +251,8 @@ libstb-hal-uninstall:
 # -----------------------------------------------------------------------------
 
 NEUTRINO_VER    = git
-NEUTRINO_SOURCE = $(NEUTRINO).$(NEUTRINO_VER)
+NEUTRINO_DIR    = $(NEUTRINO).$(NEUTRINO_VER)
+NEUTRINO_SOURCE = $(NEUTRINO_DIR)
 
 $(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) libstb-hal
 	$(START_BUILD)
@@ -282,7 +284,6 @@ $(D)/neutrino.config.status:
 			--enable-fribidi \
 			--enable-giflib \
 			--enable-lua \
-			--enable-mdev \
 			--enable-pugixml \
 			--enable-reschange \
 			$(N_CONFIG_OPTS) \

@@ -12,6 +12,31 @@ HAL_REV=$(shell cd $(SOURCE_DIR)/$(LIBSTB_HAL); git log | grep "^commit" | wc -l
 
 # -----------------------------------------------------------------------------
 
+GITSSH = 1
+ifeq ($(GITSSH), 1)
+MAX-GIT-GITHUB         = git@github.com:MaxWiesel
+URL_1                  = https://github.com/MaxWiesel
+URL_2                  = $(MAX-GIT-GITHUB)
+else
+MAX-GIT-GITHUB         = https://github.com/MaxWiesel
+URL_1                  = git@github.com:MaxWiesel
+URL_2                  = $(MAX-GIT-GITHUB)
+endif
+
+REPOSITORIES = \
+	. \
+	$(ARCHIVE)/libstb-hal-max.git \
+	$(ARCHIVE)/neutrino-mp-max.git \
+	$(ARCHIVE)/neutrino-plugins.git \
+	$(ARCHIVE)/ofgwrite-nmp.git
+
+switch-url:
+	for repo in $(REPOSITORIES); do \
+		sed -i -e 's|url = $(URL_1)|url = $(URL_2)|' $$repo/.git/config; \
+	done
+
+# -----------------------------------------------------------------------------
+
 # apply patch sets
 define apply_patches
 	l=$(strip $(2)); test -z $$l && l=1; \

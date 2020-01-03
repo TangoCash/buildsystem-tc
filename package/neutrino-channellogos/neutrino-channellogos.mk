@@ -4,7 +4,7 @@
 NEUTRINO_CHANNELLOGOS_VER    = git
 NEUTRINO_CHANNELLOGOS_DIR    = ni-logo-stuff.$(NEUTRINO_CHANNELLOGOS_VER)
 NEUTRINO_CHANNELLOGOS_SOURCE = $(NEUTRINO_CHANNELLOGOS_DIR)
-NEUTRINO_CHANNELLOGOS_URL    = $(GITHUB)/neutrino-images/ni-logo-stuff.git
+NEUTRINO_CHANNELLOGOS_URL    = https://github.com/neutrino-images/ni-logo-stuff.git
 
 $(D)/neutrino-channellogos: bootstrap | $(SHARE_ICONS) $(SHARE_PLUGINS)
 	$(START_BUILD)

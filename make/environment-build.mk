@@ -71,16 +71,6 @@ export CCACHE_DIR
 
 # -----------------------------------------------------------------------------
 
-GITHUB                 = https://github.com
-GITHUB_SSH             = git@github.com
-BITBUCKET              = https://bitbucket.org
-BITBUCKET_SSH          = git@bitbucket.org
-
-MAX-GIT-GITHUB         = $(GITHUB)/MaxWiesel
-MAX-GIT-BITBUCKET      = $(BITBUCKET)/max_10
-
-# -----------------------------------------------------------------------------
-
 ifeq ($(BOXARCH), arm)
 TARGET                ?= arm-cortex-linux-gnueabihf
 BOXARCH               ?= arm

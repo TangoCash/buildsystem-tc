@@ -4,7 +4,7 @@
 STREAMRIPPER_VER    = git
 STREAMRIPPER_DIR    = ni-streamripper.$(STREAMRIPPER_VER)
 STREAMRIPPER_SOURCE = $(STREAMRIPPER_DIR)
-STREAMRIPPER_URL    = $(GITHUB)/neutrino-images/$(STREAMRIPPER_SOURCE)
+STREAMRIPPER_URL    = https://github.com/neutrino-images/$(STREAMRIPPER_SOURCE)
 
 $(D)/streamripper: bootstrap libvorbisidec libmad glib2
 	$(START_BUILD)
