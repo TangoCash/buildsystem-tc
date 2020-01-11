@@ -50,9 +50,11 @@ VUPLUS_PATCH_3_9 = \
 	vuplus/3_9_fix_fuse_for_linux_mips_3-9.patch \
 	vuplus/3_9_genksyms_fix_typeof_handling.patch \
 	vuplus/3_9_it913x-switch-off-PID-filter-by-default.patch \
-	vuplus/3_9_kernel-add-support-for-gcc-5.patch \
+	vuplus/3_9_kernel-add-support-for-gcc5.patch \
 	vuplus/3_9_kernel-add-support-for-gcc6.patch \
 	vuplus/3_9_kernel-add-support-for-gcc7.patch \
+	vuplus/3_9_kernel-add-support-for-gcc8.patch \
+	vuplus/3_9_kernel-add-support-for-gcc9.patch \
 	vuplus/3_9_linux-3.9-gcc-4.9.3-build-error-fixed.patch \
 	vuplus/3_9_linux-sata_bcm.patch \
 	vuplus/3_9_mxl5007t-add-no_probe-and-no_reset-parameters.patch \
@@ -75,6 +77,7 @@ VUPLUS_PATCH_3_14 = \
 	vuplus/3_14_kernel-add-support-for-gcc6.patch \
 	vuplus/3_14_kernel-add-support-for-gcc7.patch \
 	vuplus/3_14_kernel-add-support-for-gcc8.patch \
+	vuplus/3_14_kernel-add-support-for-gcc9.patch \
 	vuplus/3_14_0001-Support-TBS-USB-drivers.patch \
 	vuplus/3_14_0001-STV-Add-PLS-support.patch \
 	vuplus/3_14_0001-STV-Add-SNR-Signal-report-parameters.patch \
@@ -122,6 +125,7 @@ VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_kernel-add-support-for-gcc6.patch \
 	vuplus/4_1_kernel-add-support-for-gcc7.patch \
 	vuplus/4_1_kernel-add-support-for-gcc8.patch \
+	vuplus/4_1_kernel-add-support-for-gcc9.patch \
 	vuplus/4_1_0001-Support-TBS-USB-drivers-for-4.1-kernel.patch \
 	vuplus/4_1_0001-TBS-fixes-for-4.1-kernel.patch \
 	vuplus/4_1_0001-STV-Add-PLS-support.patch \
@@ -135,12 +139,12 @@ VUPLUS_PATCH_4_1 = \
 AIRDIGITAL_PATCH_4_10 = \
 	$(GFUTURES_PATCH_4_10)
 
-
 BRE2ZE4K_PATCH = \
 	$(GFUTURES_PATCH_4_10)
 
 HD51_PATCH = \
-	$(GFUTURES_PATCH_4_10)
+	$(GFUTURES_PATCH_4_10) \
+	gfutures/4_10_dvbs2x.patch
 
 HD60_PATCH = \
 	$(GFUTURES_PATCH_4_4)
