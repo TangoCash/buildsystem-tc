@@ -120,3 +120,20 @@ crosstool-ng-config: directories
 		MAKELEVEL=0 make; \
 		chmod 0755 ct-ng; \
 		./ct-ng menuconfig
+
+# -----------------------------------------------------------------------------
+
+crosstool-upgradeconfig:
+	make MAKEFLAGS=--no-print-directory crosstool-ng-upgradeconfig
+
+crosstool-ng-upgradeconfig: directories
+	$(REMOVE)/$(CROSSTOOL_NG_DIR)
+	$(GET-GIT-SOURCE) $(CROSSTOOL_NG_URL) $(CROSSTOOL_NG_ARCHIVE)/$(CROSSTOOL_NG_SOURCE)
+	$(CPDIR)/archive-crosstool-ng/$(CROSSTOOL_NG_DIR)
+	unset CONFIG_SITE; \
+	$(CHDIR)/$(CROSSTOOL_NG_DIR); \
+		$(INSTALL_DATA) $(subst -upgradeconfig,,$(PKG_FILES_DIR))/$(CROSSTOOL_NG_CONFIG).config .config; \
+		test -f ./configure || ./bootstrap && \
+		./configure --enable-local; \
+		MAKELEVEL=0 make; \
+		./ct-ng upgradeconfig
