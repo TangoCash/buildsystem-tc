@@ -10,8 +10,8 @@ $(ARCHIVE)/$(PARTED_SOURCE):
 	$(DOWNLOAD) $(PARTED_URL)/$(PARTED_SOURCE)
 
 PARTED_PATCH  = \
-	iconv.patch \
-	fix-compile-in-old-ubuntu.patch
+	fix-end_input-usage-in-do_resizepart.patch \
+	iconv.patch
 
 $(D)/parted: bootstrap e2fsprogs libiconv $(ARCHIVE)/$(PARTED_SOURCE)
 	$(START_BUILD)
@@ -28,7 +28,6 @@ $(D)/parted: bootstrap e2fsprogs libiconv $(ARCHIVE)/$(PARTED_SOURCE)
 			--without-readline \
 			--enable-shared \
 			--disable-static \
-			--disable-dynamic-loading \
 			--disable-debug \
 			--disable-device-mapper \
 			--disable-nls \
