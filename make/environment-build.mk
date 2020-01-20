@@ -36,7 +36,7 @@ RELEASE_IMAGE_DIR      = $(BASE_DIR)/release_image
 HELPERS_DIR            = $(BASE_DIR)/helpers
 OWN_FILES             ?= $(BASE_DIR)/own-files
 CROSS_BASE             = $(BASE_DIR)/cross
-CROSS_DIR              = $(CROSS_BASE)/$(CROSSTOOL_GCC_VER)-$(BOXARCH)-kernel-$(KERNEL_VER)
+CROSS_DIR              = $(CROSS_BASE)/$(BOXARCH)-$(CROSSTOOL_GCC_VER)-kernel-$(KERNEL_VER)
 
 BUILD                 ?= $(shell /usr/share/libtool/config.guess 2>/dev/null || /usr/share/libtool/config/config.guess 2>/dev/null || /usr/share/misc/config.guess 2>/dev/null)
 
@@ -112,12 +112,16 @@ ifeq ($(BS_GCC_VER), 6.5.0)
 CROSSTOOL_GCC_VER = gcc-6.5.0
 endif
 
-ifeq ($(BS_GCC_VER), 7.4.1)
-CROSSTOOL_GCC_VER = gcc-7.4.1
+ifeq ($(BS_GCC_VER), 7.5.0)
+CROSSTOOL_GCC_VER = gcc-7.5.0
 endif
 
-ifeq ($(BS_GCC_VER), 8.2.0)
-CROSSTOOL_GCC_VER = gcc-8.2.0
+ifeq ($(BS_GCC_VER), 8.3.0)
+CROSSTOOL_GCC_VER = gcc-8.3.0
+endif
+
+ifeq ($(BS_GCC_VER), 9.2.0)
+CROSSTOOL_GCC_VER = gcc-9.2.0
 endif
 
 TARGET_LIB_DIR         = $(TARGET_DIR)/usr/lib
