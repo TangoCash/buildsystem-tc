@@ -10,6 +10,8 @@ $(ARCHIVE)/$(ALSA_LIB_SOURCE):
 	$(DOWNLOAD) $(ALSA_LIB_URL)/$(ALSA_LIB_SOURCE)
 
 ALSA_LIB_PATCH  = \
+	0001-Don-t-use-fork-on-noMMU-platforms.patch \
+	0002-src-ucm-main.c-fix-build-without-mixer.patch \
 	alsa-lib.patch \
 	alsa-lib-link_fix.patch
 
@@ -19,6 +21,7 @@ $(D)/alsa-lib: bootstrap $(ARCHIVE)/$(ALSA_LIB_SOURCE)
 	$(UNTAR)/$(ALSA_LIB_SOURCE)
 	$(CHDIR)/$(ALSA_LIB_DIR); \
 		$(call apply_patches, $(ALSA_LIB_PATCH)); \
+		autoreconf -fi $(SILENT_OPT); \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--with-alsa-devdir=/dev/snd/ \
