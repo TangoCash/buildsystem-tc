@@ -1,7 +1,7 @@
 #
 # glib2
 #
-GLIB2_VER    = 2.55.0
+GLIB2_VER    = 2.56.3
 GLIB2_DIR    = glib-$(GLIB2_VER)
 GLIB2_SOURCE = glib-$(GLIB2_VER).tar.xz
 GLIB2_URL    = https://ftp.gnome.org/pub/gnome/sources/glib/$(basename $(GLIB2_VER))
@@ -11,7 +11,8 @@ $(ARCHIVE)/$(GLIB2_SOURCE):
 
 GLIB2_PATCH  = \
 	glib2-disable-tests.patch \
-	glib2-automake.patch
+	glib2-automake.patch \
+	gdbus-Avoid-printing-null-strings.patch
 
 $(D)/glib2: bootstrap host-glib2 libffi util-linux zlib libiconv $(ARCHIVE)/$(GLIB2_SOURCE)
 	$(START_BUILD)
