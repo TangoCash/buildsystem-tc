@@ -49,12 +49,15 @@ VUPLUS_PATCH_3_9 = \
 	vuplus/3_9_fix-dvb-siano-sms-order.patch \
 	vuplus/3_9_fix_fuse_for_linux_mips_3-9.patch \
 	vuplus/3_9_genksyms_fix_typeof_handling.patch \
+	vuplus/3_9_0002-log2-give-up-on-gcc-constant-optimizations.patch \
+	vuplus/3_9_0003-cp1emu-do-not-use-bools-for-arithmetic.patch \
 	vuplus/3_9_it913x-switch-off-PID-filter-by-default.patch \
 	vuplus/3_9_kernel-add-support-for-gcc5.patch \
 	vuplus/3_9_kernel-add-support-for-gcc6.patch \
 	vuplus/3_9_kernel-add-support-for-gcc7.patch \
 	vuplus/3_9_kernel-add-support-for-gcc8.patch \
 	vuplus/3_9_kernel-add-support-for-gcc9.patch \
+	vuplus/3_9_gcc9_backport.patch \
 	vuplus/3_9_linux-3.9-gcc-4.9.3-build-error-fixed.patch \
 	vuplus/3_9_linux-sata_bcm.patch \
 	vuplus/3_9_mxl5007t-add-no_probe-and-no_reset-parameters.patch \
