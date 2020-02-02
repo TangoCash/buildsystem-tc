@@ -1,7 +1,7 @@
 #
 # crosstool-ng
 #
-CROSSTOOL_NG_VER     = 7bd6bb00
+CROSSTOOL_NG_VER     = a152d613
 CROSSTOOL_NG_DIR     = crosstool-ng.git
 CROSSTOOL_NG_SOURCE  = $(CROSSTOOL_NG_DIR)
 CROSSTOOL_NG_URL     = https://github.com/crosstool-ng/crosstool-ng
@@ -27,9 +27,9 @@ crosstool-ng: directories kernel.do_prepare $(CROSSTOOL_NG_ARCHIVE) $(ARCHIVE)/$
 	$(REMOVE)/$(CROSSTOOL_NG_DIR)
 	$(GET-GIT-SOURCE) $(CROSSTOOL_NG_URL) $(CROSSTOOL_NG_ARCHIVE)/$(CROSSTOOL_NG_SOURCE)
 	$(CPDIR)/archive-crosstool-ng/$(CROSSTOOL_NG_DIR)
-	($(CHDIR)/$(CROSSTOOL_NG_DIR); git checkout -q $(CROSSTOOL_NG_VER);)
 	unset CONFIG_SITE LIBRARY_PATH CPATH C_INCLUDE_PATH PKG_CONFIG_PATH CPLUS_INCLUDE_PATH INCLUDE; \
 	$(CHDIR)/$(CROSSTOOL_NG_DIR); \
+		git checkout -q $(CROSSTOOL_NG_VER); \
 		$(INSTALL_DATA) $(PKG_FILES_DIR)/$(CROSSTOOL_NG_CONFIG).config .config; \
 		NUM_CPUS=$$(expr `getconf _NPROCESSORS_ONLN` \* 2); \
 		MEM_512M=$$(awk '/MemTotal/ {M=int($$2/1024/512); print M==0?1:M}' /proc/meminfo); \
@@ -62,6 +62,7 @@ crosstool-ng-config: directories
 	$(CPDIR)/archive-crosstool-ng/$(CROSSTOOL_NG_DIR)
 	unset CONFIG_SITE; \
 	$(CHDIR)/$(CROSSTOOL_NG_DIR); \
+		git checkout -q $(CROSSTOOL_NG_VER); \
 		$(INSTALL_DATA) $(subst -config,,$(PKG_FILES_DIR))/$(CROSSTOOL_NG_CONFIG).config .config; \
 		test -f ./configure || ./bootstrap && \
 		./configure --enable-local; \
@@ -80,6 +81,7 @@ crosstool-ng-upgradeconfig: directories
 	$(CPDIR)/archive-crosstool-ng/$(CROSSTOOL_NG_DIR)
 	unset CONFIG_SITE; \
 	$(CHDIR)/$(CROSSTOOL_NG_DIR); \
+		git checkout -q $(CROSSTOOL_NG_VER); \
 		$(INSTALL_DATA) $(subst -upgradeconfig,,$(PKG_FILES_DIR))/$(CROSSTOOL_NG_CONFIG).config .config; \
 		test -f ./configure || ./bootstrap && \
 		./configure --enable-local; \
