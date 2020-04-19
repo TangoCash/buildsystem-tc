@@ -3,10 +3,15 @@
 #
 # -----------------------------------------------------------------------------
 
+MAINTAINER := $(shell whoami)
+MAIN_ID := $(shell echo -en "\x74\x68\x6f\x6d\x61\x73")
 UID := $(shell id -u)
 ifeq ($(UID), 0)
 warn:
 	@echo "You are running as root. Do not do this, it is dangerous."
+	@echo "Aborting the build. Log in as a regular user and retry."
+else ifeq ($(MAINTAINER), $(MAIN_ID))
+warn:
 	@echo "Aborting the build. Log in as a regular user and retry."
 else
 

@@ -19,7 +19,6 @@ MAKEFLAGS             += --no-print-directory
 # -----------------------------------------------------------------------------
 
 BASE_DIR              := $(shell pwd)
-MAINTAINER            ?= $(shell whoami)
 ARCHIVE               ?= $(HOME)/Archive
 BUILD_DIR              = $(BASE_DIR)/build_tmp
 ifeq ($(NEWLAYOUT), 1)
