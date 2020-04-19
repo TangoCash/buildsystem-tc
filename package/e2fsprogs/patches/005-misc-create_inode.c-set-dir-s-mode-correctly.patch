@@ -20,10 +20,10 @@ diff --git a/misc/create_inode.c b/misc/create_inode.c
 index 8ce3faf..50fbaa8 100644
 --- a/misc/create_inode.c
 +++ b/misc/create_inode.c
-@@ -122,7 +122,14 @@ static errcode_t set_inode_extra(ext2_filsys fs, ext2_ino_t ino,
- 
- 	inode.i_uid = st->st_uid;
+@@ -124,7 +124,14 @@
+ 	ext2fs_set_i_uid_high(inode, st->st_uid >> 16);
  	inode.i_gid = st->st_gid;
+ 	ext2fs_set_i_gid_high(inode, st->st_gid >> 16);
 -	inode.i_mode |= st->st_mode;
 +	/*
 +	 * The dir's mode has been set by ext2fs_mkdir() with umask, so
