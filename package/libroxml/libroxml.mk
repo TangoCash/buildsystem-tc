@@ -1,10 +1,10 @@
 #
 # libroxml
 #
-LIBROXML_VER    = 2.3.0
+LIBROXML_VER    = 3.0.2
 LIBROXML_DIR    = libroxml-$(LIBROXML_VER)
 LIBROXML_SOURCE = libroxml-$(LIBROXML_VER).tar.gz
-LIBROXML_URL    = http://download.libroxml.net/pool/v2.x
+LIBROXML_URL    = http://download.libroxml.net/pool/v3.x
 
 $(ARCHIVE)/$(LIBROXML_SOURCE):
 	$(DOWNLOAD) $(LIBROXML_URL)/$(LIBROXML_SOURCE)
