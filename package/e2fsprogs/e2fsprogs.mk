@@ -1,7 +1,7 @@
 #
 # e2fsprogs
 #
-E2FSPROGS_VER    = 1.45.5
+E2FSPROGS_VER    = 1.45.6
 E2FSPROGS_DIR    = e2fsprogs-$(E2FSPROGS_VER)
 E2FSPROGS_SOURCE = e2fsprogs-$(E2FSPROGS_VER).tar.gz
 E2FSPROGS_URL    = https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v$(E2FSPROGS_VER)
@@ -15,7 +15,6 @@ E2FSPROGS_PATCH  = \
 	002-dont-build-e4defrag.patch \
 	003-overridable-pc-exec-prefix.patch \
 	004-Revert-mke2fs-enable-the-metadata_csum-and-64bit-fea.patch \
-	005-misc-create_inode.c-set-dir-s-mode-correctly.patch \
 	006-mkdir_p.patch \
 	007-no-crond.patch
 
