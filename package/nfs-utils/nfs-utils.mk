@@ -1,7 +1,7 @@
 #
 # nfs-utils
 #
-NFS_UTILS_VER    = 2.4.2
+NFS_UTILS_VER    = 2.4.3
 NFS_UTILS_DIR    = nfs-utils-$(NFS_UTILS_VER)
 NFS_UTILS_SOURCE = nfs-utils-$(NFS_UTILS_VER).tar.bz2
 NFS_UTILS_URL    = https://sourceforge.net/projects/nfs/files/nfs-utils/$(NFS_UTILS_VER)
@@ -10,12 +10,7 @@ $(ARCHIVE)/$(NFS_UTILS_SOURCE):
 	$(DOWNLOAD) $(NFS_UTILS_URL)/$(NFS_UTILS_SOURCE)
 
 NFS_UTILS_PATCH  = \
-	nfs-utils-debianize-start-statd.patch \
-	bugfix-adjust-statd-service-name.patch \
-	cacheio-use-intmax_t-for-formatted-IO.patch \
-	Makefile.am-fix-undefined-function-for-libnsm.a.patch \
-	Don-t-build-tools-with-CC_FOR_BUILD.patch \
-	clang-warnings.patch \
+	0001-nfs-utils-print-time-in-64-bit.patch \
 	disabled-ip6-support.patch
 
 NFS-UTILS_CONF = $(if $(filter $(BOXMODEL), vuduo), --disable-ipv6, --enable-ipv6)
