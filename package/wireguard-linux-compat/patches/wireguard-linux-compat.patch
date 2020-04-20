@@ -1,0 +1,10 @@
+--- a/Makefile
++++ b/Makefile
+@@ -32,7 +32,6 @@
+ 
+ module-install:
+ 	@$(MAKE) -C $(KERNELDIR) M=$(PWD) WIREGUARD_VERSION="$(WIREGUARD_VERSION)" modules_install
+-	$(DEPMOD) -a $(KERNELRELEASE)
+ 
+ install: module-install
+ 
