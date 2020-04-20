@@ -18,8 +18,7 @@ $(D)/wireguard-linux-compat: bootstrap kernel libmnl $(ARCHIVE)/$(WIREGUARD_LINU
 	$(UNTAR)/$(WIREGUARD_LINUX_COMPAT_SOURCE)
 	$(CHDIR)/$(WIREGUARD_LINUX_COMPAT_DIR)/src; \
 		$(call apply_patches, $(WIREGUARD_LINUX_COMPAT_PATCH)); \
-		$(BUILD_ENV) \
-		$(MAKE) all     $(KERNEL_MAKEVARS); \
+		$(MAKE) all $(KERNEL_MAKEVARS); \
 		$(MAKE) install $(KERNEL_MAKEVARS) INSTALL_MOD_PATH=$(TARGET_DIR)
 	mkdir -p ${TARGET_DIR}/etc/modules-load.d
 	for i in wireguard; do \
