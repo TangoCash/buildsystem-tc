@@ -1,7 +1,7 @@
 #
 # libgd
 #
-LIBGD_VER    = 2.2.5
+LIBGD_VER    = 2.3.0
 LIBGD_DIR    = libgd-$(LIBGD_VER)
 LIBGD_SOURCE = libgd-$(LIBGD_VER).tar.xz
 LIBGD_URL    = https://github.com/libgd/libgd/releases/download/gd-$(LIBGD_VER)
