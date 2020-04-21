@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -72,7 +70,9 @@
+ 	$(CC) -o $@ $^ $(LDFLAGS)
+ 
+ vpnc.8 : vpnc.8.template makeman.pl vpnc
+-	./makeman.pl
++	@echo "Cannot make manual when cross compiling"
++	touch $@
++#	./makeman.pl
+ 
+ vpnc-script : vpnc-script.in
+ 	sed -e 's,@''PREFIX''@,$(PREFIX),g' $< > $@ && chmod 755 $@
