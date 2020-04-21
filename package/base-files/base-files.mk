@@ -56,9 +56,7 @@ endif
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/nsswitch.conf $(TARGET_DIR)/etc/nsswitch.conf
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/passwd $(TARGET_DIR)/etc/passwd
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/profile $(TARGET_DIR)/etc/profile
-	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/protocols $(TARGET_DIR)/etc/protocols
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/etc/rc.local $(TARGET_DIR)/etc/rc.local
-	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/services $(TARGET_DIR)/etc/services
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/shells $(TARGET_DIR)/etc/shells
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/network/interfaces $(TARGET_DIR)/etc/network/interfaces
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/etc/network/options $(TARGET_DIR)/etc/network/options

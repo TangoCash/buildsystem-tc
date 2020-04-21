@@ -55,10 +55,8 @@ $(D)/cross-libs: directories $(CROSSTOOL)
 	$(START_BUILD)
 	if test -e $(CROSS_DIR)/$(TARGET)/sys-root/lib; then \
 		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/lib/*so* $(TARGET_DIR)/lib; \
-		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/etc/* $(TARGET_DIR)/etc; \
 	else \
 		cp -a $(CROSS_DIR)/$(TARGET)/lib/*so* $(TARGET_DIR)/lib; \
-		cp -a $(CROSS_DIR)/$(TARGET)/etc/* $(TARGET_DIR)/etc; \
 	fi; \
 	if [ $(BOXARCH) = "aarch64" ]; then \
 		cd ${TARGET_DIR}; ln -sf lib lib64; \
@@ -87,6 +85,7 @@ SYSTEM_TOOLS += procps-ng
 SYSTEM_TOOLS += kmod
 SYSTEM_TOOLS += sysvinit
 SYSTEM_TOOLS += base-files
+SYSTEM_TOOLS += netbase
 SYSTEM_TOOLS += e2fsprogs
 SYSTEM_TOOLS += dosfstools
 SYSTEM_TOOLS += tzdata
