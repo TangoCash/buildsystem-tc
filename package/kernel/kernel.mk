@@ -49,10 +49,15 @@ VUPLUS_PATCH_3_9 = \
 	vuplus/3_9_fix-dvb-siano-sms-order.patch \
 	vuplus/3_9_fix_fuse_for_linux_mips_3-9.patch \
 	vuplus/3_9_genksyms_fix_typeof_handling.patch \
+	vuplus/3_9_0002-log2-give-up-on-gcc-constant-optimizations.patch \
+	vuplus/3_9_0003-cp1emu-do-not-use-bools-for-arithmetic.patch \
 	vuplus/3_9_it913x-switch-off-PID-filter-by-default.patch \
-	vuplus/3_9_kernel-add-support-for-gcc-5.patch \
+	vuplus/3_9_kernel-add-support-for-gcc5.patch \
 	vuplus/3_9_kernel-add-support-for-gcc6.patch \
 	vuplus/3_9_kernel-add-support-for-gcc7.patch \
+	vuplus/3_9_kernel-add-support-for-gcc8.patch \
+	vuplus/3_9_kernel-add-support-for-gcc9.patch \
+	vuplus/3_9_gcc9_backport.patch \
 	vuplus/3_9_linux-3.9-gcc-4.9.3-build-error-fixed.patch \
 	vuplus/3_9_linux-sata_bcm.patch \
 	vuplus/3_9_mxl5007t-add-no_probe-and-no_reset-parameters.patch \
@@ -75,6 +80,7 @@ VUPLUS_PATCH_3_14 = \
 	vuplus/3_14_kernel-add-support-for-gcc6.patch \
 	vuplus/3_14_kernel-add-support-for-gcc7.patch \
 	vuplus/3_14_kernel-add-support-for-gcc8.patch \
+	vuplus/3_14_kernel-add-support-for-gcc9.patch \
 	vuplus/3_14_0001-Support-TBS-USB-drivers.patch \
 	vuplus/3_14_0001-STV-Add-PLS-support.patch \
 	vuplus/3_14_0001-STV-Add-SNR-Signal-report-parameters.patch \
@@ -122,6 +128,7 @@ VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_kernel-add-support-for-gcc6.patch \
 	vuplus/4_1_kernel-add-support-for-gcc7.patch \
 	vuplus/4_1_kernel-add-support-for-gcc8.patch \
+	vuplus/4_1_kernel-add-support-for-gcc9.patch \
 	vuplus/4_1_0001-Support-TBS-USB-drivers-for-4.1-kernel.patch \
 	vuplus/4_1_0001-TBS-fixes-for-4.1-kernel.patch \
 	vuplus/4_1_0001-STV-Add-PLS-support.patch \
@@ -131,16 +138,16 @@ VUPLUS_PATCH_4_1 = \
 	vuplus/4_1_0002-log2-give-up-on-gcc-constant-optimizations.patch \
 	vuplus/4_1_0003-uaccess-dont-mark-register-as-const.patch
 
-# arm zgemmah7
+# arm zgemma h7
 AIRDIGITAL_PATCH_4_10 = \
 	$(GFUTURES_PATCH_4_10)
-
 
 BRE2ZE4K_PATCH = \
 	$(GFUTURES_PATCH_4_10)
 
 HD51_PATCH = \
-	$(GFUTURES_PATCH_4_10)
+	$(GFUTURES_PATCH_4_10) \
+	gfutures/4_10_dvbs2x.patch
 
 HD60_PATCH = \
 	$(GFUTURES_PATCH_4_4)
@@ -183,7 +190,7 @@ OSMIO4K_PATCH =
 
 OSMIO4KPLUS_PATCH =
 
-ZGEMMAH7_PATCH = \
+H7_PATCH = \
 	$(AIRDIGITAL_PATCH_4_10)
 
 # -----------------------------------------------------------------------------
@@ -202,14 +209,14 @@ $(D)/kernel.do_compile: kernel.do_prepare
 	$(MKDIR)/$(KERNEL_OBJ)
 	$(MKDIR)/$(KERNEL_MODULES)
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/$(KERNEL_CONFIG) $(KERNEL_OBJ_DIR)/.config
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61 zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 hd60 HD61 h7))
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/initramfs-subdirboot.cpio.gz $(KERNEL_OBJ_DIR)
 endif
 	$(CD) $(KERNEL_DIR); \
 		$(MAKE) $(KERNEL_MAKEVARS) oldconfig; \
-		$(MAKE) $(KERNEL_MAKEVARS) modules $(KERNEL_DTB_VER) $(KERNEL_IMAGE_TYPE); \
+		$(MAKE) $(KERNEL_MAKEVARS) modules $(KERNEL_DTB) $(KERNEL_IMAGE_TYPE); \
 		$(MAKE) $(KERNEL_MAKEVARS) modules_install
-ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 zgemmah7))
+ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 h7))
 	cat $(KERNEL_OUTPUT) $(KERNEL_INPUT_DTB) > $(KERNEL_OUTPUT_DTB)
 endif
 	@touch $@

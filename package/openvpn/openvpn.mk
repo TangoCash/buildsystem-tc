@@ -1,7 +1,7 @@
 #
 # openvpn
 #
-OPENVPN_VER    = 2.4.6
+OPENVPN_VER    = 2.4.9
 OPENVPN_DIR    = openvpn-$(OPENVPN_VER)
 OPENVPN_SOURCE = openvpn-$(OPENVPN_VER).tar.xz
 OPENVPN_URL    = http://build.openvpn.net/downloads/releases

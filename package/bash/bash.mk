@@ -16,7 +16,11 @@ BASH_PATCH  = \
 	bash50-004.patch \
 	bash50-005.patch \
 	bash50-006.patch \
-	bash50-007.patch
+	bash50-007.patch \
+	bash50-008.patch \
+	bash50-009.patch \
+	bash50-010.patch \
+	bash50-011.patch
 
 $(D)/bash: bootstrap ncurses $(ARCHIVE)/$(BASH_SOURCE)
 	$(START_BUILD)

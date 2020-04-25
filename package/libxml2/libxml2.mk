@@ -1,7 +1,7 @@
 #
 # libxml2
 #
-LIBXML2_VER    = 2.9.9
+LIBXML2_VER    = 2.9.10
 LIBXML2_DIR    = libxml2-$(LIBXML2_VER)
 LIBXML2_SOURCE = libxml2-$(LIBXML2_VER).tar.gz
 LIBXML2_URL    = http://xmlsoft.org/sources
@@ -11,7 +11,8 @@ $(ARCHIVE)/$(LIBXML2_SOURCE):
 
 LIBXML2_PATCH  = \
 	libxml2.patch \
-	no_docs_examples_tests.patch
+	no_docs_examples_tests.patch \
+	revert-Make-xmlFreeNodeList-non-recursive.patch
 
 $(D)/libxml2: bootstrap zlib $(ARCHIVE)/$(LIBXML2_SOURCE)
 	$(START_BUILD)
@@ -33,7 +34,7 @@ $(D)/libxml2: bootstrap zlib $(ARCHIVE)/$(LIBXML2_SOURCE)
 			--without-docbook \
 			--without-mem-debug \
 			--without-lzma \
-			--with-zlib \
+			--with-zlib=$(TARGET_DIR)/usr \
 			; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR); \

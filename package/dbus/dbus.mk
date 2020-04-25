@@ -21,7 +21,7 @@ $(D)/dbus: bootstrap expat $(ARCHIVE)/$(DBUS_SOURCE)
 			--docdir=/.remove \
 			--sysconfdir=/etc \
 			--localstatedir=/var \
-			--with-console-auth-dir=/run/console/ \
+			--with-console-auth-dir=/var/run/console/ \
 			--without-systemdsystemunitdir \
 			--disable-systemd \
 			--disable-static \

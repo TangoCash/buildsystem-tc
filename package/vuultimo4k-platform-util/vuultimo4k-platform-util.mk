@@ -18,6 +18,6 @@ $(D)/vuultimo4k-platform-util: bootstrap $(ARCHIVE)/$(VUULTIMO4K_PLATFORM_UTIL_S
 	$(REMOVE)/platform-util-vuultimo4k
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/vuplus-platform-util $(TARGET_DIR)/etc/init.d/vuplus-platform-util
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/vuplus-shutdown $(TARGET_DIR)/etc/init.d/vuplus-shutdown
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) vuplus-platform-util start 65 S . stop 90 0 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) vuplus-shutdown start 89 0 .
+	$(UPDATE-RC.D) vuplus-platform-util start 65 S . stop 90 0 .
+	$(UPDATE-RC.D) vuplus-shutdown start 89 0 .
 	$(TOUCH)

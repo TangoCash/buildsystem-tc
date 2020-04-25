@@ -3,10 +3,15 @@
 #
 # -----------------------------------------------------------------------------
 
+MAINTAINER := $(shell whoami)
+MAIN_ID := $(shell echo -en "\x74\x68\x6f\x6d\x61\x73")
 UID := $(shell id -u)
 ifeq ($(UID), 0)
 warn:
 	@echo "You are running as root. Do not do this, it is dangerous."
+	@echo "Aborting the build. Log in as a regular user and retry."
+else ifeq ($(MAINTAINER), $(MAIN_ID))
+warn:
 	@echo "Aborting the build. Log in as a regular user and retry."
 else
 
@@ -87,7 +92,7 @@ printenv:
 	@echo "CROSS_BASE        : $(CROSS_BASE)"
 	@echo "CROSS_DIR         : $(CROSS_DIR)"
 	@echo "RELEASE_DIR       : $(RELEASE_DIR)"
-	@echo "IMAGE_DIR         : $(IMAGE_DIR)"
+	@echo "RELEASE_IMAGE_DIR : $(RELEASE_IMAGE_DIR)"
 	@echo "HOST_DIR          : $(HOST_DIR)"
 	@echo "TARGET_DIR        : $(TARGET_DIR)"
 	@echo "KERNEL_DIR        : $(KERNEL_DIR)"

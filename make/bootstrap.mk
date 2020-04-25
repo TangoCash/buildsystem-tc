@@ -33,9 +33,8 @@ $(D)/directories:
 	mkdir -p $(ARCHIVE)
 	mkdir -p $(BUILD_DIR)
 	mkdir -p $(HOST_DIR)
-	mkdir -p $(IMAGE_DIR)
+	mkdir -p $(RELEASE_IMAGE_DIR)
 	mkdir -p $(SOURCE_DIR)
-	mkdir -p $(IMAGE_DIR)
 	mkdir -p $(HOST_DIR)/{bin,lib,share}
 	mkdir -p $(TARGET_DIR)/{bin,boot,etc,lib,sbin,usr,var}
 	mkdir -p $(TARGET_DIR)/etc/{default,init.d,udev,network,ssl}
@@ -56,10 +55,8 @@ $(D)/cross-libs: directories $(CROSSTOOL)
 	$(START_BUILD)
 	if test -e $(CROSS_DIR)/$(TARGET)/sys-root/lib; then \
 		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/lib/*so* $(TARGET_DIR)/lib; \
-		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/etc/* $(TARGET_DIR)/etc; \
 	else \
 		cp -a $(CROSS_DIR)/$(TARGET)/lib/*so* $(TARGET_DIR)/lib; \
-		cp -a $(CROSS_DIR)/$(TARGET)/etc/* $(TARGET_DIR)/etc; \
 	fi; \
 	if [ $(BOXARCH) = "aarch64" ]; then \
 		cd ${TARGET_DIR}; ln -sf lib lib64; \
@@ -88,6 +85,7 @@ SYSTEM_TOOLS += procps-ng
 SYSTEM_TOOLS += kmod
 SYSTEM_TOOLS += sysvinit
 SYSTEM_TOOLS += base-files
+SYSTEM_TOOLS += netbase
 SYSTEM_TOOLS += e2fsprogs
 SYSTEM_TOOLS += dosfstools
 SYSTEM_TOOLS += tzdata
@@ -95,6 +93,7 @@ SYSTEM_TOOLS += tzdata
 SYSTEM_TOOLS += hd-idle
 SYSTEM_TOOLS += rpcbind
 #SYSTEM_TOOLS += portmap
+SYSTEM_TOOLS += openresolv
 SYSTEM_TOOLS += nfs-utils
 SYSTEM_TOOLS += htop
 SYSTEM_TOOLS += vsftpd

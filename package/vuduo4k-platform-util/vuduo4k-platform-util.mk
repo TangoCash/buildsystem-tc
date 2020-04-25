@@ -19,6 +19,6 @@ $(D)/vuduo4k-platform-util: bootstrap $(ARCHIVE)/$(VUDUO4K_PLATFORM_UTIL_SOURCE)
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/vuplus-platform-util $(TARGET_DIR)/etc/init.d/vuplus-platform-util
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/vuplus-shutdown $(TARGET_DIR)/etc/init.d/vuplus-shutdown
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/bp3flash.sh $(TARGET_DIR)/usr/bin/bp3flash.sh
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) vuplus-platform-util start 65 S . stop 90 0 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) vuplus-shutdown start 89 0 .
+	$(UPDATE-RC.D) vuplus-platform-util start 65 S . stop 90 0 .
+	$(UPDATE-RC.D) vuplus-shutdown start 89 0 .
 	$(TOUCH)

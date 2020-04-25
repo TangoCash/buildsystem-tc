@@ -19,5 +19,5 @@ $(D)/vuduo-driver: bootstrap $(ARCHIVE)/$(VUDUO_DRIVER_SOURCE)
 	done
 	make depmod
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/vuplus-shutdown $(TARGET_DIR)/etc/init.d/vuplus-shutdown
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) vuplus-shutdown start 89 0 .
+	$(UPDATE-RC.D) vuplus-shutdown start 89 0 .
 	$(TOUCH)

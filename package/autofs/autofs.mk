@@ -1,7 +1,7 @@
 #
 # autofs
 #
-AUTOFS_VER    = 5.1.5
+AUTOFS_VER    = 5.1.6
 AUTOFS_DIR    = autofs-$(AUTOFS_VER)
 AUTOFS_SOURCE = autofs-$(AUTOFS_VER).tar.xz
 AUTOFS_URL    = https://www.kernel.org/pub/linux/daemons/autofs/v5
@@ -11,21 +11,12 @@ $(ARCHIVE)/$(AUTOFS_SOURCE):
 
 AUTOFS_PATCH  = \
 	autofs-5.0.7-include-linux-nfs.h-directly-in-rpc_sub.patch \
-	autofs-5.1.5-add-strictexpire-mount-option.patch \
-	autofs-5.1.5-fix-hesiod-string-check-in-master_parse.patch \
-	autofs-5.1.5-add-NULL-check-for-get_addr_string-return.patch \
-	autofs-5.1.5-use-malloc-in-spawn_c.patch \
-	autofs-5.1.5-add-mount_verbose-configuration-option.patch \
-	autofs-5.1.5-optionally-log-mount-requestor-process-info.patch \
-	autofs-5.1.5-log-mount-call-arguments-if-mount_verbose-is-set.patch \
-	autofs-5.1.5-add-ignore-mount-option.patch \
-	autofs-5.1.5-Fix-NFS-mount-from-IPv6-addresses.patch \
-	autofs-5.1.5-remove-bashism.patch \
 	cross.patch \
 	fix_disable_ldap.patch \
-	force-STRIP-to-emtpy.patch
+	force-STRIP-to-emtpy.patch \
+	pkgconfig-libnsl.patch
 
-$(D)/autofs: bootstrap libnsl e2fsprogs openssl libxml2 $(ARCHIVE)/$(AUTOFS_SOURCE)
+$(D)/autofs: bootstrap libtirpc e2fsprogs openssl libxml2 libnsl $(ARCHIVE)/$(AUTOFS_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/$(AUTOFS_DIR)
 	$(UNTAR)/$(AUTOFS_SOURCE)
@@ -59,7 +50,7 @@ $(D)/autofs: bootstrap libnsl e2fsprogs openssl libxml2 $(ARCHIVE)/$(AUTOFS_SOUR
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/autofs $(TARGET_DIR)/etc/default/autofs
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/autofs.init $(TARGET_DIR)/etc/init.d/autofs
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/volatiles.99_autofs $(TARGET_DIR)/etc/default/volatiles/99_autofs
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) autofs defaults 17
+	$(UPDATE-RC.D) autofs defaults 17
 	rm -f $(addprefix $(TARGET_DIR)/etc/,autofs_ldap_auth.conf)
 	$(REMOVE)/$(AUTOFS_DIR)
 	$(TOUCH)

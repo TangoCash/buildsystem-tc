@@ -1,0 +1,26 @@
+--- a/etc/rpc
++++ b/etc/rpc
+@@ -1,7 +1,7 @@
+ # This file contains user readable names that can be used in place of rpc
+ # program numbers.
+ 
+-portmapper	100000	portmap sunrpc
++portmapper	100000	portmap sunrpc rpcbind
+ rstatd		100001	rstat rstat_svc rup perfmeter
+ rusersd		100002	rusers
+ nfs		100003	nfsprog
+diff --git a/etc-services b/etc-services
+index fa7ae24..10ba2bc 100644
+--- a/etc/services
++++ b/etc/services
+@@ -46,8 +46,8 @@
+ iso-tsap	102/tcp		tsap		# part of ISODE
+ acr-nema	104/tcp		dicom		# Digital Imag. & Comm. 300
+ pop3		110/tcp		pop-3		# POP version 3
+-sunrpc		111/tcp		portmapper	# RPC 4.0 portmapper
+-sunrpc		111/udp		portmapper
++sunrpc		111/tcp		portmapper rpcbind # RPC 4.0 portmapper
++sunrpc		111/udp		portmapper rpcbind
+ auth		113/tcp		authentication tap ident
+ nntp		119/tcp		readnews untp	# USENET News Transfer Protocol
+ ntp		123/udp				# Network Time Protocol

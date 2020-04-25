@@ -1,7 +1,7 @@
 #
 # wireguard
 #
-WIREGUARD_VER    = 0.0.20191012
+WIREGUARD_VER    = 0.0.20191212
 WIREGUARD_DIR    = WireGuard-$(WIREGUARD_VER)
 WIREGUARD_SOURCE = WireGuard-$(WIREGUARD_VER).tar.xz
 WIREGUARD_URL    = https://git.zx2c4.com/WireGuard/snapshot

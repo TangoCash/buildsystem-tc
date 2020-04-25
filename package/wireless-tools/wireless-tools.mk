@@ -1,16 +1,19 @@
 #
 # wireless-tools
 #
-WIRELESS_TOOLS_VER    = 29
+WIRELESS_TOOLS_VER    = 30
 WIRELESS_TOOLS_DIR    = wireless_tools.$(WIRELESS_TOOLS_VER)
-WIRELESS_TOOLS_SOURCE = wireless_tools.$(WIRELESS_TOOLS_VER).tar.gz
+WIRELESS_TOOLS_SOURCE = wireless_tools.$(WIRELESS_TOOLS_VER).pre9.tar.gz
 WIRELESS_TOOLS_URL    = https://hewlettpackard.github.io/wireless-tools
 
 $(ARCHIVE)/$(WIRELESS_TOOLS_SOURCE):
 	$(DOWNLOAD) $(WIRELESS_TOOLS_URL)/$(WIRELESS_TOOLS_SOURCE)
 
 WIRELESS_TOOLS_PATCH  = \
-	wireless-tools.patch
+	0001-remove-bzero.patch \
+	remove.ldconfig.call.patch \
+	avoid_strip.patch \
+	ldflags.patch
 
 $(D)/wireless-tools: bootstrap $(ARCHIVE)/$(WIRELESS_TOOLS_SOURCE)
 	$(START_BUILD)

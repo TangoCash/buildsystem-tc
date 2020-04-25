@@ -1,7 +1,7 @@
 #
 # alsa-lib
 #
-ALSA_LIB_VER    = 1.1.9
+ALSA_LIB_VER    = 1.2.2
 ALSA_LIB_DIR    = alsa-lib-$(ALSA_LIB_VER)
 ALSA_LIB_SOURCE = alsa-lib-$(ALSA_LIB_VER).tar.bz2
 ALSA_LIB_URL    = https://www.alsa-project.org/files/pub/lib
@@ -10,6 +10,7 @@ $(ARCHIVE)/$(ALSA_LIB_SOURCE):
 	$(DOWNLOAD) $(ALSA_LIB_URL)/$(ALSA_LIB_SOURCE)
 
 ALSA_LIB_PATCH  = \
+	0001-Don-t-use-fork-on-noMMU-platforms.patch \
 	alsa-lib.patch \
 	alsa-lib-link_fix.patch
 
@@ -19,6 +20,7 @@ $(D)/alsa-lib: bootstrap $(ARCHIVE)/$(ALSA_LIB_SOURCE)
 	$(UNTAR)/$(ALSA_LIB_SOURCE)
 	$(CHDIR)/$(ALSA_LIB_DIR); \
 		$(call apply_patches, $(ALSA_LIB_PATCH)); \
+		autoreconf -fi $(SILENT_OPT); \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--with-alsa-devdir=/dev/snd/ \
@@ -35,6 +37,7 @@ $(D)/alsa-lib: bootstrap $(ARCHIVE)/$(ALSA_LIB_SOURCE)
 			--disable-alisp \
 			--disable-hwdep \
 			--disable-python \
+			--disable-topology \
 			; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)

@@ -31,7 +31,7 @@ $(D)/vsftpd: bootstrap openssl $(ARCHIVE)/$(VSFTPD_SOURCE)
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/vsftpd.init $(TARGET_DIR)/etc/init.d/vsftpd
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/vsftpd.conf $(TARGET_DIR)/etc/vsftpd.conf
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/volatiles.99_vsftpd $(TARGET_DIR)/etc/default/volatiles/99_vsftpd
-#	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) vsftpd start 80 2 3 4 5 . stop 80 0 1 6 .
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) vsftpd start 20 2 3 4 5 . stop 20 0 1 6 .
+#	$(UPDATE-RC.D) vsftpd start 80 2 3 4 5 . stop 80 0 1 6 .
+	$(UPDATE-RC.D) vsftpd start 20 2 3 4 5 . stop 20 0 1 6 .
 	$(REMOVE)/$(VSFTPD_DIR)
 	$(TOUCH)

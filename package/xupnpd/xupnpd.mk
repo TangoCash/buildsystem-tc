@@ -1,8 +1,8 @@
 #
 # xupnpd
 #
-XUPNPD_VER    = git
-XUPNPD_DIR    = xupnpd.$(XUPNPD_VER)
+XUPNPD_VER    = 25d6d44
+XUPNPD_DIR    = xupnpd.git
 XUPNPD_SOURCE = $(XUPNPD_DIR)
 XUPNPD_URL    = https://github.com/clark15b/$(XUPNPD_SOURCE)
 
@@ -15,6 +15,7 @@ $(D)/xupnpd: bootstrap lua openssl neutrino-plugins
 	$(GET-GIT-SOURCE) $(XUPNPD_URL) $(ARCHIVE)/$(XUPNPD_SOURCE)
 	$(CPDIR)/$(XUPNPD_DIR)
 	$(CHDIR)/$(XUPNPD_DIR); \
+		git checkout -q $(XUPNPD_VER); \
 		$(call apply_patches, $(XUPNPD_PATCH)); \
 	$(CHDIR)/$(XUPNPD_DIR)/src; \
 		$(BUILD_ENV) \
@@ -27,6 +28,6 @@ $(D)/xupnpd: bootstrap lua openssl neutrino-plugins
 	$(INSTALL_DATA) $(ARCHIVE)/$(NEUTRINO_PLUGINS_DIR)/scripts-lua/xupnpd/xupnpd_youtube.lua ${TARGET_DIR}/usr/share/xupnpd/plugins/
 	: $(INSTALL_DATA) $(ARCHIVE)/$(NEUTRINO_PLUGINS_DIR)/scripts-lua/xupnpd/xupnpd_coolstream.lua ${TARGET_DIR}/usr/share/xupnpd/plugins/
 	$(INSTALL_DATA) $(ARCHIVE)/$(NEUTRINO_PLUGINS_DIR)/scripts-lua/xupnpd/xupnpd_cczwei.lua ${TARGET_DIR}/usr/share/xupnpd/plugins/
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) xupnpd defaults 50
+	$(UPDATE-RC.D) xupnpd defaults 50
 	$(REMOVE)/$(XUPNPD_DIR)
 	$(TOUCH)

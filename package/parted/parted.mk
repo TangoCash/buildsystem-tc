@@ -1,7 +1,7 @@
 #
 # parted
 #
-PARTED_VER    = 3.2
+PARTED_VER    = 3.3
 PARTED_DIR    = parted-$(PARTED_VER)
 PARTED_SOURCE = parted-$(PARTED_VER).tar.xz
 PARTED_URL    = https://ftp.gnu.org/gnu/parted
@@ -10,10 +10,8 @@ $(ARCHIVE)/$(PARTED_SOURCE):
 	$(DOWNLOAD) $(PARTED_URL)/$(PARTED_SOURCE)
 
 PARTED_PATCH  = \
-	device-mapper.patch \
-	iconv.patch \
-	fix-compile-in-old-ubuntu.patch \
-	linux-Include-sys-sysmacros.h-for-major-macro.patch
+	fix-end_input-usage-in-do_resizepart.patch \
+	iconv.patch
 
 $(D)/parted: bootstrap e2fsprogs libiconv $(ARCHIVE)/$(PARTED_SOURCE)
 	$(START_BUILD)
@@ -30,7 +28,6 @@ $(D)/parted: bootstrap e2fsprogs libiconv $(ARCHIVE)/$(PARTED_SOURCE)
 			--without-readline \
 			--enable-shared \
 			--disable-static \
-			--disable-dynamic-loading \
 			--disable-debug \
 			--disable-device-mapper \
 			--disable-nls \

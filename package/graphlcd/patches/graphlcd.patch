@@ -566,15 +566,7 @@
  	rm -f $(OBJS) $(DEPFILE) $(LIBNAME) $(BASENAME) *~
 --- a/glcddrivers/port.c
 +++ b/glcddrivers/port.c
-@@ -17,12 +17,34 @@
- #include <syslog.h>
- #include <unistd.h>
- #include <pthread.h>
-+#if defined(i386) || defined(__x86_64__)
- #include <sys/io.h>
-+#endif
- #include <sys/ioctl.h>
- #include <linux/ppdev.h>
+@@ -22,6 +22,26 @@
  #include <linux/parport.h>
  
  

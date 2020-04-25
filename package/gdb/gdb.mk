@@ -1,7 +1,7 @@
 #
 # gdb
 #
-GDB_VER    = 8.1.1
+GDB_VER    = 8.3
 GDB_DIR    = gdb-$(GDB_VER)
 GDB_SOURCE = gdb-$(GDB_VER).tar.xz
 GDB_URL    = https://sourceware.org/pub/gdb/releases
@@ -19,9 +19,16 @@ $(D)/gdb: bootstrap zlib ncurses $(ARCHIVE)/$(GDB_SOURCE)
 			--mandir=/.remove \
 			--infodir=/.remove \
 			--disable-binutils \
+			--disable-gdbserver \
+			--disable-gdbtk \
+			--disable-sim \
+			--disable-tui \
 			--disable-werror \
 			--with-curses \
 			--with-zlib \
+			--without-mpfr \
+			--without-uiout \
+			--without-x \
 			--enable-static \
 			; \
 		$(MAKE) all-gdb; \

@@ -10,6 +10,7 @@ $(ARCHIVE)/$(DJMOUNT_SOURCE):
 	$(DOWNLOAD) $(DJMOUNT_URL)/$(DJMOUNT_SOURCE)
 
 DJMOUNT_PATCH  = \
+	fix-newer-gcc.patch \
 	fix-hang-with-asset-upnp.patch \
 	fix-incorrect-range-when-retrieving-content-via-HTTP.patch \
 	fix-new-autotools.patch \

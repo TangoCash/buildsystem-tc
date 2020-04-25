@@ -138,7 +138,6 @@ N_CONFIG_OPTS += \
 # -----------------------------------------------------------------------------
 
 N_CFLAGS       = -Wall -W -Wshadow -pipe -Os -Wno-psabi
-N_CFLAGS      += -D__KERNEL_STRICT_NAMES
 N_CFLAGS      += -D__STDC_FORMAT_MACROS
 N_CFLAGS      += -D__STDC_CONSTANT_MACROS
 N_CFLAGS      += -fno-strict-aliasing
@@ -150,8 +149,6 @@ N_CFLAGS      += $(LOCAL_NEUTRINO_CFLAGS)
 
 N_CPPFLAGS     = -I$(TARGET_DIR)/usr/include
 N_CPPFLAGS    += -ffunction-sections -fdata-sections
-
-N_CPPFLAGS    += -I$(CROSS_DIR)/$(TARGET)/sys-root/usr/include
 
 LH_CONFIG_OPTS =
 #LH_CONFIG_OPTS += --enable-flv2mpeg4
@@ -170,7 +167,7 @@ LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-ni)
-GIT_URL           ?= $(GITHUB)/neutrino-images
+GIT_URL           ?= https://github.com/neutrino-images
 NEUTRINO           = ni-neutrino
 LIBSTB_HAL         = ni-libstb-hal
 NEUTRINO_BRANCH   ?= master
@@ -178,7 +175,7 @@ LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     = neutrino/neutrino-ni.patch
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-tangos)
-GIT_URL           ?= $(GITHUB)/TangoCash
+GIT_URL           ?= https://github.com/TangoCash
 NEUTRINO           = neutrino-mp-tangos
 LIBSTB_HAL         = libstb-hal-tangos
 NEUTRINO_BRANCH   ?= master
@@ -186,7 +183,7 @@ LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-ddt)
-GIT_URL           ?= $(GITHUB)/Duckbox-Developers
+GIT_URL           ?= https://github.com/Duckbox-Developers
 NEUTRINO           = neutrino-mp-ddt
 LIBSTB_HAL         = libstb-hal-ddt
 NEUTRINO_BRANCH   ?= master
@@ -218,7 +215,7 @@ e2-multiboot:
 	#
 	echo -e "$(FLAVOUR) `sed -n 's/\#define PACKAGE_VERSION "//p' $(N_OBJ_DIR)/config.h | sed 's/"//'` \\\n \\\l\n" > $(TARGET_DIR)/etc/issue
 	#
-	touch $(TARGET_DIR)/var/lib/opkg/status 
+	touch $(TARGET_DIR)/var/lib/opkg/status
 	#
 	cp -a $(TARGET_DIR)/.version $(TARGET_DIR)/etc/image-version
 
@@ -239,7 +236,8 @@ LIBSTB_HAL_DEPS += ffmpeg
 LIBSTB_HAL_DEPS += openthreads
 
 LIBSTB_HAL_VER    = git
-LIBSTB_HAL_SOURCE = $(LIBSTB_HAL).$(LIBSTB_HAL_VER)
+LIBSTB_HAL_DIR    = $(LIBSTB_HAL).$(LIBSTB_HAL_VER)
+LIBSTB_HAL_SOURCE = $(LIBSTB_HAL_DIR)
 
 $(D)/libstb-hal.do_prepare: | $(LIBSTB_HAL_DEPS)
 	$(START_BUILD)
@@ -308,7 +306,8 @@ libstb-hal-uninstall:
 # -----------------------------------------------------------------------------
 
 NEUTRINO_VER    = git
-NEUTRINO_SOURCE = $(NEUTRINO).$(NEUTRINO_VER)
+NEUTRINO_DIR    = $(NEUTRINO).$(NEUTRINO_VER)
+NEUTRINO_SOURCE = $(NEUTRINO_DIR)
 
 $(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) libstb-hal
 	$(START_BUILD)
@@ -340,7 +339,6 @@ $(D)/neutrino.config.status:
 			--enable-fribidi \
 			--enable-giflib \
 			--enable-lua \
-			--enable-mdev \
 			--enable-pugixml \
 			--enable-reschange \
 			--disable-upnp \

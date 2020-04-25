@@ -12,6 +12,31 @@ HAL_REV=$(shell cd $(SOURCE_DIR)/$(LIBSTB_HAL); git log | grep "^commit" | wc -l
 
 # -----------------------------------------------------------------------------
 
+GITSSH = 1
+ifeq ($(GITSSH), 1)
+MAX-GIT-GITHUB         = git@github.com:MaxWiesel
+URL_1                  = https://github.com/MaxWiesel
+URL_2                  = $(MAX-GIT-GITHUB)
+else
+MAX-GIT-GITHUB         = https://github.com/MaxWiesel
+URL_1                  = git@github.com:MaxWiesel
+URL_2                  = $(MAX-GIT-GITHUB)
+endif
+
+REPOSITORIES = \
+	. \
+	$(ARCHIVE)/libstb-hal-max.git \
+	$(ARCHIVE)/neutrino-mp-max.git \
+	$(ARCHIVE)/neutrino-plugins.git \
+	$(ARCHIVE)/ofgwrite-nmp.git
+
+switch-url:
+	for repo in $(REPOSITORIES); do \
+		sed -i -e 's|url = $(URL_1)|url = $(URL_2)|' $$repo/.git/config; \
+	done
+
+# -----------------------------------------------------------------------------
+
 # apply patch sets
 define apply_patches
 	l=$(strip $(2)); test -z $$l && l=1; \
@@ -43,6 +68,47 @@ define auto_patches
 	done
 endef
 
+# -----------------------------------------------------------------------------
+
+#
+# Manipulation of .config files based on the Kconfig infrastructure.
+# Used by the BusyBox package, the Linux kernel package, and more.
+#
+
+define KCONFIG_ENABLE_OPT # (option, file)
+	sed -i -e "/\\<$(1)\\>/d" $(2)
+	echo '$(1)=y' >> $(2)
+endef
+
+define KCONFIG_SET_OPT # (option, value, file)
+	sed -i -e "/\\<$(1)\\>/d" $(3)
+	echo '$(1)=$(2)' >> $(3)
+endef
+
+define KCONFIG_DISABLE_OPT # (option, file)
+	sed -i -e "/\\<$(1)\\>/d" $(2)
+	echo '# $(1) is not set' >> $(2)
+endef
+
+# -----------------------------------------------------------------------------
+
+#
+# Case conversion macros.
+#
+
+[LOWER] := a b c d e f g h i j k l m n o p q r s t u v w x y z
+[UPPER] := A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+
+define caseconvert-helper
+$(1) = $$(strip \
+	$$(eval __tmp := $$(1))\
+	$(foreach c, $(2),\
+		$$(eval __tmp := $$(subst $(word 1,$(subst :, ,$c)),$(word 2,$(subst :, ,$c)),$$(__tmp))))\
+	$$(__tmp))
+endef
+
+$(eval $(call caseconvert-helper,UPPERCASE,$(join $(addsuffix :,$([LOWER])),$([UPPER]))))
+$(eval $(call caseconvert-helper,LOWERCASE,$(join $(addsuffix :,$([UPPER])),$([LOWER]))))
 
 # -----------------------------------------------------------------------------
 
@@ -76,6 +142,79 @@ define draw_line
 	fi; \
 	echo
 endef
+
+# -----------------------------------------------------------------------------
+
+archives-list:
+	@rm -f $(BUILD_DIR)/$(@)
+	@make -qp | grep --only-matching '^\$(ARCHIVE).*:' | sed "s|:||g" > $(BUILD_DIR)/$(@)
+
+DOCLEANUP  ?= no
+GETMISSING ?= no
+archives-info: archives-list
+	@grep --only-matching '^\$$(ARCHIVE).*:' make/bootstrap.mk | sed "s|:||g" | \
+	while read target; do \
+		found=false; \
+		for makefile in package/*/*.mk; do \
+			if grep -q "$$target" $$makefile; then \
+				found=true; \
+			fi; \
+			if [ "$$found" = "true" ]; then \
+				continue; \
+			fi; \
+		done; \
+		if [ "$$found" = "false" ]; then \
+			echo -e "[$(TERM_RED) !! $(TERM_NORMAL)] $$target"; \
+		fi; \
+	done;
+	@echo "[ ** ] Unused archives for this build system"
+	@find $(ARCHIVE)/ -maxdepth 1 -type f | \
+	while read archive; do \
+		if ! grep -q $$archive $(BUILD_DIR)/archives-list; then \
+			echo -e "[$(TERM_YELLOW) rm $(TERM_NORMAL)] $$archive"; \
+			if [ "$(DOCLEANUP)" = "yes" ]; then \
+				rm $$archive; \
+			fi; \
+		fi; \
+	done;
+	@echo "[ ** ] Missing archives for this build system"
+	@cat $(BUILD_DIR)/archives-list | \
+	while read archive; do \
+		if [ -e $$archive ]; then \
+			#echo -e "[$(TERM_GREEN) ok $(TERM_NORMAL)] $$archive"; \
+			true; \
+		else \
+			echo -e "[$(TERM_YELLOW) -- $(TERM_NORMAL)] $$archive"; \
+			if [ "$(GETMISSING)" = "yes" ]; then \
+				make $$archive; \
+			fi; \
+		fi; \
+	done;
+	@$(REMOVE)/archives-list
+
+# -----------------------------------------------------------------------------
+
+# FIXME - how to resolve variables while grepping makefiles?
+patches-info:
+	@echo "[ ** ] Unused patches"
+	@for patch in package/*/patches/*; do \
+		if [ ! -f $$patch ]; then \
+			continue; \
+		fi; \
+		patch=$${patch##*/}; \
+		found=false; \
+		for makefile in package/*/*.mk; do \
+			if grep -q "$$patch" $$makefile; then \
+				found=true; \
+			fi; \
+			if [ "$$found" = "true" ]; then \
+				continue; \
+			fi; \
+		done; \
+		if [ "$$found" = "false" ]; then \
+			echo -e "[$(TERM_RED) !! $(TERM_NORMAL)] $$patch"; \
+		fi; \
+	done;
 
 # -----------------------------------------------------------------------------
 
@@ -144,76 +283,3 @@ libstb-hal%-patch:
 	$(shell cd $(SOURCE_DIR) && diff -Nur --exclude-from=$(HELPERS_DIR)/diff-exclude $(subst -patch,,$@).org $(subst -patch,,$@) > $(BASE_DIR)/$(subst -patch,-$(DATE).patch,$@) ; [ $$? -eq 1 ] )
 	@printf "$(TERM_YELLOW)done\n$(TERM_NORMAL)"
 
-# -----------------------------------------------------------------------------
-
-archives-list:
-	test -d $(BUILD_DIR) || mkdir $(BUILD_DIR)
-	@rm -f $(BUILD_DIR)/$@
-	@make -qp | grep --only-matching '^\$(ARCHIVE).*:' | sed "s|:||g" > $(BUILD_DIR)/$@
-
-DOCLEANUP=no
-GETMISSING=no
-archives-info: archives-list
-	@grep --only-matching '^\$$(ARCHIVE).*:' make/bootstrap.mk | sed "s|:||g" | \
-	while read target; do \
-		found=false; \
-		for makefile in package/*/*.mk; do \
-			if grep -q "$$target" $$makefile; then \
-				found=true; \
-			fi; \
-			if [ "$$found" = "true" ]; then \
-				continue; \
-			fi; \
-		done; \
-		if [ "$$found" = "false" ]; then \
-			echo -e "[$(TERM_RED) !! $(TERM_NORMAL)] $$target"; \
-		fi; \
-	done;
-	@echo "[ ** ] Unused archives for this build system"
-	@find $(ARCHIVE)/ -maxdepth 1 -type f | \
-	while read archive; do \
-		if ! grep -q $$archive $(BUILD_DIR)/archives-list; then \
-			echo -e "[$(TERM_YELLOW) rm $(TERM_NORMAL)] $$archive"; \
-			if [ "$(DOCLEANUP)" = "yes" ]; then \
-				rm $$archive; \
-			fi; \
-		fi; \
-	done;
-	@echo "[ ** ] Missing archives for this build system"
-	@cat $(BUILD_DIR)/archives-list | \
-	while read archive; do \
-		if [ -e $$archive ]; then \
-			#echo -e "[$(TERM_GREEN) ok $(TERM_NORMAL)] $$archive"; \
-			true; \
-		else \
-			echo -e "[$(TERM_YELLOW) -- $(TERM_NORMAL)] $$archive"; \
-			if [ "$(GETMISSING)" = "yes" ]; then \
-				make $$archive; \
-			fi; \
-		fi; \
-	done;
-	@$(REMOVE)/archives-list
-
-# -----------------------------------------------------------------------------
-
-# FIXME - how to resolve variables while grepping makefiles?
-patches-info:
-	@echo "[ ** ] Unused patches"
-	@for patch in package/*/patches/*; do \
-		if [ ! -f $$patch ]; then \
-			continue; \
-		fi; \
-		patch=$${patch##*/}; \
-		found=false; \
-		for makefile in package/*/*.mk; do \
-			if grep -q "$$patch" $$makefile; then \
-				found=true; \
-			fi; \
-			if [ "$$found" = "true" ]; then \
-				continue; \
-			fi; \
-		done; \
-		if [ "$$found" = "false" ]; then \
-			echo -e "[$(TERM_RED) !! $(TERM_NORMAL)] $$patch"; \
-		fi; \
-	done;

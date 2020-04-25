@@ -46,8 +46,7 @@ $(D)/samba: bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 		./configure $(SILENT_OPT) \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
-			--prefix=/ \
-			--exec-prefix=/usr \
+			--prefix=/usr \
 			--includedir=/usr/include \
 			--datarootdir=/.remove \
 			--disable-pie \
@@ -74,7 +73,7 @@ $(D)/samba: bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 			--with-lockdir=/var/lock \
 			--with-logfilebase=/var/log/samba \
 			--with-swatdir=/usr/share/swat \
-			--with-nmbdsocketdir=/var/nmbd \
+			--with-nmbdsocketdir=/var/run/nmbd \
 			--with-included-iniparser \
 			--with-included-popt \
 			--with-sendfile-support \
@@ -116,6 +115,6 @@ $(D)/samba: bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/samba.init $(TARGET_DIR)/etc/init.d/samba
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/volatiles.03_samba $(TARGET_DIR)/etc/default/volatiles/03_samba
 	$(call adapted-etc-files, $(SAMBA_ADAPTED_ETC_FILES))
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) samba start 20 2 3 4 5 . stop 20 0 1 6 .
+	$(UPDATE-RC.D) samba start 20 2 3 4 5 . stop 20 0 1 6 .
 	$(REMOVE)/$(SAMBA_DIR)
 	$(TOUCH)

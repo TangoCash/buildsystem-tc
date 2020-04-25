@@ -1,0 +1,37 @@
+--- a/gio/gdbusauth.c
++++ b/gio/gdbusauth.c
+@@ -1299,9 +1299,9 @@
+                                                     &line_length,
+                                                     cancellable,
+                                                     error);
+-          debug_print ("SERVER: WaitingForBegin, read '%s'", line);
+           if (line == NULL)
+             goto out;
++          debug_print ("SERVER: WaitingForBegin, read '%s'", line);
+           if (g_strcmp0 (line, "BEGIN") == 0)
+             {
+               /* YAY, done! */
+
+--- a/gio/gdbusmessage.c
++++ b/gio/gdbusmessage.c
+@@ -2699,7 +2699,6 @@
+   if (message->body != NULL)
+     {
+       gchar *tupled_signature_str;
+-      tupled_signature_str = g_strdup_printf ("(%s)", signature_str);
+       if (signature == NULL)
+         {
+           g_set_error (error,
+@@ -2707,10 +2706,10 @@
+                        G_IO_ERROR_INVALID_ARGUMENT,
+                        _("Message body has signature “%s” but there is no signature header"),
+                        signature_str);
+-          g_free (tupled_signature_str);
+           goto out;
+         }
+-      else if (g_strcmp0 (tupled_signature_str, g_variant_get_type_string (message->body)) != 0)
++      tupled_signature_str = g_strdup_printf ("(%s)", signature_str);
++      if (g_strcmp0 (tupled_signature_str, g_variant_get_type_string (message->body)) != 0)
+         {
+           g_set_error (error,
+                        G_IO_ERROR,

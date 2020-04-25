@@ -19,19 +19,19 @@ $(D)/rpcbind: bootstrap libtirpc $(ARCHIVE)/$(RPCBIND_SOURCE)
 	$(CHDIR)/$(RPCBIND_DIR); \
 		$(call apply_patches, $(RPCBIND_PATCH)); \
 		autoreconf -fi $(SILENT_OPT); \
-		$(CONFIGURE) CFLAGS="$(TARGET_CFLAGS) `$(PKG_CONFIG) --cflags libtirpc`"\
+		$(CONFIGURE) CFLAGS="$(TARGET_CFLAGS) `$(PKG_CONFIG) --cflags libtirpc`" \
 			--prefix=/usr \
 			--bindir=/usr/sbin \
 			--mandir=/.remove \
 			--enable-silent-rules \
 			--with-rpcuser=root \
-			--without-systemdsystemunitdir \
+			--with-systemdsystemunitdir=no \
 			; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/rpc $(TARGET_DIR)/etc/rpc
 	$(INSTALL_DATA) $(PKG_FILES_DIR)/rpcbind.conf $(TARGET_DIR)/etc/rpcbind.conf
 	$(INSTALL_EXEC) $(PKG_FILES_DIR)/rpcbind.init $(TARGET_DIR)/etc/init.d/rpcbind
-	$(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR) rpcbind start 12 2 3 4 5 . stop 60 0 1 6 .
+	$(UPDATE-RC.D) rpcbind start 12 2 3 4 5 . stop 60 0 1 6 .
 	$(REMOVE)/$(RPCBIND_DIR)
 	$(TOUCH)

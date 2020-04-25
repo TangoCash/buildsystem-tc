@@ -14,13 +14,12 @@ $(D)/openresolv: bootstrap $(ARCHIVE)/$(OPENRESOLV_SOURCE)
 	$(REMOVE)/$(OPENRESOLV_DIR)
 	$(UNTAR)/$(OPENRESOLV_SOURCE)
 	$(CHDIR)/$(OPENRESOLV_DIR); \
-		$(CONFIGURE) \
-			--prefix=/usr \
-			--sysconfdir=/etc \
-			--mandir=/.remove \
-			--rundir=/var/run/resolvconf \
-			; \
-		$(MAKE); \
+		echo "SYSCONFDIR=/etc" > config.mk; \
+		echo "SBINDIR=/sbin" >> config.mk; \
+		echo "LIBEXECDIR=/lib/resolvconf" >> config.mk; \
+		echo "VARDIR=/var/run/resolvconf" >> config.mk; \
+		echo "MANDIR=/.remove" >> config.mk; \
+		echo "RCDIR=etc/init.d" >> config.mk; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
 	$(REMOVE)/$(OPENRESOLV_DIR)
 	$(TOUCH)

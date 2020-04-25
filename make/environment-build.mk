@@ -8,9 +8,6 @@
 CONFIG_SITE =
 export CONFIG_SITE
 
-LD_LIBRARY_PATH =
-export LD_LIBRARY_PATH
-
 # -----------------------------------------------------------------------------
 
 # set up default parallelism
@@ -22,7 +19,6 @@ MAKEFLAGS             += --no-print-directory
 # -----------------------------------------------------------------------------
 
 BASE_DIR              := $(shell pwd)
-MAINTAINER            ?= $(shell whoami)
 ARCHIVE               ?= $(HOME)/Archive
 BUILD_DIR              = $(BASE_DIR)/build_tmp
 ifeq ($(NEWLAYOUT), 1)
@@ -35,11 +31,11 @@ D                      = $(BASE_DIR)/.deps
 HOST_DIR               = $(BASE_DIR)/host
 TARGET_DIR             = $(BASE_DIR)/root
 SOURCE_DIR             = $(BASE_DIR)/build_source
-IMAGE_DIR              = $(BASE_DIR)/release_image
+RELEASE_IMAGE_DIR      = $(BASE_DIR)/release_image
 HELPERS_DIR            = $(BASE_DIR)/helpers
 OWN_FILES             ?= $(BASE_DIR)/own-files
 CROSS_BASE             = $(BASE_DIR)/cross
-CROSS_DIR              = $(CROSS_BASE)/$(CROSSTOOL_GCC_VER)-$(BOXARCH)-kernel-$(KERNEL_VER)
+CROSS_DIR              = $(CROSS_BASE)/$(BOXARCH)-$(CROSSTOOL_GCC_VER)-kernel-$(KERNEL_VER)
 
 BUILD                 ?= $(shell /usr/share/libtool/config.guess 2>/dev/null || /usr/share/libtool/config/config.guess 2>/dev/null || /usr/share/misc/config.guess 2>/dev/null)
 
@@ -71,16 +67,6 @@ TINKER_OPTION         ?= 0
 CCACHE                 = /usr/bin/ccache
 CCACHE_DIR             = $(HOME)/.ccache-bs-$(BOXARCH)-max
 export CCACHE_DIR
-
-# -----------------------------------------------------------------------------
-
-GITHUB                 = https://github.com
-GITHUB_SSH             = git@github.com
-BITBUCKET              = https://bitbucket.org
-BITBUCKET_SSH          = git@bitbucket.org
-
-MAX-GIT-GITHUB         = $(GITHUB)/MaxWiesel
-MAX-GIT-BITBUCKET      = $(BITBUCKET)/max_10
 
 # -----------------------------------------------------------------------------
 
@@ -125,12 +111,16 @@ ifeq ($(BS_GCC_VER), 6.5.0)
 CROSSTOOL_GCC_VER = gcc-6.5.0
 endif
 
-ifeq ($(BS_GCC_VER), 7.4.1)
-CROSSTOOL_GCC_VER = gcc-7.4.1
+ifeq ($(BS_GCC_VER), 7.5.0)
+CROSSTOOL_GCC_VER = gcc-7.5.0
 endif
 
-ifeq ($(BS_GCC_VER), 8.2.0)
-CROSSTOOL_GCC_VER = gcc-8.2.0
+ifeq ($(BS_GCC_VER), 8.3.0)
+CROSSTOOL_GCC_VER = gcc-8.3.0
+endif
+
+ifeq ($(BS_GCC_VER), 9.2.0)
+CROSSTOOL_GCC_VER = gcc-9.2.0
 endif
 
 TARGET_LIB_DIR         = $(TARGET_DIR)/usr/lib
@@ -237,6 +227,7 @@ EMPTY =
 GET-GIT-ARCHIVE        = $(HELPERS_DIR)/get-git-archive.sh
 GET-GIT-SOURCE         = $(HELPERS_DIR)/get-git-source.sh
 GET-SVN-SOURCE         = $(HELPERS_DIR)/get-svn-source.sh
+UPDATE-RC.D            = $(HELPERS_DIR)/update-rc.d -r $(TARGET_DIR)
 
 # -----------------------------------------------------------------------------
 
@@ -321,7 +312,7 @@ TUXBOX_CUSTOMIZE = [ -x $(HELPERS_DIR)/$(notdir $@)-local.sh ] && \
 	$(TARGET_DIR) \
 	$(BASE_DIR) \
 	$(SOURCE_DIR) \
-	$(IMAGE_DIR) \
+	$(RELEASE_IMAGE_DIR) \
 	$(BOXMODEL) \
 	$(FLAVOUR) \
 	$(DATE) \

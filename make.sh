@@ -74,7 +74,7 @@ case $1 in
 		echo "  23)  AX/Mut@nt HD61"
 		echo "  30)  Edision OS mio 4K"
 		echo "  31)  Edision OS mio+ 4K"
-		echo "  40)  AirDigital Zgemma H7C / H7S"
+		echo "  40)  AirDigital Zgemma H7C/H7S"
 		read -p "Select target? [21] "
 		REPLY="${REPLY:-21}";;
 esac
@@ -93,7 +93,7 @@ case "$REPLY" in
 	23) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd61";;
 	30) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4k";;
 	31) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4kplus";;
-	40) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="zgemmah7";;
+	40) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="h7";;
 	 *) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
 esac
 echo "BOXARCH=$BOXARCH" >> .config
@@ -103,19 +103,21 @@ echo "BOXMODEL=$BOXMODEL" >> .config
 ##############################################
 
 case $2 in
-	[1-3]) REPLY=$2;;
+	[1-4]) REPLY=$2;;
 	*)	echo -e "\nToolchain gcc version:"
 		echo "   1) GCC version 6.5.0"
-		echo "   2) GCC version 7.4.1"
-		echo "   3) GCC version 8.2.0"
-		read -p "Select toolchain gcc version (1-3)? [1] "
+		echo "   2) GCC version 7.5.0"
+		echo "   3) GCC version 8.3.0"
+		echo "   4) GCC version 9.2.0"
+		read -p "Select toolchain gcc version (1-4)? [1] "
 		REPLY="${REPLY:-1}";;
 esac
 
 case "$REPLY" in
 	1) BS_GCC_VER="6.5.0";;
-	2) BS_GCC_VER="7.4.1";;
-	3) BS_GCC_VER="8.2.0";;
+	2) BS_GCC_VER="7.5.0";;
+	3) BS_GCC_VER="8.3.0";;
+	4) BS_GCC_VER="9.2.0";;
 	*) BS_GCC_VER="6.5.0";;
 esac
 echo "BS_GCC_VER=$BS_GCC_VER" >> .config
@@ -186,7 +188,7 @@ echo "EXTERNAL_LCD=$EXTERNAL_LCD" >> .config
 
 ##############################################
 
-if [ $BOXMODEL == 'hd51' -o $BOXMODEL == 'bre2ze4k'  -o $BOXMODEL == 'zgemmah7' ]; then
+if [ $BOXMODEL == 'hd51' -o $BOXMODEL == 'bre2ze4k'  -o $BOXMODEL == 'h7' ]; then
 
 case $6 in
 	[1-3]) REPLY=$6;;

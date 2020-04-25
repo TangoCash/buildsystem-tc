@@ -113,7 +113,7 @@ $(D)/neutrino-release: neutrino-release-base
 #	default for all receiver
 	find $(OWN_FILES)/neutrino-hd/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} +
 #	receiver specific (only if directory exist)
-	[ -d "$(OWN_FILES)/neutrino-hd.$(BOXMODEL)" ] && find $(OWN_FILES)/neutrino-hd.$(BOXMODEL)/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} + || true
+	[ -d "$(OWN_FILES)/neutrino-hd.$(BOXMODEL)" ] && find $(OWN_FILES)/neutrino-hd.$(BOXMODEL)/ -mindepth 1 -maxdepth 1 -exec cp -at $(RELEASE_DIR)/ -- {} + || true
 	echo $(BOXMODEL) > $(RELEASE_DIR)/etc/model
 #
 # linux-strip all
