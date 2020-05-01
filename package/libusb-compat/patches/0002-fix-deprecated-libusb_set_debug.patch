@@ -1,0 +1,26 @@
+--- a/libusb/core.c
++++ b/libusb/core.c
+@@ -183,7 +183,11 @@
+ 
+ 		/* usb_set_debug can be called before usb_init */
+ 		if (usb_debug)
++#if LIBUSB_API_VERSION >= 0x01000106
++			libusb_set_option(ctx, LIBUSB_OPTION_LOG_LEVEL, 3);
++#else
+ 			libusb_set_debug(ctx, 3);
++#endif
+ 	}
+ }
+ 
+@@ -193,7 +197,11 @@
+ 
+ 	/* usb_set_debug can be called before usb_init */
+ 	if (ctx)
++#if LIBUSB_API_VERSION >= 0x01000106
++		libusb_set_option(ctx, LIBUSB_OPTION_LOG_LEVEL, 3);
++#else
+ 		libusb_set_debug(ctx, 3);
++#endif
+ }
+ 
+ API_EXPORTED char *usb_strerror(void)
