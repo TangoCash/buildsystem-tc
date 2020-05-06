@@ -20,6 +20,6 @@ $(D)/netbase: bootstrap $(ARCHIVE)/$(NETBASE_SOURCE)
 		$(call apply_patches, $(NETBASE_PATCH)); \
 		$(INSTALL_DATA) etc/rpc $(TARGET_DIR)/etc/rpc; \
 		$(INSTALL_DATA) etc/protocols $(TARGET_DIR)/etc/protocols; \
-		$(INSTALL_DATA) etc/services $(TARGET_DIR)/etc/services; \
+		$(INSTALL_DATA) etc/services $(TARGET_DIR)/etc/services
 	$(REMOVE)/$(NETBASE_DIR)
 	$(TOUCH)
