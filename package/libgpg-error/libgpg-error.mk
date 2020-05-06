@@ -26,10 +26,8 @@ $(D)/libgpg-error: bootstrap $(ARCHIVE)/$(LIBGPG_ERROR_SOURCE)
 			; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
-	mv $(TARGET_DIR)/usr/bin/gpgrt-config $(HOST_DIR)/bin
-	mv $(TARGET_DIR)/usr/bin/gpg-error-config $(HOST_DIR)/bin
-	$(REWRITE_CONFIG) $(HOST_DIR)/bin/gpg-error-config
+	$(REWRITE_CONFIG) $(TARGET_DIR)/usr/bin/gpg-error-config
 	$(REWRITE_LIBTOOL)/libgpg-error.la
-	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,gpg-error yat2m)
+	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,gpg-error gpgrt-config yat2m)
 	$(REMOVE)/$(LIBGPG_ERROR_DIR)
 	$(TOUCH)
