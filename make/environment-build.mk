@@ -40,11 +40,12 @@ CROSS_DIR              = $(CROSS_BASE)/$(BOXARCH)-$(CROSSTOOL_GCC_VER)-kernel-$(
 BUILD                 ?= $(shell /usr/share/libtool/config.guess 2>/dev/null || /usr/share/libtool/config/config.guess 2>/dev/null || /usr/share/misc/config.guess 2>/dev/null)
 
 PKG_NAME               = $(basename $(@F))
-PKG_HELPER             = $(shell echo $(PKG_NAME) | tr '[:lower:]-' '[:upper:]_')
-PKG_VER                = $($(PKG_HELPER)_VER)
-PKG_DIR                = $($(PKG_HELPER)_DIR)
-PKG_SOURCE             = $($(PKG_HELPER)_SOURCE)
-PKG_URL                = $($(PKG_HELPER)_URL)
+PKG_UPPER              = $(call UPPERCASE,$(PKG_NAME))
+PKG_LOWER              = $(call LOWERCASE,$(PKG_NAME))
+PKG_VER                = $($(PKG_UPPER)_VER)
+PKG_DIR                = $($(PKG_UPPER)_DIR)
+PKG_SOURCE             = $($(PKG_UPPER)_SOURCE)
+PKG_URL                = $($(PKG_UPPER)_URL)
 PKG_BUILD_DIR          = $(BUILD_DIR)/$(PKG_DIR)
 PKG_FILES_DIR          = $(BASE_DIR)/package/$(subst host-,,$(basename $(@F)))/files
 PKG_PATCHES_DIR        = $(BASE_DIR)/package/$(subst host-,,$(basename $(@F)))/patches
