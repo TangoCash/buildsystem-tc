@@ -12,7 +12,6 @@ HAL_REV=$(shell cd $(SOURCE_DIR)/$(LIBSTB_HAL); git log | grep "^commit" | wc -l
 
 # -----------------------------------------------------------------------------
 
-GITSSH = 1
 ifeq ($(GITSSH), 1)
 MAX-GIT-GITHUB         = git@github.com:MaxWiesel
 URL_1                  = https://github.com/MaxWiesel
