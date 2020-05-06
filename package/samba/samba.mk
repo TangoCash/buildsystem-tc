@@ -14,7 +14,7 @@ $(D)/samba: bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 	$(REMOVE)/$(SAMBA_DIR)
 	$(UNTAR)/$(SAMBA_SOURCE)
 	$(CHDIR)/$(SAMBA_DIR); \
-		$(call auto_patches); \
+		$(APPLY_PATCHES); \
 		cd source3; \
 		./autogen.sh $(SILENT_OPT); \
 		$(BUILD_ENV) \

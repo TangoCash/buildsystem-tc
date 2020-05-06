@@ -61,12 +61,8 @@ define apply_patches
 	done
 endef
 
-define auto_patches
-	for p in $(PKG_PATCHES_DIR)/*.patch; do \
-		echo -e "$(TERM_YELLOW)Applying patch $(PKG_NAME):$(TERM_NORMAL) `basename $$p`"; \
-		patch -p1 -i $$p; \
-	done
-endef
+# apply patch sets automatically
+APPLY_PATCHES = $(call apply_patches, $(PKG_PATCHES_DIR))
 
 # -----------------------------------------------------------------------------
 
