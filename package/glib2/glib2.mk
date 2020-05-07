@@ -12,6 +12,7 @@ $(ARCHIVE)/$(GLIB2_SOURCE):
 GLIB2_PATCH  = \
 	glib2-disable-tests.patch \
 	glib2-automake.patch \
+	glib2-fix-gio-linking.patch \
 	gdbus-Avoid-printing-null-strings.patch
 
 $(D)/glib2: bootstrap host-glib2 libffi util-linux zlib libiconv $(ARCHIVE)/$(GLIB2_SOURCE)
