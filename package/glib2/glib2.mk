@@ -61,6 +61,7 @@ $(D)/glib2: bootstrap host-glib2 libffi util-linux zlib libiconv $(ARCHIVE)/$(GL
 HOST_GLIB2_VER    = $(GLIB2_VER)
 HOST_GLIB2_DIR    = glib-$(HOST_GLIB2_VER)
 HOST_GLIB2_SOURCE = $(GLIB2_SOURCE)
+HOST_GLIB2_PATCH  = fix-newer-gcc.patch
 
 $(D)/host-glib2: bootstrap host-libffi $(ARCHIVE)/$(HOST_GLIB2_SOURCE)
 	$(START_BUILD)
@@ -69,6 +70,7 @@ $(D)/host-glib2: bootstrap host-libffi $(ARCHIVE)/$(HOST_GLIB2_SOURCE)
 	$(CHDIR)/$(HOST_GLIB2_DIR); \
 		export PKG_CONFIG=/usr/bin/pkg-config; \
 		export PKG_CONFIG_PATH=$(HOST_DIR)/lib/pkgconfig; \
+		$(call apply_patches, $(HOST_GLIB2_PATCH)); \
 		./configure $(SILENT_OPT) \
 			--prefix=`pwd`/out \
 			--enable-static=yes \
