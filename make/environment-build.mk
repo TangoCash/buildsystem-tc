@@ -175,6 +175,7 @@ PKG_CONFIG_PATH        = $(TARGET_LIB_DIR)/pkgconfig
 # -----------------------------------------------------------------------------
 
 # rewrite-"functions"
+#   fix directories is libtool .la files and .pc files
 REWRITE_LIBTOOL_RULES = \
 	sed -i \
 	-e "s,^libdir=.*,libdir='$(TARGET_LIB_DIR)'," \
