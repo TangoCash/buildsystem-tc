@@ -109,8 +109,8 @@ case $2 in
 		echo "   2) GCC version 7.5.0"
 		echo "   3) GCC version 8.3.0"
 		echo "   4) GCC version 9.2.0"
-		read -p "Select toolchain gcc version (1-4)? [1] "
-		REPLY="${REPLY:-1}";;
+		read -p "Select toolchain gcc version (1-4)? [4] "
+		REPLY="${REPLY:-4}";;
 esac
 
 case "$REPLY" in
@@ -118,7 +118,7 @@ case "$REPLY" in
 	2) BS_GCC_VER="7.5.0";;
 	3) BS_GCC_VER="8.3.0";;
 	4) BS_GCC_VER="9.2.0";;
-	*) BS_GCC_VER="6.5.0";;
+	*) BS_GCC_VER="9.2.0";;
 esac
 echo "BS_GCC_VER=$BS_GCC_VER" >> .config
 
