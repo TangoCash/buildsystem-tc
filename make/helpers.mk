@@ -12,7 +12,6 @@ HAL_REV=$(shell cd $(SOURCE_DIR)/$(LIBSTB_HAL); git log | grep "^commit" | wc -l
 
 # -----------------------------------------------------------------------------
 
-GITSSH = 1
 ifeq ($(GITSSH), 1)
 MAX-GIT-GITHUB         = git@github.com:MaxWiesel
 URL_1                  = https://github.com/MaxWiesel
@@ -61,12 +60,8 @@ define apply_patches
 	done
 endef
 
-define auto_patches
-	for p in $(PKG_PATCHES_DIR)/*.patch; do \
-		echo -e "$(TERM_YELLOW)Applying patch $(PKG_NAME):$(TERM_NORMAL) `basename $$p`"; \
-		patch -p1 -i $$p; \
-	done
-endef
+# apply patch sets automatically
+APPLY_PATCHES = $(call apply_patches, $(PKG_PATCHES_DIR))
 
 # -----------------------------------------------------------------------------
 
@@ -96,8 +91,8 @@ endef
 # Case conversion macros.
 #
 
-[LOWER] := a b c d e f g h i j k l m n o p q r s t u v w x y z
-[UPPER] := A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+[LOWER] := a b c d e f g h i j k l m n o p q r s t u v w x y z - .
+[UPPER] := A B C D E F G H I J K L M N O P Q R S T U V W X Y Z _ _
 
 define caseconvert-helper
 $(1) = $$(strip \

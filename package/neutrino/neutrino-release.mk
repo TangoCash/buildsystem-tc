@@ -86,7 +86,8 @@ neutrino-release-base:
 	find $(RELEASE_DIR)/lib $(RELEASE_DIR)/usr/lib/ \
 		\( -name '*.a' \
 		-o -name '*.la' \
-		-o -name '*.orig' \) \
+		-o -name '*.orig' \
+		-o -name '*.-config' \) \
 		-print0 | xargs --no-run-if-empty -0 rm -f
 	rm -rf $(RELEASE_DIR)/usr/share/alsa/{init,topology,ucm}
 	find $(RELEASE_DIR)/usr/share/alsa/cards/ -not -name 'aliases.conf' -name '*.conf' -exec rm -f {} \;

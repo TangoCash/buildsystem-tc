@@ -16,9 +16,12 @@ $(D)/libgcrypt: bootstrap libgpg-error $(ARCHIVE)/$(LIBGCRYPT_SOURCE)
 	$(CHDIR)/$(LIBGCRYPT_DIR); \
 		$(CONFIGURE) \
 			--prefix=/usr \
+			--enable-shared \
+			--disable-static \
 			--disable-tests \
 			--with-gpg-error-prefix=$(TARGET_DIR)/usr \
 			--mandir=/.remove \
+			--infodir=/.remove \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
