@@ -3,14 +3,6 @@
 #
 # -----------------------------------------------------------------------------
 
-OMDB_API_KEY      ?=
-TMDB_DEV_KEY      ?=
-YOUTUBE_DEV_KEY   ?=
-SHOUTCAST_DEV_KEY ?=
-WEATHER_DEV_KEY   ?=
-
-# -----------------------------------------------------------------------------
-
 AUDIODEC = ffmpeg
 
 NEUTRINO_DEPS  = bootstrap
@@ -82,6 +74,72 @@ NEUTRINO_DEPS += xupnpd
 
 # -----------------------------------------------------------------------------
 
+OMDB_API_KEY ?=
+ifneq ($(strip $(OMDB_API_KEY)),)
+N_CONFIG_KEYS += \
+	--with-omdb-api-key="$(OMDB_API_KEY)" \
+	--disable-omdb-key-manage
+endif
+
+TMDB_DEV_KEY ?=
+ifneq ($(strip $(TMDB_DEV_KEY)),)
+N_CONFIG_KEYS += \
+	--with-tmdb-dev-key="$(TMDB_DEV_KEY)" \
+	--disable-tmdb-key-manage
+endif
+
+YOUTUBE_DEV_KEY ?=
+ifneq ($(strip $(YOUTUBE_DEV_KEY)),)
+N_CONFIG_KEYS += \
+	--with-youtube-dev-key="$(YOUTUBE_DEV_KEY)" \
+	--disable-youtube-key-manage
+endif
+
+SHOUTCAST_DEV_KEY ?=
+ifneq ($(strip $(SHOUTCAST_DEV_KEY)),)
+N_CONFIG_KEYS += \
+	--with-shoutcast-dev-key="$(SHOUTCAST_DEV_KEY)" \
+	--disable-shoutcast-key-manage
+endif
+
+WEATHER_DEV_KEY ?=
+ifneq ($(strip $(WEATHER_DEV_KEY)),)
+N_CONFIG_KEYS += \
+	--with-weather-dev-key="$(WEATHER_DEV_KEY)" \
+	--disable-weather-key-manage
+endif
+
+# -----------------------------------------------------------------------------
+
+N_CONFIG_OPTS += \
+	--with-libdir=/usr/lib \
+	--with-datadir=/usr/share/tuxbox \
+	--with-flagdir=/var/etc \
+	--with-fontdir=/usr/share/fonts \
+	--with-fontdir_var=/var/tuxbox/fonts \
+	--with-configdir=/var/tuxbox/config \
+	--with-gamesdir=/var/tuxbox/games \
+	--with-iconsdir=/usr/share/tuxbox/neutrino/icons \
+	--with-iconsdir_var=/var/tuxbox/icons \
+	--with-localedir=/usr/share/tuxbox/neutrino/locale \
+	--with-localedir_var=/var/tuxbox/locale \
+	--with-plugindir=/usr/share/tuxbox/neutrino/plugins \
+	--with-plugindir_var=/var/tuxbox/plugins \
+	--with-luaplugindir=/usr/share/tuxbox/neutrino/luaplugins \
+	--with-luaplugindir_var=/var/tuxbox/luaplugins \
+	--with-private_httpddir=/usr/share/tuxbox/neutrino/httpd \
+	--with-public_httpddir=/var/tuxbox/httpd \
+	--with-themesdir=/usr/share/tuxbox/neutrino/themes \
+	--with-themesdir_var=/var/tuxbox/themes \
+	--with-webtvdir=/usr/share/tuxbox/neutrino/webtv \
+	--with-webtvdir_var=/var/tuxbox/webtv \
+	--with-webradiodir=/usr/share/tuxbox/neutrino/webradio \
+	--with-webradiodir_var=/var/tuxbox/webradio \
+	--with-controldir=/usr/share/tuxbox/neutrino/control \
+	--with-controldir_var=/var/tuxbox/control
+
+# -----------------------------------------------------------------------------
+
 N_CFLAGS       = -Wall -W -Wshadow -pipe -Os -Wno-psabi
 N_CFLAGS      += -D__STDC_FORMAT_MACROS
 N_CFLAGS      += -D__STDC_CONSTANT_MACROS
@@ -105,7 +163,7 @@ LH_OBJ_DIR = $(BUILD_DIR)/$(LIBSTB_HAL)
 
 ifeq ($(FLAVOUR), neutrino-max)
 GIT_URL           ?= $(MAX-GIT-GITHUB)
-NEUTRINO           = neutrino-mp-max
+NEUTRINO           = neutrino-max
 LIBSTB_HAL         = libstb-hal-max
 NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
@@ -117,11 +175,11 @@ NEUTRINO           = ni-neutrino
 LIBSTB_HAL         = ni-libstb-hal
 NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
-NEUTRINO_PATCH     = neutrino/neutrino-ni.patch
+NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-tangos)
 GIT_URL           ?= https://github.com/TangoCash
-NEUTRINO           = neutrino-mp-tangos
+NEUTRINO           = neutrino-tangos
 LIBSTB_HAL         = libstb-hal-tangos
 NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
@@ -129,7 +187,7 @@ NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-ddt)
 GIT_URL           ?= https://github.com/Duckbox-Developers
-NEUTRINO           = neutrino-mp-ddt
+NEUTRINO           = neutrino-ddt
 LIBSTB_HAL         = libstb-hal-ddt
 NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
@@ -286,17 +344,12 @@ $(D)/neutrino.config.status:
 			--enable-lua \
 			--enable-pugixml \
 			--enable-reschange \
+			\
+			$(N_CONFIG_KEYS) \
+			\
 			$(N_CONFIG_OPTS) \
 			\
-			--with-omdb-api-key="$(OMDB_API_KEY)" \
-			--with-tmdb-dev-key="$(TMDB_DEV_KEY)" \
-			--with-youtube-dev-key="$(YOUTUBE_DEV_KEY)" \
-			--with-shoutcast-dev-key="$(SHOUTCAST_DEV_KEY)" \
-			--with-weather-dev-key="$(WEATHER_DEV_KEY)" \
-			\
 			--with-tremor \
-			--with-target=cdk \
-			--with-targetprefix=/usr \
 			--with-boxtype=$(BOXTYPE) \
 			--with-boxmodel=$(BOXMODEL) \
 			--with-stb-hal-includes=$(SOURCE_DIR)/$(LIBSTB_HAL)/include \
