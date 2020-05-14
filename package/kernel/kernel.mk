@@ -195,7 +195,7 @@ H7_PATCH = \
 
 # -----------------------------------------------------------------------------
 
-$(D)/kernel.do_prepare:
+$(D)/kernel.do_prepare: $(ARCHIVE)/$(KERNEL_SOURCE)
 	$(START_BUILD)
 	rm -rf $(KERNEL_DIR)
 	$(UNTAR)/$(KERNEL_SOURCE)
@@ -221,7 +221,7 @@ ifeq ($(BOXMODEL), $(filter $(BOXMODEL),bre2ze4k hd51 h7))
 endif
 	@touch $@
 
-$(D)/kernel: bootstrap $(ARCHIVE)/$(KERNEL_SOURCE) kernel.do_compile
+$(D)/kernel: bootstrap kernel.do_compile
 	mkdir -p $(TARGET_MODULES_DIR)
 	cp -a $(KERNEL_MODULES_DIR)/kernel $(TARGET_MODULES_DIR)
 	cp -a $(KERNEL_MODULES_DIR)/modules.builtin $(TARGET_MODULES_DIR)
