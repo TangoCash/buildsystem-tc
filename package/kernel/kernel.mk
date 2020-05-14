@@ -195,6 +195,9 @@ H7_PATCH = \
 
 # -----------------------------------------------------------------------------
 
+$(ARCHIVE)/$(KERNEL_SOURCE):
+	$(DOWNLOAD) $(KERNEL_URL)/$(KERNEL_SOURCE)
+
 $(D)/kernel.do_prepare: $(ARCHIVE)/$(KERNEL_SOURCE)
 	$(START_BUILD)
 	rm -rf $(KERNEL_DIR)
