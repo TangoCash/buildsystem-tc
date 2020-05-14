@@ -88,7 +88,7 @@ PACKAGES="\
 	\
 	${UBUNTU:+rpm}                                               ${FEDORA:+rpm-build}      ${GENTOO:+rpm}         \
 	${UBUNTU:+lsb-release}          ${SUSE:+lsb-release}         ${FEDORA:+redhat-lsb}     ${GENTOO:+lsb-release} \
-	${UBUNTU:+git-core}             ${SUSE:+git-core}            ${FEDORA:+git}            ${GENTOO:+git}         \
+	${UBUNTU:+git}                  ${SUSE:+git-core}            ${FEDORA:+git}            ${GENTOO:+git}         \
 	${UBUNTU:+libncurses5-dev}      ${SUSE:+ncurses-devel}       ${FEDORA:+ncurses-devel}  ${GENTOO:+ncurses}     \
 	${UBUNTU:+libncursesw5-dev}                                                                                   \
 	${UBUNTU:+gettext}              ${SUSE:+gettext-devel}       ${FEDORA:+gettext-devel}  ${GENTOO:+gettext}     \
@@ -100,7 +100,6 @@ PACKAGES="\
 	${UBUNTU:+pkg-config}           ${SUSE:+pkg-config}                                    ${GENTOO:+pkg-config}  \
 	${UBUNTU:+patch}                ${SUSE:+patch}                                         ${GENTOO:+patch}       \
 	${UBUNTU:+autopoint}                                                                                          \
-	${UBUNTU:+cfv}                                                                         ${GENTOO:+cfv}         \
 	${UBUNTU:+fakeroot}                                                                    ${GENTOO:+fakeroot}    \
 	${UBUNTU:+gawk}                                                                        ${GENTOO:+gawk}        \
 	${UBUNTU:+libglib2.0-bin}       ${SUSE:+glib2-devel}         ${FEDORA:+glib2-devel}    ${GENTOO:+glib:2}      \
@@ -118,7 +117,6 @@ PACKAGES="\
 	${UBUNTU:+mtools}                                                                                             \
 	${UBUNTU:+u-boot-tools}                                                                                       \
 	${UBUNTU:+curl}                                                                                               \
-	${UBUNTU:+bc}                                                                                                 \
 ";
 
 if [ "$UBUNTU" == 1 ]; then
@@ -157,6 +155,3 @@ if [ ! "$?" -eq "0" ]; then
 		ln -s /bin/bash /bin/sh
 	fi
 fi
-
-# for user mknod
-#chmod +s /bin/mknod
