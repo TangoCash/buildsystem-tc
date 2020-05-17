@@ -3,8 +3,8 @@
 #
 LIBDPF_VER    = git
 LIBDPF_DIR    = dpf-ax.$(LIBDPF_VER)
-LIBDPF_SOURCE = $(LIBDPF_DIR)
-LIBDPF_URL    = $(MAX-GIT-GITHUB)/dpf-ax.git
+LIBDPF_SOURCE = dpf-ax.$(LIBDPF_VER)
+LIBDPF_URL    = $(MAX-GIT-GITHUB)
 
 LIBDPF_PATCH  = \
 	crossbuild.patch
@@ -12,7 +12,7 @@ LIBDPF_PATCH  = \
 $(D)/libdpf: bootstrap libusb-compat
 	$(START_BUILD)
 	$(REMOVE)/$(LIBDPF_DIR)
-	$(GET-GIT-SOURCE) $(LIBDPF_URL) $(ARCHIVE)/$(LIBDPF_SOURCE)
+	$(GET-GIT-SOURCE) $(LIBDPF_URL)/$(LIBDPF_SOURCE) $(ARCHIVE)/$(LIBDPF_SOURCE)
 	$(CPDIR)/$(LIBDPF_DIR)
 	$(CHDIR)/$(LIBDPF_DIR)/dpflib; \
 		$(call apply_patches, $(LIBDPF_PATCH)); \

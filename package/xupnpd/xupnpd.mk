@@ -3,8 +3,8 @@
 #
 XUPNPD_VER    = 25d6d44
 XUPNPD_DIR    = xupnpd.git
-XUPNPD_SOURCE = $(XUPNPD_DIR)
-XUPNPD_URL    = https://github.com/clark15b/$(XUPNPD_SOURCE)
+XUPNPD_SOURCE = xupnpd.git
+XUPNPD_URL    = https://github.com/clark15b
 
 XUPNPD_PATCH  =  \
 	xupnpd.patch
@@ -12,7 +12,7 @@ XUPNPD_PATCH  =  \
 $(D)/xupnpd: bootstrap lua openssl neutrino-plugins
 	$(START_BUILD)
 	$(REMOVE)/$(XUPNPD_DIR)
-	$(GET-GIT-SOURCE) $(XUPNPD_URL) $(ARCHIVE)/$(XUPNPD_SOURCE)
+	$(GET-GIT-SOURCE) $(XUPNPD_URL)/$(XUPNPD_SOURCE) $(ARCHIVE)/$(XUPNPD_SOURCE)
 	$(CPDIR)/$(XUPNPD_DIR)
 	$(CHDIR)/$(XUPNPD_DIR); \
 		git checkout -q $(XUPNPD_VER); \

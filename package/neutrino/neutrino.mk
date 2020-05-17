@@ -41,7 +41,7 @@ NEUTRINO_DEPS += harfbuzz
 endif
 ifeq ($(EXTERNAL_LCD), graphlcd)
 N_CONFIG_OPTS += --enable-graphlcd
-NEUTRINO_DEPS += graphlcd
+NEUTRINO_DEPS += graphlcd-base
 endif
 ifeq ($(EXTERNAL_LCD), lcd4linux)
 N_CONFIG_OPTS += --enable-lcd4linux
@@ -49,7 +49,7 @@ NEUTRINO_DEPS += lcd4linux
 endif
 ifeq ($(EXTERNAL_LCD), both)
 N_CONFIG_OPTS += --enable-graphlcd
-NEUTRINO_DEPS += graphlcd
+NEUTRINO_DEPS += graphlcd-base
 N_CONFIG_OPTS += --enable-lcd4linux
 NEUTRINO_DEPS += lcd4linux
 endif

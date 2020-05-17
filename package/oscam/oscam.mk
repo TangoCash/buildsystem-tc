@@ -3,28 +3,30 @@
 #
 OSCAM_FLAVOUR ?= oscam-smod
 
+OSCAM_FLAVOUR_VER    = git
+
 ifeq ($(OSCAM_FLAVOUR), oscam)
-OSCAM_FLAVOUR_URL = https://repo.or.cz/oscam.git
-OSCAM_FLAVOUR_DIR = oscam.git
+OSCAM_FLAVOUR_DIR    = oscam.$(OSCAM_FLAVOUR_VER)
+OSCAM_FLAVOUR_SOURCE = oscam.$(OSCAM_FLAVOUR_VER)
+OSCAM_FLAVOUR_URL    = https://repo.or.cz
 else ifeq ($(OSCAM_FLAVOUR), oscam-smod)
-OSCAM_FLAVOUR_URL = https://github.com/Schimmelreiter/oscam-smod
-OSCAM_FLAVOUR_DIR = oscam-smod.git
+OSCAM_FLAVOUR_DIR    = oscam-smod.$(OSCAM_FLAVOUR_VER)
+OSCAM_FLAVOUR_SOURCE = oscam-smod.$(OSCAM_FLAVOUR_VER)
+OSCAM_FLAVOUR_URL    = https://github.com/Schimmelreiter
 endif
 
-# -----------------------------------------------------------------------------
+OSCAM_FLAVOUR_CONFIG = 
+OSCAM_FLAVOUR_PATCH  =
 
-OSCAM_VER = $(OSCAM_FLAVOUR)
-OSCAM_SOURCE = $(OSCAM_FLAVOUR_URL)
-OSCAM_CONFIG = 
-OSCAM_PATCH  =
+# -----------------------------------------------------------------------------
 
 $(D)/oscam.do_prepare:
 	$(START_BUILD)
 	$(REMOVE)/$(OSCAM_FLAVOUR_DIR)
-	$(GET-GIT-SOURCE) $(OSCAM_FLAVOUR_URL) $(ARCHIVE)/$(OSCAM_FLAVOUR_DIR)
+	$(GET-GIT-SOURCE) $(OSCAM_FLAVOUR_URL)/$(OSCAM_FLAVOUR_SOURCE) $(ARCHIVE)/$(OSCAM_FLAVOUR_DIR)
 	$(CPDIR)/$(OSCAM_FLAVOUR_DIR)
 	$(CHDIR)/$(OSCAM_FLAVOUR_DIR); \
-		$(call apply_patches, $(OSCAM_PATCH)); \
+		$(call apply_patches, $(OSCAM_FLAVOUR_PATCH)); \
 		$(SHELL) ./config.sh --disable all \
 		--enable WEBIF \
 			CS_ANTICASC \
@@ -81,7 +83,6 @@ $(D)/oscam: bootstrap openssl libusb oscam.do_prepare oscam.do_compile
 	rm -rf $(RELEASE_IMAGE_DIR)/$(OSCAM_FLAVOUR)
 	mkdir $(RELEASE_IMAGE_DIR)/$(OSCAM_FLAVOUR)
 	cp -pR $(BUILD_DIR)/$(OSCAM_FLAVOUR_DIR)/Distribution/* $(RELEASE_IMAGE_DIR)/$(OSCAM_FLAVOUR)/
-	$(REMOVE)/$(OSCAM_FLAVOUR_DIR)
 	$(TOUCH)
 
 oscam-clean:

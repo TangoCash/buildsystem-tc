@@ -2,9 +2,9 @@
 # udpxy
 #
 UDPXY_VER    = git
-UDPXY_DIR    = udpxy.git
-UDPXY_SOURCE = $(UDPXY_DIR)
-UDPXY_URL    = https://github.com/pcherenkov/$(UDPXY_SOURCE)
+UDPXY_DIR    = udpxy.$(UDPXY_VER)
+UDPXY_SOURCE = udpxy.$(UDPXY_VER)
+UDPXY_URL    = https://github.com/pcherenkov
 
 UDPXY_PATCH  = \
 	udpxy.patch \
@@ -13,7 +13,7 @@ UDPXY_PATCH  = \
 $(D)/udpxy: bootstrap
 	$(START_BUILD)
 	$(REMOVE)/$(UDPXY_DIR)
-	$(GET-GIT-SOURCE) $(UDPXY_URL) $(ARCHIVE)/$(UDPXY_SOURCE)
+	$(GET-GIT-SOURCE) $(UDPXY_URL)/$(UDPXY_SOURCE) $(ARCHIVE)/$(UDPXY_SOURCE)
 	$(CPDIR)/$(UDPXY_DIR)
 	$(CHDIR)/$(UDPXY_DIR)/chipmunk; \
 		$(call apply_patches, $(UDPXY_PATCH)); \

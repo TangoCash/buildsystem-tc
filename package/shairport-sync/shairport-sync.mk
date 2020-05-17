@@ -3,13 +3,13 @@
 #
 SHAIRPORT_SYNC_VER    = git
 SHAIRPORT_SYNC_DIR    = shairport-sync.$(SHAIRPORT_SYNC_VER)
-SHAIRPORT_SYNC_SOURCE = $(SHAIRPORT_SYNC_DIR)
-SHAIRPORT_SYNC_URL    = https://github.com/mikebrady/shairport-sync.git
+SHAIRPORT_SYNC_SOURCE = shairport-sync.$(SHAIRPORT_SYNC_VER)
+SHAIRPORT_SYNC_URL    = https://github.com/mikebrady
 
 $(D)/shairport-sync: bootstrap libdaemon popt libconfig openssl alsa-lib
 	$(START_BUILD)
 	$(REMOVE)/$(SHAIRPORT_SYNC_DIR)
-	$(GET-GIT-SOURCE) $(SHAIRPORT_SYNC_URL) $(ARCHIVE)/$(SHAIRPORT_SYNC_SOURCE)
+	$(GET-GIT-SOURCE) $(SHAIRPORT_SYNC_URL)/$(SHAIRPORT_SYNC_SOURCE) $(ARCHIVE)/$(SHAIRPORT_SYNC_SOURCE)
 	$(CPDIR)/$(SHAIRPORT_SYNC_DIR)
 	$(CHDIR)/$(SHAIRPORT_SYNC_DIR); \
 		autoreconf -fi $(SILENT_OPT); \
