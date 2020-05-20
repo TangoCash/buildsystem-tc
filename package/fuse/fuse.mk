@@ -1,7 +1,7 @@
 #
 # fuse
 #
-FUSE_VER    = 2.9.8
+FUSE_VER    = 2.9.9
 FUSE_DIR    = fuse-$(FUSE_VER)
 FUSE_SOURCE = fuse-$(FUSE_VER).tar.gz
 FUSE_URL    = https://github.com/libfuse/libfuse/releases/download/fuse-$(FUSE_VER)
