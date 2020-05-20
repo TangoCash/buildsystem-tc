@@ -1,5 +1,3 @@
-diff --git a/configure b/configure
-index ef8fb4e..609ea82 100755
 --- a/configure
 +++ b/configure
 @@ -659,8 +659,8 @@ check_lib langinfo.h nl_langinfo "" && add_cflags -DHAVE_LANGINFO_CODESET

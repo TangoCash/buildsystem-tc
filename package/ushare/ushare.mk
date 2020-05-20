@@ -6,16 +6,11 @@ USHARE_URL    = https://github.com/GeeXboX/ushare/archive
 $(ARCHIVE)/$(USHARE_SOURCE):
 	$(DOWNLOAD) $(USHARE_URL)/$(USHARE_SOURCE)
 
-USHARE_PATCH  = \
-	ushare.patch \
-	ushare-fix-building-with-gcc-5.x.patch \
-	ushare-disable-iconv-check.patch
-
 $(D)/ushare: bootstrap libupnp $(ARCHIVE)/$(USHARE_SOURCE)
 	$(REMOVE)/$(USHARE_DIR)
 	$(UNTAR)/$(USHARE_SOURCE)
 	$(CHDIR)/$(USHARE_DIR); \
-		$(call apply_patches, $(USHARE_PATCH)); \
+		$(APPLY_PATCHES); \
 		$(BUILD_ENV) \
 		./configure \
 			--prefix=/usr \

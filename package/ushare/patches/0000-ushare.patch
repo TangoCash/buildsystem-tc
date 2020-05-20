@@ -1,0 +1,230 @@
+--- a/configure
++++ b/configure
+@@ -42,6 +42,9 @@
+   echo "  --with-libdlna-dir=DIR      check for libdlna installed in DIR"
+   echo ""
+   echo "Advanced options (experts only):"
++  echo "  --disable-sysconf           disable installation of init files"
++  echo "  --enable-developer          enable developer options"
++  echo "  --disable-developer         disable developer options"
+   echo "  --enable-debug              enable debugging symbols"
+   echo "  --disable-debug             disable debugging symbols"
+   echo "  --disable-strip             disable stripping of executables at installation"
+@@ -164,6 +167,11 @@
+     echo "#define $1 \"$2\"" >> $CONFIG_H
+ }
+ 
++check_cmd_exists(){
++	log check_cmd_exists "$@"
++	which "$@" >>$logfile 2>&1
++}
++
+ check_cmd(){
+     log "$@"
+     "$@" >>$logfile 2>&1
+@@ -300,13 +308,15 @@
+ strip="strip"
+ cpu=`uname -m`
+ optimize="yes"
++sysconf="yes"
++developer="no"
+ debug="no"
+ dostrip="yes"
+ extralibs=""
+ installstrip="-s"
+ cross_compile="no"
+ INSTALL="/usr/bin/install -c"
+-VERSION="1.1a"
++VERSION="1.2.0"
+ system_name=`uname -s 2>&1`
+ 
+ #################################################
+@@ -420,6 +430,12 @@
+   ;;
+   --disable-dlna) dlna="no"
+   ;;
++  --disable-sysconf) sysconf="no"
++  ;;
++  --enable-developer) developer="yes"
++  ;;
++  --disable-developer) developer="no"
++  ;;
+   --enable-debug) debug="yes"
+   ;;
+   --disable-debug) debug="no"
+@@ -584,6 +600,25 @@
+ linux && add_cflags -D_GNU_SOURCE
+ 
+ #################################################
++#   check for developer options
++#################################################
++if enabled developer; then
++  add_cflags -Werror
++  add_cflags -DHAVE_DEVELOPER
++  
++  have_ctags='no'
++  if check_cmd_exists 'ctags'; then
++    have_ctags='yes'
++  fi
++
++  have_etags='no'
++  if check_cmd_exists 'etags'; then
++  	have_etags='yes'
++  fi
++
++fi
++
++#################################################
+ #   check for debug symbols
+ #################################################
+ if enabled debug; then
+@@ -684,6 +719,8 @@
+ echolog "  STRIP              $strip"
+ echolog "  make               $make"
+ echolog "  CPU                $cpu ($tune)"
++echolog "  install sysconf    $sysconf"
++echolog "  developer options  $developer"
+ echolog "  debug symbols      $debug"
+ echolog "  strip symbols      $dostrip"
+ echolog "  optimize           $optimize"
+@@ -724,6 +761,10 @@
+ append_config "LDFLAGS=$LDFLAGS"
+ append_config "INSTALL=$INSTALL"
+ 
++append_config "INSTALL_SYSCONF=$sysconf"
++append_config "DEVELOPER=$developer"
++append_config "HAVE_CTAGS=$have_ctags"
++append_config "HAVE_ETAGS=$have_etags"
+ append_config "DEBUG=$debug"
+ 
+ 
+--- a/scripts/Makefile
++++ b/scripts/Makefile
+@@ -3,6 +3,11 @@
+ endif
+ include ../config.mak
+ 
++INSTALL_RULES = 
++ifeq ($(INSTALL_SYSCONF),yes)
++  INSTALL_RULES   += install-sysconf
++endif
++
+ CONF_FILE  = "ushare.conf"
+ INITD_FILE = "ushare"
+ 
+@@ -14,7 +19,9 @@
+ 
+ distclean:
+ 
+-install:
++install: $(INSTALL_RULES)
++
++install-sysconf:
+ 	$(INSTALL) -d $(sysconfdir)
+ 	$(INSTALL) -m 644 $(CONF_FILE) $(sysconfdir)
+ 	$(INSTALL) -d $(sysconfdir)/init.d
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -3,6 +3,15 @@
+ endif
+ include ../config.mak
+ 
++ifeq ($(DEVELOPER),yes)
++  ifeq ($(HAVE_ETAGS),yes)
++    BUILD_RULES   += TAGS
++  endif
++  ifeq ($(HAVE_CTAGS),yes)
++    BUILD_RULES   += tags
++  endif
++endif
++
+ PROG = ushare
+ 
+ EXTRADIST = ushare.1 \
+@@ -50,7 +59,7 @@
+ 
+ .SUFFIXES: .c .o
+ 
+-all: depend $(PROG)
++all: depend $(BUILD_RULES) $(PROG)
+ 
+ .c.o:
+ 	$(CC) -c $(CFLAGS) $(OPTFLAGS) -o $@ $<
+@@ -58,6 +67,14 @@
+ $(PROG): $(OBJS)
+ 	$(CC) $(OBJS) $(LDFLAGS) $(EXTRALIBS) -o $@
+ 
++TAGS:
++	@rm -f $@; \
++	 ( find -name '*.[chS]' -print ) | xargs etags -a
++
++tags:
++	@rm -f $@; \
++	 ( find -name '*.[chS]' -print ) | xargs ctags -a;
++
+ clean:
+ 	-$(RM) -f *.o $(PROG)
+ 	-$(RM) -f .depend
+--- a/scripts/ushare.conf
++++ b/scripts/ushare.conf
+@@ -2,11 +2,11 @@
+ # Configuration file for uShare
+ 
+ # uShare UPnP Friendly Name (default is 'uShare').
+-USHARE_NAME=
++USHARE_NAME=coolstream
+ 
+ # Interface to listen to (default is eth0).
+ # Ex : USHARE_IFACE=eth1
+-USHARE_IFACE=
++USHARE_IFACE=eth0
+ 
+ # Port to listen to (default is random from IANA Dynamic Ports range)
+ # Ex : USHARE_PORT=49200
+@@ -18,7 +18,7 @@
+ 
+ # Directories to be shared (space or CSV list).
+ # Ex: USHARE_DIR=/dir1,/dir2
+-USHARE_DIR=
++USHARE_DIR=/media/sda1,media/sdb1
+ 
+ # Use to override what happens when iconv fails to parse a file name.
+ # The default uShare behaviour is to not add the entry in the media list
+@@ -28,7 +28,7 @@
+ # as is. (Umlauts for all!)
+ #
+ # Options are TRUE/YES/1 for override and anything else for default behaviour
+-USHARE_OVERRIDE_ICONV_ERR=
++USHARE_OVERRIDE_ICONV_ERR=yes
+ 
+ # Enable Web interface (yes/no)
+ ENABLE_WEB=
+
+--- a/src/mime.c
++++ b/src/mime.c
+@@ -53,6 +53,7 @@
+   { "mpeg2", UPNP_VIDEO, "http-get:*:video/mpeg2:"},
+   { "m4v",   UPNP_VIDEO, "http-get:*:video/mp4:"},
+   { "m4p",   UPNP_VIDEO, "http-get:*:video/mp4:"},
++  { "mp4",   UPNP_VIDEO, "http-get:*:video/mp4:"},
+   { "mp4ps", UPNP_VIDEO, "http-get:*:video/x-nerodigital-ps:"},
+   { "ts",    UPNP_VIDEO, "http-get:*:video/mpeg2:"},
+   { "ogm",   UPNP_VIDEO, "http-get:*:video/mpeg:"},
+@@ -79,7 +80,6 @@
+   { "mp1",  UPNP_AUDIO, "http-get:*:audio/mp1:"},
+   { "mp2",  UPNP_AUDIO, "http-get:*:audio/mp2:"},
+   { "mp3",  UPNP_AUDIO, "http-get:*:audio/mpeg:"},
+-  { "mp4",  UPNP_AUDIO, "http-get:*:audio/mp4:"},
+   { "m4a",  UPNP_AUDIO, "http-get:*:audio/mp4:"},
+   { "ogg",  UPNP_AUDIO, "http-get:*:audio/x-ogg:"},
+   { "wav",  UPNP_AUDIO, "http-get:*:audio/wav:"},
+@@ -144,7 +144,8 @@
+   if (!mime)
+     return NULL;
+ 
+-  sprintf (protocol, mime->mime_protocol);
++  //sprintf (protocol, mime->mime_protocol);
++  strcpy (protocol, mime->mime_protocol);
+   strcat (protocol, "*");
+   return strdup (protocol);
+ }

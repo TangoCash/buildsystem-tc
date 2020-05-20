@@ -35,7 +35,7 @@ diff --git a/src/ushare.c b/src/ushare.c
 index b64451e..af46e78 100644
 --- a/src/ushare.c
 +++ b/src/ushare.c
-@@ -758,7 +758,7 @@ reload_config (int s __attribute__ ((unused)))
+@@ -728,7 +728,7 @@ reload_config (int s __attribute__ ((unused)))
    }
  }
  
