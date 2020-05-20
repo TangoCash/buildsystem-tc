@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. /etc/init.d/globals
+
+case $1 in
+	start)
+		if [ -e /var/etc/.ushare ]; then
+			ushare -D -n "$(hostname)"
+		fi
+	;;
+	stop)
+		if [ -e /var/etc/.ushare ]; then
+			trap "" INT
+			kill -INT $(pidof ushare)
+		fi
+	;;
+	*)
+		echo "[$BASENAME] Usage: $0 {start|stop}"
+	;;
+esac
