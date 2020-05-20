@@ -3,8 +3,8 @@
 #
 RTMPDUMP_VER    = git
 RTMPDUMP_DIR    = rtmpdump.$(RTMPDUMP_VER)
-RTMPDUMP_SOURCE = $(RTMPDUMP_DIR)
-RTMPDUMP_URL    = git://github.com/oe-alliance/rtmpdump.git
+RTMPDUMP_SOURCE = rtmpdump.$(RTMPDUMP_VER)
+RTMPDUMP_URL    = git://github.com/oe-alliance
 
 RTMPDUMP_PATCH  = \
 	rtmpdump.patch \
@@ -14,7 +14,7 @@ RTMPDUMP_PATCH  = \
 $(D)/rtmpdump: bootstrap zlib openssl
 	$(START_BUILD)
 	$(REMOVE)/$(RTMPDUMP_DIR)
-	$(GET-GIT-SOURCE) $(RTMPDUMP_URL) $(ARCHIVE)/$(RTMPDUMP_SOURCE)
+	$(GET-GIT-SOURCE) $(RTMPDUMP_URL)/$(RTMPDUMP_SOURCE) $(ARCHIVE)/$(RTMPDUMP_SOURCE)
 	$(CPDIR)/$(RTMPDUMP_DIR)
 	$(CHDIR)/$(RTMPDUMP_DIR); \
 		$(call apply_patches, $(RTMPDUMP_PATCH)); \

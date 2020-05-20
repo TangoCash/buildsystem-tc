@@ -1,7 +1,7 @@
 #
 # tzdata
 #
-TZDATA_VER    = 2018e
+TZDATA_VER    = 2020a
 TZDATA_DIR    = timezone
 TZDATA_SOURCE = tzdata$(TZDATA_VER).tar.gz
 TZDATA_URL    = ftp://ftp.iana.org/tz/releases
@@ -9,14 +9,14 @@ TZDATA_URL    = ftp://ftp.iana.org/tz/releases
 $(ARCHIVE)/$(TZDATA_SOURCE):
 	$(DOWNLOAD) $(TZDATA_URL)/$(TZDATA_SOURCE)
 
-$(D)/tzdata: bootstrap $(ARCHIVE)/$(TZDATA_SOURCE)
+$(D)/tzdata: bootstrap $(ARCHIVE)/$(TZDATA_SOURCE) host-tzcode
 	$(START_BUILD)
 	$(REMOVE)/$(TZDATA_DIR)
 	mkdir $(BUILD_DIR)/$(TZDATA_DIR) $(BUILD_DIR)/timezone/zoneinfo
 	tar -C $(BUILD_DIR)/$(TZDATA_DIR) -xf $(ARCHIVE)/$(TZDATA_SOURCE)
 	$(CHDIR)/$(TZDATA_DIR); \
 		unset ${!LC_*}; LANG=POSIX; LC_ALL=POSIX; export LANG LC_ALL; \
-		zic -d zoneinfo.tmp \
+		$(HOST_DIR)/bin/zic -d zoneinfo.tmp \
 			africa antarctica asia australasia \
 			europe northamerica southamerica pacificnew \
 			etcetera backward; \

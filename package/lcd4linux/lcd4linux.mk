@@ -3,13 +3,13 @@
 #
 LCD4LINUX_VER    = git
 LCD4LINUX_DIR    = lcd4linux.$(LCD4LINUX_VER)
-LCD4LINUX_SOURCE = $(LCD4LINUX_DIR)
-LCD4LINUX_URL    = https://github.com/TangoCash/lcd4linux.git
+LCD4LINUX_SOURCE = lcd4linux.$(LCD4LINUX_VER)
+LCD4LINUX_URL    = https://github.com/TangoCash
 
 $(D)/lcd4linux: bootstrap ncurses libusb-compat libgd libusb libdpf
 	$(START_BUILD)
 	$(REMOVE)/$(LCD4LINUX_DIR)
-	$(GET-GIT-SOURCE) $(LCD4LINUX_URL) $(ARCHIVE)/$(LCD4LINUX_SOURCE)
+	$(GET-GIT-SOURCE) $(LCD4LINUX_URL)/$(LCD4LINUX_SOURCE) $(ARCHIVE)/$(LCD4LINUX_SOURCE)
 	$(CPDIR)/$(LCD4LINUX_DIR)
 	$(CHDIR)/$(LCD4LINUX_DIR); \
 		$(BUILD_ENV) ./bootstrap $(SILENT_OPT); \

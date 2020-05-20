@@ -3,14 +3,14 @@
 #
 NEUTRINO_IPTVPLAYER_VER    = git
 NEUTRINO_IPTVPLAYER_DIR    = iptvplayer.$(NEUTRINO_IPTVPLAYER_VER)
-NEUTRINO_IPTVPLAYER_SOURCE = $(NEUTRINO_IPTVPLAYER_DIR)
-NEUTRINO_IPTVPLAYER_URL    = https://github.com/TangoCash/crossplatform_iptvplayer.git
+NEUTRINO_IPTVPLAYER_SOURCE = iptvplayer.$(NEUTRINO_IPTVPLAYER_VER)
+NEUTRINO_IPTVPLAYER_URL    = https://github.com/TangoCash
 
 $(D)/neutrino-iptvplayer-nightly \
 $(D)/neutrino-iptvplayer: rtmpdump python-twisted | $(SHARE_PLUGINS)
 	$(START_BUILD)
 	$(REMOVE)/$(NEUTRINO_IPTVPLAYER_DIR)
-	$(GET-GIT-SOURCE) $(NEUTRINO_IPTVPLAYER_URL) $(ARCHIVE)/$(NEUTRINO_IPTVPLAYER_SOURCE)
+	$(GET-GIT-SOURCE) $(NEUTRINO_IPTVPLAYER_URL)/crossplatform_$(NEUTRINO_IPTVPLAYER_SOURCE) $(ARCHIVE)/$(NEUTRINO_IPTVPLAYER_SOURCE)
 	$(CPDIR)/$(NEUTRINO_IPTVPLAYER_DIR)
 	@if [ "$@" = "$(D)/neutrino-iptvplayer-nightly" ]; then \
 		$(BUILD_DIR)/iptvplayer/SyncWithGitLab.sh $(BUILD_DIR)/iptvplayer; \

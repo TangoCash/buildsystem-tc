@@ -1,7 +1,7 @@
 #
 # ethtool
 #
-ETHTOOL_VER    = 5.4
+ETHTOOL_VER    = 5.6
 ETHTOOL_DIR    = ethtool-$(ETHTOOL_VER)
 ETHTOOL_SOURCE = ethtool-$(ETHTOOL_VER).tar.xz
 ETHTOOL_URL    = https://www.kernel.org/pub/software/network/ethtool
@@ -18,6 +18,7 @@ $(D)/ethtool: bootstrap $(ARCHIVE)/$(ETHTOOL_SOURCE)
 			--prefix=/usr \
 			--mandir=/.remove \
 			--disable-pretty-dump \
+			--disable-netlink \
 			; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)

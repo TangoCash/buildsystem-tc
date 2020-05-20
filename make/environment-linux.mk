@@ -180,9 +180,6 @@ KERNEL_CONFIG      = $(BOXMODEL)_defconfig
 endif
 KERNEL_PATCH       = $($(call UPPERCASE,$(BOXMODEL))_PATCH)
 
-$(ARCHIVE)/$(KERNEL_SOURCE):
-	$(DOWNLOAD) $(KERNEL_URL)/$(KERNEL_SOURCE)
-
 # -----------------------------------------------------------------------------
 
 # translate toolchain arch to kernel arch

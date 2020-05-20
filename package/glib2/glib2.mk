@@ -12,6 +12,7 @@ $(ARCHIVE)/$(GLIB2_SOURCE):
 GLIB2_PATCH  = \
 	glib2-disable-tests.patch \
 	glib2-automake.patch \
+	glib2-fix-gio-linking.patch \
 	gdbus-Avoid-printing-null-strings.patch
 
 $(D)/glib2: bootstrap host-glib2 libffi util-linux zlib libiconv $(ARCHIVE)/$(GLIB2_SOURCE)
@@ -62,6 +63,9 @@ HOST_GLIB2_VER    = $(GLIB2_VER)
 HOST_GLIB2_DIR    = glib-$(HOST_GLIB2_VER)
 HOST_GLIB2_SOURCE = $(GLIB2_SOURCE)
 HOST_GLIB2_PATCH  = fix-newer-gcc.patch
+
+HOST_GLIB2_PATCH  = \
+	gdbus-Avoid-printing-null-strings.patch
 
 $(D)/host-glib2: bootstrap host-libffi $(ARCHIVE)/$(HOST_GLIB2_SOURCE)
 	$(START_BUILD)

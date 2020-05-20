@@ -3,13 +3,13 @@
 #
 AIO_GRAB_VER    = git
 AIO_GRAB_DIR    = aio-grab.$(AIO_GRAB_VER)
-AIO_GRAB_SOURCE = $(AIO_GRAB_DIR)
-AIO_GRAB_URL    = https://github.com/oe-alliance/$(AIO_GRAB_SOURCE)
+AIO_GRAB_SOURCE = aio-grab.$(AIO_GRAB_VER)
+AIO_GRAB_URL    = https://github.com/oe-alliance
 
 $(D)/aio-grab: bootstrap zlib libpng libjpeg-turbo
 	$(START_BUILD)
 	$(REMOVE)/$(AIO_GRAB_DIR)
-	$(GET-GIT-SOURCE) $(AIO_GRAB_URL) $(ARCHIVE)/$(AIO_GRAB_SOURCE)
+	$(GET-GIT-SOURCE) $(AIO_GRAB_URL)/$(AIO_GRAB_SOURCE) $(ARCHIVE)/$(AIO_GRAB_SOURCE)
 	$(CPDIR)/$(AIO_GRAB_DIR)
 	$(CHDIR)/$(AIO_GRAB_DIR); \
 		autoreconf -fi $(SILENT_OPT); \

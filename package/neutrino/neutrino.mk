@@ -86,7 +86,7 @@ NEUTRINO_DEPS += harfbuzz
 endif
 ifeq ($(EXTERNAL_LCD), graphlcd)
 N_CONFIG_OPTS += --enable-graphlcd
-NEUTRINO_DEPS += graphlcd
+NEUTRINO_DEPS += graphlcd-base
 endif
 ifeq ($(EXTERNAL_LCD), lcd4linux)
 N_CONFIG_OPTS += --enable-lcd4linux
@@ -94,7 +94,7 @@ NEUTRINO_DEPS += lcd4linux
 endif
 ifeq ($(EXTERNAL_LCD), both)
 N_CONFIG_OPTS += --enable-graphlcd
-NEUTRINO_DEPS += graphlcd
+NEUTRINO_DEPS += graphlcd-base
 N_CONFIG_OPTS += --enable-lcd4linux
 NEUTRINO_DEPS += lcd4linux
 endif
@@ -160,7 +160,7 @@ LH_OBJ_DIR = $(BUILD_DIR)/$(LIBSTB_HAL)
 
 ifeq ($(FLAVOUR), neutrino-max)
 GIT_URL           ?= $(MAX-GIT-GITHUB)
-NEUTRINO           = neutrino-mp-max
+NEUTRINO           = neutrino-max
 LIBSTB_HAL         = libstb-hal-max
 NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
@@ -172,11 +172,11 @@ NEUTRINO           = ni-neutrino
 LIBSTB_HAL         = ni-libstb-hal
 NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
-NEUTRINO_PATCH     = neutrino/neutrino-ni.patch
+NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-tangos)
 GIT_URL           ?= https://github.com/TangoCash
-NEUTRINO           = neutrino-mp-tangos
+NEUTRINO           = neutrino-tangos
 LIBSTB_HAL         = libstb-hal-tangos
 NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
@@ -184,7 +184,7 @@ NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
 else ifeq  ($(FLAVOUR), neutrino-ddt)
 GIT_URL           ?= https://github.com/Duckbox-Developers
-NEUTRINO           = neutrino-mp-ddt
+NEUTRINO           = neutrino-ddt
 LIBSTB_HAL         = libstb-hal-ddt
 NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
@@ -316,7 +316,7 @@ $(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) libstb-hal
 	rm -rf $(N_OBJ_DIR)
 	$(GET-GIT-SOURCE) $(GIT_URL)/$(NEUTRINO_SOURCE) $(ARCHIVE)/$(NEUTRINO_SOURCE)
 	cp -ra $(ARCHIVE)/$(NEUTRINO_SOURCE) $(SOURCE_DIR)/$(NEUTRINO)
-	(cd $(SOURCE_DIR)/$(NEUTRINO); git checkout -q $(NMP_BRANCH);)
+	(cd $(SOURCE_DIR)/$(NEUTRINO); git checkout -q $(NEUTRINO_BRANCH);)
 	cp -ra $(SOURCE_DIR)/$(NEUTRINO) $(SOURCE_DIR)/$(NEUTRINO).org
 	$(CD) $(SOURCE_DIR)/$(NEUTRINO); \
 		$(call apply_patches, $(NEUTRINO_PATCH))
