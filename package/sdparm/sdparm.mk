@@ -1,7 +1,7 @@
 #
 # sdparm
 #
-SDPARM_VER    = 1.10
+SDPARM_VER    = 1.11
 SDPARM_DIR    = sdparm-$(SDPARM_VER)
 SDPARM_SOURCE = sdparm-$(SDPARM_VER).tgz
 SDPARM_URL    = http://sg.danny.cz/sg/p
