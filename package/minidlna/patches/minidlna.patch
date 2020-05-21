@@ -1,6 +1,6 @@
 --- a/minidlna.c
 +++ b/minidlna.c
-@@ -295,10 +295,8 @@
+@@ -284,10 +284,8 @@
  	if (sq3)
  		*sq3 = db;
  	sqlite3_busy_timeout(db, 5000);
@@ -11,3 +11,27 @@
  
  	return new_db;
  }
+--- a/scanner.c
++++ b/scanner.c
+@@ -901,7 +901,9 @@
+ 		DPRINTF(E_WARN, L_INOTIFY,  "Failed to reduce scanner thread priority\n");
+ 
+ 	setlocale(LC_COLLATE, "");
++#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(58, 9, 100)
+ 	av_register_all();
++#endif
+ 	av_log_set_level(AV_LOG_PANIC);
+ 
+ 	if( GETFLAG(RESCAN_MASK) )
+--- a/monitor.c
++++ b/monitor.c
+@@ -632,7 +632,9 @@
+ 	if (setpriority(PRIO_PROCESS, 0, 19) == -1)
+ 		DPRINTF(E_WARN, L_INOTIFY,  "Failed to reduce inotify thread priority\n");
+ 	sqlite3_release_memory(1<<31);
++#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(58, 9, 100)
+ 	av_register_all();
++#endif
+ 
+ 	while( !quitting )
+ 	{
