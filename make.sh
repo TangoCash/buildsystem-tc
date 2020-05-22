@@ -51,7 +51,7 @@ elif [ "$1" == -q ] || [ "$1" == --quiet ]; then
 	shift
 	KBUILD_VERBOSE=0
 else
-	KBUILD_VERBOSE=0
+	KBUILD_VERBOSE=1
 fi
 echo "KBUILD_VERBOSE=$KBUILD_VERBOSE" > .config
 

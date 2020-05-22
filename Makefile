@@ -83,7 +83,7 @@ local-files:
 # maybe a help about all supported targets would be nice here, too...
 #
 printenv:
-	$(call draw_line);
+	@$(call draw_line);
 	@echo "Build Environment Variables:"
 	@echo "PATH              : `type -p fmt>/dev/null&&echo $(PATH)|sed 's/:/ /g' |fmt -65|sed 's/ /:/g; 2,$$s/^/                  : /;'||echo $(PATH)`"
 	@echo "ARCHIVE_DIR       : $(ARCHIVE)"
@@ -112,12 +112,12 @@ printenv:
 ifeq ($(NEWLAYOUT), 1)
 	@echo -e "IMAGE TYPE        : $(TERM_YELLOW)1 single + multirootfs$(TERM_NORMAL)"
 endif
-	$(call draw_line);
+	@$(call draw_line);
 	@echo -e "LOCAL_N_PLUGIN_BUILD_OPTIONS : $(TERM_GREEN)$(LOCAL_N_PLUGIN_BUILD_OPTIONS)$(TERM_NORMAL)"
 	@echo -e "LOCAL_NEUTRINO_BUILD_OPTIONS : $(TERM_GREEN)$(LOCAL_NEUTRINO_BUILD_OPTIONS)$(TERM_NORMAL)"
 	@echo -e "LOCAL_NEUTRINO_CFLAGS        : $(TERM_GREEN)$(LOCAL_NEUTRINO_CFLAGS)$(TERM_NORMAL)"
 	@echo -e "LOCAL_NEUTRINO_DEPS          : $(TERM_GREEN)$(LOCAL_NEUTRINO_DEPS)$(TERM_NORMAL)"
-	$(call draw_line);
+	@$(call draw_line);
 	@make --no-print-directory toolcheck
 ifeq ($(MAINTAINER),)
 	@echo "##########################################################################"
