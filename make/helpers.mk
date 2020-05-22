@@ -216,6 +216,22 @@ patches-info:
 #
 # python helpers
 #
+HOST_PYTHON_BUILD = \
+	CC="$(HOSTCC)" \
+	CFLAGS="$(CFLAGS)" \
+	LDFLAGS="$(LDFLAGS)" \
+	LDSHARED="$(HOSTCC) -shared" \
+	PYTHONPATH=$(HOST_DIR)/$(HOST_PYTHON3_BASE_DIR)/site-packages \
+	$(HOST_DIR)/bin/python3 ./setup.py $(SILENT_Q) build --executable=/usr/python
+
+HOST_PYTHON_INSTALL = \
+	CC="$(HOSTCC)" \
+	CFLAGS="$(CFLAGS)" \
+	LDFLAGS="$(LDFLAGS)" \
+	LDSHARED="$(HOSTCC) -shared" \
+	PYTHONPATH=$(TARGET_DIR)/$(HOST_PYTHON3_BASE_DIR)/site-packages \
+	$(HOST_DIR)/bin/python3 ./setup.py $(SILENT_Q) install --root=$(HOST_DIR) --prefix=
+
 PYTHON_BUILD = \
 	CC="$(TARGET_CC)" \
 	CFLAGS="$(TARGET_CFLAGS)" \

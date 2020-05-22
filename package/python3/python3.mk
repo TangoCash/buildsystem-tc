@@ -9,8 +9,8 @@ HOST_PYTHON3_URL    = https://www.python.org/ftp/python/$(HOST_PYTHON3_VER)
 $(ARCHIVE)/$(HOST_PYTHON3_SOURCE):
 	$(DOWNLOAD) $(HOST_PYTHON3_URL)/$(HOST_PYTHON3_SOURCE)
 
-PYTHON3_BASE_DIR    = lib/python$(basename $(HOST_PYTHON3_VER))
-PYTHON3_INCLUDE_DIR = include/python$(basename $(HOST_PYTHON3_VER))
+HOST_PYTHON3_BASE_DIR    = lib/python$(basename $(HOST_PYTHON3_VER))
+HOST_PYTHON3_INCLUDE_DIR = include/python$(basename $(HOST_PYTHON3_VER))
 
 $(D)/host-python3: bootstrap $(ARCHIVE)/$(HOST_PYTHON3_SOURCE)
 	$(START_BUILD)
