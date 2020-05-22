@@ -20,7 +20,7 @@ diff --git a/configure.ac b/configure.ac
 index 8c9706582e..e6255babb6 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3006,13 +3006,20 @@ fi
+@@ -3012,13 +3012,20 @@ fi
  AC_SUBST(LIBFFI_INCLUDEDIR)
  
  # Check for use of the system libmpdec library

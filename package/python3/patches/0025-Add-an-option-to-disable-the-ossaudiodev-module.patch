@@ -12,7 +12,7 @@ diff --git a/configure.ac b/configure.ac
 index e6255babb6..5809233aac 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3021,6 +3021,12 @@ else
+@@ -3027,6 +3027,12 @@ else
  fi
  AC_SUBST(MPDEC)
  
