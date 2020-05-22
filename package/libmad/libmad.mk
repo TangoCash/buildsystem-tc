@@ -17,6 +17,10 @@ LIBMAD_PATCH  = \
 	libmad-thumb2-fixed-arm.patch \
 	libmad-thumb2-imdct-arm.patch
 
+ifeq ($(BOXARCH), arm)
+LIBMAD_CONF_OPTS = --enable-fpm=arm
+endif
+
 $(D)/libmad: bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/$(LIBMAD_DIR)
@@ -28,9 +32,10 @@ $(D)/libmad: bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 			--prefix=/usr \
 			--enable-shared=yes \
 			--enable-accuracy \
-			--enable-fpm=arm \
 			--enable-sso \
 			--disable-debugging \
+			 \
+			$(LIBMAD_CONFIG_OPTS) \
 			; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
