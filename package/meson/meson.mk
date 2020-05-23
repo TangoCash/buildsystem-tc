@@ -43,6 +43,6 @@ define CROSS_COMPILATION_CONFIG
 	echo "[host_machine]" >> $(1)/cross-compilation.conf
 	echo "system = 'linux'" >> $(1)/cross-compilation.conf
 	echo "cpu_family = '$(TARGET_ARCH)'" >> $(1)/cross-compilation.conf
-#	echo "cpu = 'cortex-a15'" >> $(1)/cross-compilation.conf
+	echo "cpu = '$(if $(filter $(TARGET_ARCH), arm aarch64),cortex-a15,)'" >> $(1)/cross-compilation.conf
 	echo "endian = '$(TARGET_ENDIAN)'" >> $(1)/cross-compilation.conf
 endef
