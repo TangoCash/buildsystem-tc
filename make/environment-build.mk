@@ -75,18 +75,24 @@ ifeq ($(TARGET_ARCH), arm)
 TARGET                ?= arm-cortex-linux-gnueabihf
 TARGET_ARCH           ?= arm
 TARGET_ABI             = -mtune=cortex-a15 -mfloat-abi=hard -mfpu=neon-vfpv4 -march=armv7ve
+TARGET_ARCH           ?= arm
+TARGET_ENDIAN          = little
 endif
 
 ifeq ($(TARGET_ARCH), aarch64)
 TARGET                ?= aarch64-unknown-linux-gnu
 TARGET_ARCH           ?= aarch64
 TARGET_ABI             =
+TARGET_ARCH           ?= aarch64
+TARGET_ENDIAN          = big
 endif
 
 ifeq ($(TARGET_ARCH), mips)
 TARGET                ?= mipsel-unknown-linux-gnu
 TARGET_ARCH           ?= mips
 TARGET_ABI             = -march=mips32 -mtune=mips32
+TARGET_ARCH           ?= mips
+TARGET_ENDIAN          = little
 endif
 
 OPTIMIZATIONS         ?= size
