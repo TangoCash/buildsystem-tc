@@ -117,6 +117,7 @@ PACKAGES="\
 	${UBUNTU:+mtools}                                                                                             \
 	${UBUNTU:+u-boot-tools}                                                                                       \
 	${UBUNTU:+curl}                                                                                               \
+	${UBUNTU:+libcap-dev}                                                                                         \
 ";
 
 if [ "$UBUNTU" == 1 ]; then
