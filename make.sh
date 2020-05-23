@@ -80,23 +80,23 @@ case $1 in
 esac
 
 case "$REPLY" in
-	 1) BOXARCH="mips";BOXTYPE="mipsbox";BOXMODEL="vuduo";;
-	 2) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuduo4k";;
-	 3) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vusolo4k";;
-	 4) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuultimo4k";;
-	 5) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4k";;
-	 6) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4kse";;
-	 7) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuzero4k";;
-	11) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="bre2ze4k";;
-	21) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
-	22) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd60";;
-	23) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd61";;
-	30) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4k";;
-	31) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4kplus";;
-	40) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="h7";;
-	 *) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
+	 1) TARGET_ARCH="mips";BOXTYPE="mipsbox";BOXMODEL="vuduo";;
+	 2) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuduo4k";;
+	 3) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vusolo4k";;
+	 4) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuultimo4k";;
+	 5) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4k";;
+	 6) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4kse";;
+	 7) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuzero4k";;
+	11) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="bre2ze4k";;
+	21) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
+	22) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="hd60";;
+	23) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="hd61";;
+	30) TARGET_ARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4k";;
+	31) TARGET_ARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4kplus";;
+	40) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="h7";;
+	 *) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
 esac
-echo "BOXARCH=$BOXARCH" >> .config
+echo "TARGET_ARCH=$TARGET_ARCH" >> .config
 echo "BOXTYPE=$BOXTYPE" >> .config
 echo "BOXMODEL=$BOXMODEL" >> .config
 

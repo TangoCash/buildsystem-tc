@@ -31,7 +31,7 @@ $(D)/libmad: bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 			--enable-sso \
 			--disable-debugging \
 			 \
-			$(if $(filter $(BOXARCH), arm mips),--enable-fpm=$(BOXARCH),) \
+			$(if $(filter $(TARGET_ARCH), arm mips),--enable-fpm=$(TARGET_ARCH),) \
 			; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)

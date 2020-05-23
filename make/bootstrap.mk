@@ -58,7 +58,7 @@ $(D)/cross-libs: directories $(CROSSTOOL)
 	else \
 		cp -a $(CROSS_DIR)/$(TARGET)/lib/*so* $(TARGET_DIR)/lib; \
 	fi; \
-	if [ $(BOXARCH) = "aarch64" ]; then \
+	if [ $(TARGET_ARCH) = "aarch64" ]; then \
 		cd ${TARGET_DIR}; ln -sf lib lib64; \
 		cd ${TARGET_DIR}/usr; ln -sf lib lib64; \
 	fi

@@ -17,11 +17,11 @@ OPENSSL_PATCH  = \
 	openssl-compat_versioned_symbols-1.patch \
 	openssl-remove_timestamp_check.patch
 
-ifeq ($(BOXARCH), arm)
+ifeq ($(TARGET_ARCH), arm)
 OPENSSL_TARGET_ARCH = linux-armv4
-else ifeq ($(BOXARCH), aarch64)
+else ifeq ($(TARGET_ARCH), aarch64)
 OPENSSL_TARGET_ARCH = linux-aarch64
-else ifeq ($(BOXARCH), mips)
+else ifeq ($(TARGET_ARCH), mips)
 OPENSSL_TARGET_ARCH = linux-generic32
 endif
 

@@ -21,10 +21,10 @@ FFMPEG_PATCH  = \
 	4_09_ffmpeg_fix_edit_list_parsing.patch \
 	4_mips64_cpu_detection.patch
 
-ifeq ($(BOXARCH), arm)
+ifeq ($(TARGET_ARCH), arm)
 FFMPEG_CONF_OPTS  += --cpu=cortex-a15
 endif
-ifeq ($(BOXARCH), mips)
+ifeq ($(TARGET_ARCH), mips)
 FFMPEG_CONF_OPTS  += --cpu=generic
 endif
 
@@ -339,7 +339,7 @@ $(D)/ffmpeg: bootstrap openssl zlib bzip2 freetype rtmpdump libass libxml2 alsa-
 			--cross-prefix=$(TARGET_CROSS) \
 			--extra-cflags="$(TARGET_CFLAGS) -I$(TARGET_INCLUDE_DIR)/libxml2" \
 			--extra-ldflags="$(TARGET_LDFLAGS) -lrt" \
-			--arch=$(BOXARCH) \
+			--arch=$(TARGET_ARCH) \
 			--target-os=linux \
 			--prefix=/usr \
 			--bindir=/sbin \
