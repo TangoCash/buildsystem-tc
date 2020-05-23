@@ -166,7 +166,7 @@ NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
-else ifeq  ($(FLAVOUR), neutrino-ni)
+else ifeq ($(FLAVOUR), neutrino-ni)
 GIT_URL           ?= https://github.com/neutrino-images
 NEUTRINO           = ni-neutrino
 LIBSTB_HAL         = ni-libstb-hal
@@ -174,7 +174,7 @@ NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
-else ifeq  ($(FLAVOUR), neutrino-tangos)
+else ifeq ($(FLAVOUR), neutrino-tangos)
 GIT_URL           ?= https://github.com/TangoCash
 NEUTRINO           = neutrino-tangos
 LIBSTB_HAL         = libstb-hal-tangos
@@ -182,7 +182,7 @@ NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
-else ifeq  ($(FLAVOUR), neutrino-ddt)
+else ifeq ($(FLAVOUR), neutrino-ddt)
 GIT_URL           ?= https://github.com/Duckbox-Developers
 NEUTRINO           = neutrino-ddt
 LIBSTB_HAL         = libstb-hal-ddt

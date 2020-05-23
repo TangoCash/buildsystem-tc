@@ -1,7 +1,7 @@
 #
 # python
 #
-PYTHON_VER    = 2.7.15
+PYTHON_VER    = 2.7.18
 PYTHON_DIR    = Python-$(PYTHON_VER)
 PYTHON_SOURCE = Python-$(PYTHON_VER).tar.xz
 PYTHON_URL    = https://www.python.org/ftp/python/$(PYTHON_VER)
@@ -88,7 +88,7 @@ HOST_PYTHON_SOURCE = $(PYTHON_SOURCE)
 HOST_PYTHON_PATCH  = \
 	python.patch
 
-$(D)/host-python: $(ARCHIVE)/$(PYTHON_SOURCE)
+$(D)/host-python: bootstrap $(ARCHIVE)/$(PYTHON_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/$(HOST_PYTHON_DIR)
 	$(UNTAR)/$(PYTHON_SOURCE)

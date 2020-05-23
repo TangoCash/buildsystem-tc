@@ -1,7 +1,7 @@
 #
 # procps-ng
 #
-PROCPS_NG_VER    = 3.3.15
+PROCPS_NG_VER    = 3.3.16
 PROCPS_NG_DIR    = procps-ng-$(PROCPS_NG_VER)
 PROCPS_NG_SOURCE = procps-ng-$(PROCPS_NG_VER).tar.xz
 PROCPS_NG_URL    = http://sourceforge.net/projects/procps-ng/files/Production
@@ -10,7 +10,6 @@ $(ARCHIVE)/$(PROCPS_NG_SOURCE):
 	$(DOWNLOAD) $(PROCPS_NG_URL)/$(PROCPS_NG_SOURCE)
 
 PROCPS_NG_PATCH  = \
-	0001-Fix-out-of-tree-builds.patch \
 	no-tests-docs.patch
 
 BINDIR_PROGS = free pgrep pkill pmap pwdx slabtop skill snice tload top uptime vmstat w

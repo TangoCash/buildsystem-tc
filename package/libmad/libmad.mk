@@ -28,9 +28,10 @@ $(D)/libmad: bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 			--prefix=/usr \
 			--enable-shared=yes \
 			--enable-accuracy \
-			--enable-fpm=arm \
 			--enable-sso \
 			--disable-debugging \
+			 \
+			$(if $(filter $(BOXARCH), arm mips),--enable-fpm=$(BOXARCH),) \
 			; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)

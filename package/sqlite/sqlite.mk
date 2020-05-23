@@ -1,10 +1,10 @@
 #
 # sqlite
 #
-SQLITE_VER    = 3280000
+SQLITE_VER    = 3310100
 SQLITE_DIR    = sqlite-autoconf-$(SQLITE_VER)
 SQLITE_SOURCE = sqlite-autoconf-$(SQLITE_VER).tar.gz
-SQLITE_URL    = http://www.sqlite.org/2019
+SQLITE_URL    = http://www.sqlite.org/2020
 
 $(ARCHIVE)/$(SQLITE_SOURCE):
 	$(DOWNLOAD) $(SQLITE_URL)/$(SQLITE_SOURCE)

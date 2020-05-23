@@ -51,7 +51,7 @@ elif [ "$1" == -q ] || [ "$1" == --quiet ]; then
 	shift
 	KBUILD_VERBOSE=0
 else
-	KBUILD_VERBOSE=0
+	KBUILD_VERBOSE=1
 fi
 echo "KBUILD_VERBOSE=$KBUILD_VERBOSE" > .config
 
@@ -107,7 +107,7 @@ case $2 in
 	*)	echo -e "\nToolchain gcc version:"
 		echo "   1) GCC version 6.5.0"
 		echo "   2) GCC version 7.5.0"
-		echo "   3) GCC version 8.3.0"
+		echo "   3) GCC version 8.4.0"
 		echo "   4) GCC version 9.2.0"
 		read -p "Select toolchain gcc version (1-4)? [4] "
 		REPLY="${REPLY:-4}";;
@@ -116,7 +116,7 @@ esac
 case "$REPLY" in
 	1) BS_GCC_VER="6.5.0";;
 	2) BS_GCC_VER="7.5.0";;
-	3) BS_GCC_VER="8.3.0";;
+	3) BS_GCC_VER="8.4.0";;
 	4) BS_GCC_VER="9.2.0";;
 	*) BS_GCC_VER="9.2.0";;
 esac

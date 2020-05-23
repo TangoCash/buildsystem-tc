@@ -1,10 +1,10 @@
 #
 # libexif
 #
-LIBEXIF_VER    = 0.6.21
+LIBEXIF_VER    = 0.6.22
 LIBEXIF_DIR    = libexif-$(LIBEXIF_VER)
-LIBEXIF_SOURCE = libexif-$(LIBEXIF_VER).tar.gz
-LIBEXIF_URL    = https://sourceforge.net/projects/libexif/files/libexif/$(LIBEXIF_VER)
+LIBEXIF_SOURCE = libexif-$(LIBEXIF_VER).tar.xz
+LIBEXIF_URL    = https://github.com/libexif/libexif/releases/download/libexif-$(subst .,_,$(LIBEXIF_VER))-release
 
 $(ARCHIVE)/$(LIBEXIF_SOURCE):
 	$(DOWNLOAD) $(LIBEXIF_URL)/$(LIBEXIF_SOURCE)
