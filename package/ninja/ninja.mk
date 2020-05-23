@@ -24,6 +24,6 @@ $(D)/host-ninja: bootstrap $(ARCHIVE)/$(HOST_NINJA_SOURCE)
 			-DCMAKE_INSTALL_PREFIX="" \
 		; \
 		$(MAKE)
-		$(INSTALL_EXEC) -D $(BUILD_DIR)/$(HOST_NINJA_DIR)/ninja $(HOST_DIR)/bin/ninja
+		$(INSTALL_EXEC) -D $(PKG_BUILD_DIR)/ninja $(HOST_DIR)/bin/ninja
 	$(REMOVE)/$(HOST_NINJA_DIR)
 	$(TOUCH)
