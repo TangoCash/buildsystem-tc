@@ -118,6 +118,7 @@ PACKAGES="\
 	${UBUNTU:+u-boot-tools}                                                                                       \
 	${UBUNTU:+curl}                                                                                               \
 	${UBUNTU:+libcap-dev}                                                                                         \
+	${UBUNTU:+libseccomp-dev}                                                                                     \
 ";
 
 if [ "$UBUNTU" == 1 ]; then
