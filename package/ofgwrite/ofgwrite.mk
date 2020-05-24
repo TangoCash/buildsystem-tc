@@ -2,8 +2,8 @@
 # ofgwrite
 #
 OFGWRITE_VER    = git
-OFGWRITE_DIR    = ofgwrite-nmp.$(OFGWRITE_VER)
-OFGWRITE_SOURCE = ofgwrite-nmp.$(OFGWRITE_VER)
+OFGWRITE_DIR    = ofgwrite-max.$(OFGWRITE_VER)
+OFGWRITE_SOURCE = ofgwrite-max.$(OFGWRITE_VER)
 OFGWRITE_URL    = $(MAX-GIT-GITHUB)
 
 $(D)/ofgwrite: bootstrap
