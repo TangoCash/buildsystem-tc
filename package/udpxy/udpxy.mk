@@ -7,8 +7,8 @@ UDPXY_SOURCE = udpxy.$(UDPXY_VER)
 UDPXY_URL    = https://github.com/pcherenkov
 
 UDPXY_PATCH  = \
-	udpxy.patch \
-	fix-build-with-gcc8.patch
+	0001-udpxy.patch \
+	0002-fix-build-with-gcc8.patch
 
 $(D)/udpxy: bootstrap
 	$(START_BUILD)

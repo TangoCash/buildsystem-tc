@@ -10,12 +10,12 @@ $(ARCHIVE)/$(OPENSSL_SOURCE):
 	$(DOWNLOAD) $(OPENSSL_URL)/$(OPENSSL_SOURCE)
 
 OPENSSL_PATCH  = \
-	openssl-optimize-for-size.patch \
-	openssl-makefile-dirs.patch \
-	openssl-disable_doc_tests.patch \
-	openssl-fix-parallel-building.patch \
-	openssl-compat_versioned_symbols-1.patch \
-	openssl-remove_timestamp_check.patch
+	0001-openssl-optimize-for-size.patch \
+	0002-openssl-makefile-dirs.patch \
+	0003-openssl-disable_doc_tests.patch \
+	0004-openssl-fix-parallel-building.patch \
+	0005-openssl-compat_versioned_symbols-1.patch \
+	0006-openssl-remove_timestamp_check.patch
 
 ifeq ($(TARGET_ARCH), arm)
 OPENSSL_TARGET_ARCH = linux-armv4

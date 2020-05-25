@@ -10,7 +10,7 @@ $(ARCHIVE)/$(JFSUTILS_SOURCE):
 	$(DOWNLOAD) $(JFSUTILS_URL)/$(JFSUTILS_SOURCE)
 
 JFSUTILS_PATCH  = \
-	jfsutils.patch
+	0001-jfsutils.patch
 
 $(D)/jfsutils: bootstrap e2fsprogs $(ARCHIVE)/$(JFSUTILS_SOURCE)
 	$(START_BUILD)

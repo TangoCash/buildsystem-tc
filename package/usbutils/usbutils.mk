@@ -10,10 +10,10 @@ $(ARCHIVE)/$(USBUTILS_SOURCE):
 	$(DOWNLOAD) $(USBUTILS_URL)/$(USBUTILS_SOURCE)
 
 USBUTILS_PATCH  = \
-	avoid-dependency-on-bash.patch \
-	fix-null-pointer-crash.patch \
-	fix-build.patch \
-	iconv.patch
+	0001-avoid-dependency-on-bash.patch \
+	0002-fix-null-pointer-crash.patch \
+	0003-fix-build.patch \
+	0004-iconv.patch
 
 $(D)/usbutils: libusb $(ARCHIVE)/$(USBUTILS_SOURCE)
 	$(START_BUILD)

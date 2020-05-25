@@ -10,7 +10,7 @@ $(ARCHIVE)/$(HOWL_SOURCE):
 	$(DOWNLOAD) $(HOWL_URL)/$(HOWL_SOURCE)
 
 HOWL_PATCH  = \
-	ipv4-mapped-ipv6.patch
+	0001-ipv4-mapped-ipv6.patch
 
 $(D)/howl: bootstrap $(ARCHIVE)/$(HOWL_SOURCE)
 	$(START_BUILD)

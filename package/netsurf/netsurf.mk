@@ -10,13 +10,13 @@ $(ARCHIVE)/$(NETSURF_SOURCE):
 	$(DOWNLOAD) $(NETSURF_URL)/$(NETSURF_SOURCE)
 
 NETSURF_PATCH  = \
-	netsurf-32bpp-xbgr8888.patch \
-	netsurf-event.patch \
-	netsurf-framebuffer.patch \
-	netsurf-gui.patch \
-	netsurf-linux.patch \
-	netsurf-osk.patch \
-	netsurf-text.patch
+	0001-netsurf-32bpp-xbgr8888.patch \
+	0002-netsurf-event.patch \
+	0003-netsurf-framebuffer.patch \
+	0004-netsurf-gui.patch \
+	0005-netsurf-linux.patch \
+	0006-netsurf-osk.patch \
+	0007-netsurf-text.patch
 
 NETSURF_ENV = \
 	PREFIX=/usr \

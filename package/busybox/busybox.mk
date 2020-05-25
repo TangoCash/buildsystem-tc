@@ -13,11 +13,11 @@ BUSYBOX_PATCH  = \
 	0001-Prevent-telnet-connections-from-the-internet-to-the.patch \
 	0002-Extended-network-interfaces-support.patch \
 	0003-Revert-ip-fix-ip-oneline-a.patch \
-	use_ipv6_when_ipv4_unroutable.patch \
-	fix-config-header.patch \
-	fix-partition-size.patch \
-	insmod-hack.patch \
-	mount_single_uuid.patch
+	0004-use_ipv6_when_ipv4_unroutable.patch \
+	0005-fix-config-header.patch \
+	0006-fix-partition-size.patch \
+	0007-insmod-hack.patch \
+	0008-mount_single_uuid.patch
 
 # Link busybox against libtirpc so that we can leverage its RPC support for NFS
 # mounting with BusyBox

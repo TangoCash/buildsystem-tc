@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBID3TAG_SOURCE):
 	$(DOWNLOAD) $(LIBID3TAG_URL)/$(LIBID3TAG_SOURCE)
 
 LIBID3TAG_PATCH  = \
-	libid3tag-pc.patch
+	0001-libid3tag-pc.patch
 
 $(D)/libid3tag: bootstrap zlib $(ARCHIVE)/$(LIBID3TAG_SOURCE)
 	$(START_BUILD)

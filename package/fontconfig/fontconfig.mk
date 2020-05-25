@@ -10,7 +10,7 @@ $(ARCHIVE)/$(FONTCONFIG_SOURCE):
 	$(DOWNLOAD) $(FONTCONFIG_URL)/$(FONTCONFIG_SOURCE)
 
 FONTCONFIG_PATCH  = \
-	fontconfig-glibc.patch
+	0001-fontconfig-glibc.patch
 
 $(D)/fontconfig: bootstrap freetype expat $(ARCHIVE)/$(FONTCONFIG_SOURCE)
 	$(START_BUILD)

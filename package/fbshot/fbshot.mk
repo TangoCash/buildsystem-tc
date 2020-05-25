@@ -10,7 +10,7 @@ $(ARCHIVE)/$(FBSHOT_SOURCE):
 	$(DOWNLOAD) $(FBSHOT_URL)/$(FBSHOT_SOURCE)
 
 FBSHOT_PATCH  = \
-	fbshot.patch
+	0001-fbshot.patch
 
 $(D)/fbshot: bootstrap libpng $(ARCHIVE)/$(FBSHOT_SOURCE)
 	$(START_BUILD)

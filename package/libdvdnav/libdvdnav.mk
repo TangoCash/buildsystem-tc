@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBDVDNAV_SOURCE):
 	$(DOWNLOAD) $(LIBDVDNAV_URL)/$(LIBDVDNAV_SOURCE)
 
 LIBDVDNAV_PATCH  = \
-	libdvdnav.patch
+	0001-libdvdnav.patch
 
 $(D)/libdvdnav: bootstrap libdvdread $(ARCHIVE)/$(LIBDVDNAV_SOURCE)
 	$(START_BUILD)

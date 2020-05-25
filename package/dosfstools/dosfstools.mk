@@ -10,7 +10,7 @@ $(ARCHIVE)/$(DOSFSTOOLS_SOURCE):
 	$(DOWNLOAD) $(DOSFSTOOLS_URL)/$(DOSFSTOOLS_SOURCE)
 
 DOSFSTOOLS_PATCH  = \
-	switch-to-AC_CHECK_LIB-for-iconv-library-linking.patch
+	0001-switch-to-AC_CHECK_LIB-for-iconv-library-linking.patch
 
 DOSFSTOOLS_CFLAGS = $(TARGET_CFLAGS) -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -fomit-frame-pointer
 

@@ -27,6 +27,9 @@ preqs:
 #
 # directories
 #
+DIRECTORIES_VER = 2020-05-25
+DIRECTORIES_DIR = local
+
 $(D)/directories:
 	$(START_BUILD)
 	mkdir -p $(D)
@@ -68,10 +71,10 @@ $(D)/cross-libs: directories $(CROSSTOOL)
 # bootstrap
 #
 BOOTSTRAP  = directories
-BOOTSTRAP += ccache
+BOOTSTRAP += host-ccache
 BOOTSTRAP += $(CROSSTOOL)
 BOOTSTRAP += cross-libs
-BOOTSTRAP += pkgconf
+BOOTSTRAP += host-pkgconf
 
 $(D)/bootstrap: $(BOOTSTRAP)
 	@touch $@

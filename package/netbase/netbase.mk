@@ -10,7 +10,7 @@ $(ARCHIVE)/$(NETBASE_SOURCE):
 	$(DOWNLOAD) $(NETBASE_URL)/$(NETBASE_SOURCE)
 
 NETBASE_PATCH  = \
-	netbase-add-rpcbind-as-an-alias-to-sunrpc.patch
+	0001-netbase-add-rpcbind-as-an-alias-to-sunrpc.patch
 
 $(D)/netbase: bootstrap $(ARCHIVE)/$(NETBASE_SOURCE)
 	$(START_BUILD)

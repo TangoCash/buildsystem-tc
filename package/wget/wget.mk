@@ -10,10 +10,10 @@ $(ARCHIVE)/$(WGET_SOURCE):
 	$(DOWNLOAD) $(WGET_URL)/$(WGET_SOURCE)
 
 WGET_PATCH  = \
-	change_DEFAULT_LOGFILE.patch \
-	set-check_cert-false-by-default.patch \
-	wget-improve-reproducibility.patch \
-	wget-Strip-long-version-output.patch
+	0001-change_DEFAULT_LOGFILE.patch \
+	0002-set-check_cert-false-by-default.patch \
+	0003-wget-improve-reproducibility.patch \
+	0004-wget-Strip-long-version-output.patch
 
 WGET_CFLAGS = $(TARGET_CFLAGS) -DOPENSSL_NO_ENGINE
 

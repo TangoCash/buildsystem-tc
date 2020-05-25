@@ -10,8 +10,8 @@ $(ARCHIVE)/$(WLAN_RTL8812AU_SOURCE):
 	$(DOWNLOAD) $(WLAN_RTL8812AU_URL)/$(WLAN_RTL8812AU_SOURCE)
 
 WLAN_RTL8812AU_PATCH  = \
-	rt8812au-gcc5.patch \
-	rt8812au-Add-support-for-kernels-4.8.patch
+	0001-rt8812au-gcc5.patch \
+	0002-rt8812au-Add-support-for-kernels-4.8.patch
 
 $(D)/wlan-rtl8812au: bootstrap kernel $(ARCHIVE)/$(WLAN_RTL8812AU_SOURCE)
 	$(START_BUILD)

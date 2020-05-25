@@ -10,7 +10,7 @@ $(ARCHIVE)/$(PUGIXML_SOURCE):
 	$(DOWNLOAD) $(PUGIXML_URL)/$(PUGIXML_SOURCE)
 
 PUGIXML_PATCH  = \
-	pugixml-config.patch
+	0001-pugixml-config.patch
 
 $(D)/pugixml: bootstrap $(ARCHIVE)/$(PUGIXML_SOURCE)
 	$(START_BUILD)

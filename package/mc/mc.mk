@@ -11,8 +11,8 @@ $(ARCHIVE)/$(MC_SOURCE):
 
 MC_PATCH  = \
 	0001-mc-replace-perl-w-with-use-warnings.patch \
-	nomandate.patch \
-	0001-Ticket-4070-misc-Makefile.am-install-mc.lib-only-onc.patch
+	0002-nomandate.patch \
+	0003-Ticket-4070-misc-Makefile.am-install-mc.lib-only-onc.patch
 
 $(D)/mc: bootstrap ncurses glib2 $(ARCHIVE)/$(MC_SOURCE)
 	$(START_BUILD)

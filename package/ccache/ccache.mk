@@ -1,6 +1,8 @@
 #
-# ccache
+# host-ccache
 #
+HOST_CCACHE_VER    = 2020-05-25
+HOST_CCACHE_DIR    = local
 HOST_CCACHE_BIN    = $(CCACHE)
 HOST_CCACHE_BINDIR = $(HOST_DIR)/bin
 
@@ -16,10 +18,7 @@ HOST_CCACHE_ENV = \
 	mkdir -p $(HOST_DIR)/bin; \
 	$(HOST_CCACHE_LINKS)
 
-$(D)/ccache:
+$(D)/host-ccache:
 	$(START_BUILD)
 	$(HOST_CCACHE_ENV)
 	$(TOUCH)
-
-# hack to make sure they are always copied
-PHONY += host-ccache

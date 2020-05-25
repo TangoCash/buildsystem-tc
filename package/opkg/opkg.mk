@@ -10,7 +10,7 @@ $(ARCHIVE)/$(OPKG_SOURCE):
 	$(DOWNLOAD) $(OPKG_URL)/$(OPKG_SOURCE)
 
 OPKG_PATCH = \
-	opkg.patch
+	0001-opkg.patch
 
 $(D)/opkg: bootstrap host-opkg libarchive $(ARCHIVE)/$(OPKG_SOURCE)
 	$(START_BUILD)
@@ -43,7 +43,7 @@ HOST_OPKG_DIR    = opkg-$(HOST_OPKG_VER)
 HOST_OPKG_SOURCE = $(OPKG_SOURCE)
 
 HOST_OPKG_PATCH  = \
-	opkg.patch
+	0001-opkg.patch
 
 $(D)/host-opkg: directories host-libarchive $(ARCHIVE)/$(HOST_OPKG_SOURCE)
 	$(START_BUILD)

@@ -20,4 +20,4 @@ $(D)/osmio4k-driver: bootstrap $(ARCHIVE)/$(OSMIO4K_DRIVER_SOURCE)
 	make depmod
 	$(TOUCH)
 	make osmio4k-libgles
-	make wlan-qcom
+	make osmio4k-wlan-qcom

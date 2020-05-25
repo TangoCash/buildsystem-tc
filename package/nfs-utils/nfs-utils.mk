@@ -11,7 +11,7 @@ $(ARCHIVE)/$(NFS_UTILS_SOURCE):
 
 NFS_UTILS_PATCH  = \
 	0001-nfs-utils-print-time-in-64-bit.patch \
-	disabled-ip6-support.patch
+	0002-disabled-ip6-support.patch
 
 NFS-UTILS_CONF = $(if $(filter $(BOXMODEL), vuduo), --disable-ipv6, --enable-ipv6)
 

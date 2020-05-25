@@ -15,11 +15,12 @@ HOST_MESON_PATCH  = \
 	0003-Allow-overriding-g-ir-scanner-and-g-ir-compiler-bina.patch \
 	0004-mesonbuild-dependencies-base.py-add-pkg_config_stati.patch
 
-$(D)/host-meson: bootstrap host-ninja host-python3 python3-setuptools $(ARCHIVE)/$(HOST_MESON_SOURCE)
+$(D)/host-meson: bootstrap host-ninja host-python3 host-python3-setuptools $(ARCHIVE)/$(HOST_MESON_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/$(HOST_MESON_DIR)
 	$(UNTAR)/$(HOST_MESON_SOURCE)
 	$(CHDIR)/$(HOST_MESON_DIR); \
+		$(call apply_patches, $(HOST_MESON_PATCH)); \
 		$(HOST_PYTHON_BUILD); \
 		$(HOST_PYTHON_INSTALL)
 	$(call CROSS_COMPILATION_CONFIG,"$(HOST_DIR)/bin")
@@ -43,6 +44,6 @@ define CROSS_COMPILATION_CONFIG
 	echo "[host_machine]" >> $(1)/cross-compilation.conf
 	echo "system = 'linux'" >> $(1)/cross-compilation.conf
 	echo "cpu_family = '$(TARGET_ARCH)'" >> $(1)/cross-compilation.conf
-	echo "cpu = '$(if $(filter $(TARGET_ARCH), arm aarch64),cortex-a15,)'" >> $(1)/cross-compilation.conf
+	echo "cpu = '$(TARGET_ARCH)'" >> $(1)/cross-compilation.conf
 	echo "endian = '$(TARGET_ENDIAN)'" >> $(1)/cross-compilation.conf
 endef

@@ -7,9 +7,9 @@ RTMPDUMP_SOURCE = rtmpdump.$(RTMPDUMP_VER)
 RTMPDUMP_URL    = git://github.com/oe-alliance
 
 RTMPDUMP_PATCH  = \
-	rtmpdump.patch \
-	fix-build-openssl102q.patch \
-	fix-build-openssl111a.patch
+	0001-rtmpdump.patch \
+	0002-fix-build-openssl102q.patch \
+	0003-fix-build-openssl111a.patch
 
 $(D)/rtmpdump: bootstrap zlib openssl
 	$(START_BUILD)

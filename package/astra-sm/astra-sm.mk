@@ -7,7 +7,7 @@ ASTRA_SM_SOURCE = astra-sm.$(ASTRA_SM_VER)
 ASTRA_SM_URL    = https://gitlab.com/crazycat69
 
 ASTRA_SM_PATCH  = \
-	astra-sm.patch
+	0001-astra-sm.patch
 
 $(D)/astra-sm: bootstrap openssl
 	$(START_BUILD)

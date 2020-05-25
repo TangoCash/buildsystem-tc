@@ -10,9 +10,9 @@ $(ARCHIVE)/$(LIBXML2_SOURCE):
 	$(DOWNLOAD) $(LIBXML2_URL)/$(LIBXML2_SOURCE)
 
 LIBXML2_PATCH  = \
-	libxml2.patch \
-	no_docs_examples_tests.patch \
-	revert-Make-xmlFreeNodeList-non-recursive.patch
+	0001-libxml2.patch \
+	0002-no_docs_examples_tests.patch \
+	0003-revert-Make-xmlFreeNodeList-non-recursive.patch
 
 $(D)/libxml2: bootstrap zlib $(ARCHIVE)/$(LIBXML2_SOURCE)
 	$(START_BUILD)

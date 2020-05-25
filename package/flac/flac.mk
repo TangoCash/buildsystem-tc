@@ -10,9 +10,9 @@ $(ARCHIVE)/$(FLAC_SOURCE):
 	$(DOWNLOAD) $(FLAC_URL)/$(FLAC_SOURCE)
 
 FLAC_PATCH  = \
-	001-no-docs-and-examples.patch \
-	002-no-utility.patch \
-	010-utime.patch
+	0001-no-docs-and-examples.patch \
+	0002-no-utility.patch \
+	0003-utime.patch
 
 $(D)/flac: bootstrap $(ARCHIVE)/$(FLAC_SOURCE)
 	$(START_BUILD)

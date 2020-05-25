@@ -10,8 +10,8 @@ $(ARCHIVE)/$(LIBICONV_SOURCE):
 	$(DOWNLOAD) $(LIBICONV_URL)/$(LIBICONV_SOURCE)
 
 LIBICONV_PATCH  = \
-	disable_transliterations.patch \
-	strip_charsets.patch
+	0001-disable_transliterations.patch \
+	0002-strip_charsets.patch
 
 $(D)/libiconv: bootstrap $(ARCHIVE)/$(LIBICONV_SOURCE)
 	$(START_BUILD)

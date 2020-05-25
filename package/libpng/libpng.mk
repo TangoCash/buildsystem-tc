@@ -12,7 +12,7 @@ $(ARCHIVE)/$(LIBPNG_SOURCE):
 	$(DOWNLOAD) $(LIBPNG_URL)/older-releases/$(LIBPNG_VER)/$(LIBPNG_SOURCE)
 
 LIBPNG_PATCH  = \
-	disable-pngfix-and-png-fix-itxt.patch
+	0001-disable-pngfix-and-png-fix-itxt.patch
 
 $(D)/libpng: bootstrap zlib $(ARCHIVE)/$(LIBPNG_SOURCE)
 	$(START_BUILD)

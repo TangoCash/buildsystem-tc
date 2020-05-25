@@ -10,7 +10,7 @@ $(ARCHIVE)/$(HARFBUZZ_SOURCE):
 	$(DOWNLOAD) $(HARFBUZZ_URL)/$(HARFBUZZ_SOURCE)
 
 HARFBUZZ_PATCH  = \
-	disable-docs.patch
+	0001-disable-docs.patch
 
 $(D)/harfbuzz: bootstrap fontconfig glib2 cairo freetype $(ARCHIVE)/$(HARFBUZZ_SOURCE)
 	$(START_BUILD)

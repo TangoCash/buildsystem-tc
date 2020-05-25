@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBCURL_SOURCE):
 	$(DOWNLOAD) $(LIBCURL_URL)/$(LIBCURL_SOURCE)
 
 LIBCURL_PATCH  = \
-	no_docs_tests.patch
+	0001-no_docs_tests.patch
 
 $(D)/libcurl: bootstrap zlib openssl ca-bundle $(ARCHIVE)/$(LIBCURL_SOURCE)
 	$(START_BUILD)

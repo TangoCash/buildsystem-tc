@@ -10,12 +10,12 @@ $(ARCHIVE)/$(LIBMAD_SOURCE):
 	$(DOWNLOAD) $(LIBMAD_URL)/$(LIBMAD_SOURCE)
 
 LIBMAD_PATCH  = \
-	libmad-pc.patch \
-	libmad-frame_length.patch \
-	libmad-mips-h-constraint-removal.patch \
-	libmad-remove-deprecated-cflags.patch \
-	libmad-thumb2-fixed-arm.patch \
-	libmad-thumb2-imdct-arm.patch
+	0001-libmad-pc.patch \
+	0002-libmad-frame_length.patch \
+	0003-libmad-mips-h-constraint-removal.patch \
+	0004-libmad-remove-deprecated-cflags.patch \
+	0005-libmad-thumb2-fixed-arm.patch \
+	0006-libmad-thumb2-imdct-arm.patch
 
 $(D)/libmad: bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 	$(START_BUILD)

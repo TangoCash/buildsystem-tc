@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LUASOAP_SOURCE):
 	$(DOWNLOAD) $(LUASOAP_URL)/$(LUASOAP_SOURCE)
 
 LUASOAP_PATCH  = \
-	luasoap.patch
+	0001-luasoap.patch
 
 $(D)/luasoap: bootstrap lua luasocket luaexpat $(ARCHIVE)/$(LUASOAP_SOURCE)
 	$(START_BUILD)

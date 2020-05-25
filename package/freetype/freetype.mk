@@ -10,9 +10,9 @@ $(ARCHIVE)/$(FREETYPE_SOURCE):
 	$(DOWNLOAD) $(FREETYPE_URL)/$(FREETYPE_SOURCE)
 
 FREETYPE_PATCH  = \
-	freetype2-subpixel.patch \
-	freetype2-config.patch \
-	freetype2-pkgconf.patch
+	0001-freetype2-subpixel.patch \
+	0002-freetype2-config.patch \
+	0003-freetype2-pkgconf.patch
 
 $(D)/freetype: bootstrap zlib libpng $(ARCHIVE)/$(FREETYPE_SOURCE)
 	$(START_BUILD)

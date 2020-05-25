@@ -10,12 +10,12 @@ $(ARCHIVE)/$(BASE_PASSWD_SOURCE):
 	$(DOWNLOAD) $(BASE_PASSWD_URL)/$(BASE_PASSWD_SOURCE)
 
 BASE_PASSWD_PATCH  = \
-	add_shutdown.patch \
-	nobash.patch \
-	noshadow.patch \
-	input.patch \
-	disable-docs.patch \
-	add_static.patch
+	0001-add_shutdown.patch \
+	0002-nobash.patch \
+	0003-noshadow.patch \
+	0004-input.patch \
+	0005-disable-docs.patch \
+	0006-add_static.patch
 
 $(D)/base-passwd: bootstrap $(ARCHIVE)/$(BASE_PASSWD_SOURCE)
 	$(START_BUILD)

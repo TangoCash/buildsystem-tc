@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBJPEG_TURBO_SOURCE):
 	$(DOWNLOAD) $(LIBJPEG_TURBO_URL)/$(LIBJPEG_TURBO_SOURCE)
 
 LIBJPEG_TURBO_PATCH  = \
-	tiff-ojpeg.patch
+	0001-tiff-ojpeg.patch
 
 $(D)/libjpeg-turbo: bootstrap $(ARCHIVE)/$(LIBJPEG_TURBO_SOURCE)
 	$(START_BUILD)

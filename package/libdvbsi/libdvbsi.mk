@@ -7,7 +7,7 @@ LIBDVBSI_SOURCE = libdvbsi.$(LIBDVBSI_VER)
 LIBDVBSI_URL    = https://github.com/OpenVisionE2
 
 LIBDVBSI_PATCH  = \
-	content_identifier_descriptor.patch
+	0001-content_identifier_descriptor.patch
 
 $(D)/libdvbsi: bootstrap
 	$(START_BUILD)

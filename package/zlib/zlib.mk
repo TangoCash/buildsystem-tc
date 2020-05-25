@@ -10,7 +10,7 @@ $(ARCHIVE)/$(ZLIB_SOURCE):
 	$(DOWNLOAD) $(ZLIB_URL)/$(ZLIB_SOURCE)
 
 ZLIB_PATCH  = \
-	zlib.patch
+	0001-zlib.patch
 
 $(D)/zlib: bootstrap $(ARCHIVE)/$(ZLIB_SOURCE)
 	$(START_BUILD)

@@ -7,11 +7,11 @@ GRAPHLCD_BASE_SOURCE = graphlcd-base.$(GRAPHLCD_BASE_VER)
 GRAPHLCD_BASE_URL    = git://projects.vdr-developer.org
 
 GRAPHLCD_BASE_PATCH  = \
-	graphlcd.patch
+	0001-graphlcd.patch
 
 ifeq ($(BOXMODEL), $(filter $(BOXMODEL), vuduo4k vusolo4k vuultimo4k vuuno4kse))
-GRAPHLCD_PATCH += \
-	graphlcd-vuplus.patch
+GRAPHLCD_BASE_PATCH += \
+	0002-graphlcd-vuplus.patch
 endif
 
 $(D)/graphlcd-base: bootstrap freetype libiconv libusb

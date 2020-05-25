@@ -10,7 +10,7 @@ $(ARCHIVE)/$(MINIDLNA_SOURCE):
 	$(DOWNLOAD) $(MINIDLNA_URL)/$(MINIDLNA_SOURCE)
 
 MINIDLNA_PATCH  = \
-	minidlna.patch
+	0001-minidlna.patch
 
 $(D)/minidlna: bootstrap zlib sqlite libexif libjpeg-turbo libid3tag libogg libvorbis flac ffmpeg $(ARCHIVE)/$(MINIDLNA_SOURCE)
 	$(START_BUILD)

@@ -10,7 +10,7 @@ $(ARCHIVE)/$(USB_MODESWITCH_SOURCE):
 	$(DOWNLOAD) $(USB_MODESWITCH_URL)/$(USB_MODESWITCH_SOURCE)
 
 USB_MODESWITCH_PATCH  = \
-	usb-modeswitch.patch
+	0001-usb-modeswitch.patch
 
 $(D)/usb-modeswitch: bootstrap libusb usb-modeswitch-data $(ARCHIVE)/$(USB_MODESWITCH_SOURCE)
 	$(START_BUILD)

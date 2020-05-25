@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBASS_SOURCE):
 	$(DOWNLOAD) $(LIBASS_URL)/$(LIBASS_SOURCE)
 
 LIBASS_PATCH  = \
-	libass.patch
+	0001-libass.patch
 
 $(D)/libass: bootstrap freetype fribidi $(ARCHIVE)/$(LIBASS_SOURCE)
 	$(START_BUILD)

@@ -10,7 +10,7 @@ $(ARCHIVE)/$(WIREGUARD_LINUX_COMPAT_SOURCE):
 	$(DOWNLOAD) $(WIREGUARD_LINUX_COMPAT_URL)/$(WIREGUARD_LINUX_COMPAT_SOURCE)
 
 WIREGUARD_LINUX_COMPAT_PATCH = \
-	wireguard-linux-compat.patch
+	0001-wireguard-linux-compat.patch
 
 $(D)/wireguard-linux-compat: bootstrap kernel libmnl $(ARCHIVE)/$(WIREGUARD_LINUX_COMPAT_SOURCE)
 	$(START_BUILD)

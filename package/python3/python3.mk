@@ -17,7 +17,7 @@ $(D)/host-python3: bootstrap $(ARCHIVE)/$(HOST_PYTHON3_SOURCE)
 	$(REMOVE)/$(HOST_PYTHON3_DIR)
 	$(UNTAR)/$(HOST_PYTHON3_SOURCE)
 	$(CHDIR)/$(HOST_PYTHON3_DIR); \
-		$(APPLY_PATCHES); \
+		$(call apply_patches, $(PKG_PATCHES_DIR)); \
 		autoconf; \
 		CONFIG_SITE= \
 		OPT="$(HOST_CFLAGS)" \

@@ -10,7 +10,7 @@ $(ARCHIVE)/$(HD_IDLE_SOURCE):
 	$(DOWNLOAD) $(HD_IDLE_URL)/$(HD_IDLE_SOURCE)
 
 HD_IDLE_PATCH  = \
-	hd-idle.patch
+	0001-hd-idle.patch
 
 $(D)/hd-idle: bootstrap $(ARCHIVE)/$(HD_IDLE_SOURCE)
 	$(START_BUILD)
