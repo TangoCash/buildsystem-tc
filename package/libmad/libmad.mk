@@ -15,8 +15,7 @@ LIBMAD_PATCH  = \
 	0003-libmad-mips-h-constraint-removal.patch \
 	0004-libmad-remove-deprecated-cflags.patch \
 	0005-libmad-thumb2-fixed-arm.patch \
-	0006-libmad-thumb2-imdct-arm.patch \
-	0007-libmad-add-pkgconfig.patch
+	0006-libmad-thumb2-imdct-arm.patch
 
 $(D)/libmad: bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 	$(START_BUILD)
