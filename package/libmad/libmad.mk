@@ -15,7 +15,8 @@ LIBMAD_PATCH  = \
 	libmad-mips-h-constraint-removal.patch \
 	libmad-remove-deprecated-cflags.patch \
 	libmad-thumb2-fixed-arm.patch \
-	libmad-thumb2-imdct-arm.patch
+	libmad-thumb2-imdct-arm.patch \
+	libmad-add-pkgconfig.patch
 
 $(D)/libmad: bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 	$(START_BUILD)
@@ -31,7 +32,7 @@ $(D)/libmad: bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 			--enable-sso \
 			--disable-debugging \
 			 \
-			$(if $(filter $(BOXARCH), arm mips),--enable-fpm=$(BOXARCH),) \
+			$(if $(filter $(BOXARCH), arm mips),--enable-fpm=$(BOXARCH),--enable-fpm=64bit) \
 			; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
