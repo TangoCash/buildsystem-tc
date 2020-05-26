@@ -183,11 +183,11 @@ KERNEL_PATCH       = $($(call UPPERCASE,$(BOXMODEL))_PATCH)
 # -----------------------------------------------------------------------------
 
 # translate toolchain arch to kernel arch
-ifeq ($(BOXARCH), arm)
+ifeq ($(TARGET_ARCH), arm)
 KERNEL_ARCH = arm
-else ifeq ($(BOXARCH), aarch64)
+else ifeq ($(TARGET_ARCH), aarch64)
 KERNEL_ARCH = arm64
-else ifeq ($(BOXARCH), mips)
+else ifeq ($(TARGET_ARCH), mips)
 KERNEL_ARCH = mips
 endif
 

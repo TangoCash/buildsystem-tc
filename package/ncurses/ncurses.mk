@@ -10,7 +10,7 @@ $(ARCHIVE)/$(NCURSES_SOURCE):
 	$(DOWNLOAD) $(NCURSES_URL)/$(NCURSES_SOURCE)
 
 NCURSES_PATCH  = \
-	gcc-5.x-MKlib_gen.patch
+	0001-gcc-5.x-MKlib_gen.patch
 
 $(D)/ncurses: bootstrap $(ARCHIVE)/$(NCURSES_SOURCE)
 	$(START_BUILD)

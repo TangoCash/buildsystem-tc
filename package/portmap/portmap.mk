@@ -13,7 +13,7 @@ $(ARCHIVE)/portmap_$(PORTMAP_VER)-3.diff.gz:
 	$(DOWNLOAD) https://merges.ubuntu.com/p/portmap/portmap_$(PORTMAP_VER)-3.diff.gz
 
 PORTMAP_PATCH  = \
-	portmap.patch
+	0001-portmap.patch
 
 $(D)/portmap: bootstrap lsb $(ARCHIVE)/$(PORTMAP_SOURCE) $(ARCHIVE)/portmap_$(PORTMAP_VER)-3.diff.gz
 	$(START_BUILD)

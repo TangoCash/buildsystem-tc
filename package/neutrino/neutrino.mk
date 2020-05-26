@@ -190,6 +190,10 @@ NEUTRINO_BRANCH   ?= master
 LIBSTB_HAL_BRANCH ?= master
 NEUTRINO_PATCH     =
 LIBSTB_HAL_PATCH   =
+else ifeq ($(FLAVOUR), neutrinohd2)
+GIT_URL            = https://github.com/mohousch
+NEUTRINO           = neutrinohd2
+NEUTRINO_PATCH     =
 endif
 
 # -----------------------------------------------------------------------------
@@ -309,6 +313,11 @@ NEUTRINO_VER    = git
 NEUTRINO_DIR    = $(NEUTRINO).$(NEUTRINO_VER)
 NEUTRINO_SOURCE = $(NEUTRINO_DIR)
 
+ifneq ($(FLAVOUR), neutrinohd2)
+
+#
+# neutrino
+#
 $(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) libstb-hal
 	$(START_BUILD)
 	rm -rf $(SOURCE_DIR)/$(NEUTRINO)
@@ -362,7 +371,6 @@ $(D)/neutrino.do_compile:
 	$(MAKE) -C $(N_OBJ_DIR) all DESTDIR=$(TARGET_DIR)
 	@touch $@
 
-mp: neutrino
 $(D)/neutrino: neutrino.do_prepare neutrino.config.status neutrino.do_compile
 	$(MAKE) -C $(N_OBJ_DIR) install DESTDIR=$(TARGET_DIR)
 	make .version
@@ -376,9 +384,71 @@ endif
 	make neutrino-release
 	$(TUXBOX_CUSTOMIZE)
 
+else
+
+#
+# neutrinohd2
+#
+NEUTRINOHD2_DEPS  = libid3tag
+NEUTRINOHD2_DEPS += libmad
+NEUTRINOHD2_DEPS += libvorbisidec
+NEUTRINOHD2_DEPS += flac
+
+NHD2_CONFIG_OPTS  =
+
+$(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) $(NEUTRINOHD2_DEPS)
+	$(START_BUILD)
+	rm -rf $(SOURCE_DIR)/$(NEUTRINO)
+	rm -rf $(SOURCE_DIR)/$(NEUTRINO).org
+	rm -rf $(SOURCE_DIR)/$(NEUTRINO_DIR)
+	$(GET-GIT-SOURCE) $(GIT_URL)/$(NEUTRINO_SOURCE) $(ARCHIVE)/$(NEUTRINO_SOURCE)
+	cp -ra $(ARCHIVE)/$(NEUTRINO_SOURCE) $(SOURCE_DIR)/$(NEUTRINO_DIR)
+	ln -s  $(SOURCE_DIR)/$(NEUTRINO_DIR)/nhd2-exp $(SOURCE_DIR)/$(NEUTRINO)
+	cp -ra $(SOURCE_DIR)/$(NEUTRINO_DIR)/nhd2-exp $(SOURCE_DIR)/$(NEUTRINO).org
+	$(CD) $(SOURCE_DIR)/$(NEUTRINO); \
+		$(call apply_patches, $(NEUTRINO_PATCH))
+	@touch $@
+
+$(D)/neutrino.config.status:
+	cd $(SOURCE_DIR)/$(NEUTRINO); \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--enable-maintainer-mode \
+			--enable-silent-rules \
+			--with-boxtype=$(BOXMODEL) \
+			--with-datadir=/usr/share/tuxbox \
+			--with-configdir=/var/tuxbox/config \
+			--with-plugindir=/var/tuxbox/plugins \
+			\
+			--enable-lua \
+			--enable-lcd \
+			--enable-ci \
+			\
+			$(NHD2_CONFIG_OPTS) \
+			\
+			PY_PATH=$(TARGET_DIR)/usr \
+			CFLAGS="$(N_CFLAGS)" CXXFLAGS="$(N_CFLAGS) -std=c++11" CPPFLAGS="$(N_CPPFLAGS)"
+ifeq ($(TINKER_OPTION), 0)
+	@touch $@
+endif
+
+$(D)/neutrino.do_compile:
+	$(MAKE) -C $(SOURCE_DIR)/$(NEUTRINO) all DESTDIR=$(TARGET_DIR)
+	@touch $@
+
+$(D)/neutrino: neutrino.do_prepare neutrino.config.status neutrino.do_compile neutrinohd2-plugins
+	$(MAKE) -C $(SOURCE_DIR)/$(NEUTRINO) install DESTDIR=$(TARGET_DIR)
+	make .version
+	make e2-multiboot
+	$(INSTALL_EXEC) $(PKG_FILES_DIR)/start_neutrino1 $(TARGET_DIR)/etc/init.d/start_neutrino
+	$(TOUCH)
+	make neutrino-release
+	$(TUXBOX_CUSTOMIZE)
+
+endif
+
 # -----------------------------------------------------------------------------
 
-mp-clean \
 neutrino-clean:
 	rm -f $(D)/neutrino
 	rm -f $(D)/neutrino.config.status
@@ -386,7 +456,6 @@ neutrino-clean:
 	cd $(N_OBJ_DIR); \
 		$(MAKE) -C $(N_OBJ_DIR) distclean
 
-mp-distclean \
 neutrino-distclean:
 	rm -rf $(N_OBJ_DIR)
 	rm -f $(D)/neutrino

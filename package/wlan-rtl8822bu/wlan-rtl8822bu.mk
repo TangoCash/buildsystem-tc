@@ -10,11 +10,11 @@ $(ARCHIVE)/$(WLAN_RTL8822BU_SOURCE):
 	$(DOWNLOAD) $(WLAN_RTL8812AU_URL)/$(WLAN_RTL8822BU_SOURCE)
 
 WLAN_RTL8822BU_PATCH  = \
-	add-linux-4.19-support.patch \
-	add-linux-4.20-support.patch \
-	add-linux-5.0-support.patch \
-	add-linux-5.1-support.patch \
-	add-linux-5.2-support.patch
+	0001-add-linux-4.19-support.patch \
+	0002-add-linux-4.20-support.patch \
+	0003-add-linux-5.0-support.patch \
+	0004-add-linux-5.1-support.patch \
+	0005-add-linux-5.2-support.patch
 
 $(D)/wlan-rtl8822bu: bootstrap kernel $(ARCHIVE)/$(WLAN_RTL8822BU_SOURCE)
 	$(START_BUILD)

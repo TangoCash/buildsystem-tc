@@ -22,7 +22,7 @@ $(ARCHIVE)/$(SLINGSHOT_SOURCE):
 	$(DOWNLOAD) https://github.com/gvvaughan/slingshot/archive/v$(SLINGSHOT_VER).tar.gz -O $@
 
 LUAPOSIX_PATCH   = \
-	fix-docdir-build.patch
+	0001-fix-docdir-build.patch
 
 $(D)/luaposix: bootstrap host-lua lua luaexpat $(ARCHIVE)/$(SLINGSHOT_SOURCE) $(ARCHIVE)/$(GNULIB_SOURCE) $(ARCHIVE)/$(LUAPOSIX_SOURCE)
 	$(START_BUILD)

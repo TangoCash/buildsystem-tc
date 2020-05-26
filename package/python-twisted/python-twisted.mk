@@ -10,7 +10,7 @@ $(ARCHIVE)/$(PYTHON_TWISTED_SOURCE):
 	$(DOWNLOAD) $(PYTHON_TWISTED_URL)/$(PYTHON_TWISTED_SOURCE)
 
 PYTHON_TWISTED_PATCH  = \
-	fix-writing-after-channel-is-closed.patch
+	0001-fix-writing-after-channel-is-closed.patch
 
 $(D)/python-twisted: bootstrap python python-setuptools python-zope-interface python-constantly python-incremental python-pyopenssl python-service-identity $(ARCHIVE)/$(PYTHON_TWISTED_SOURCE)
 	$(START_BUILD)

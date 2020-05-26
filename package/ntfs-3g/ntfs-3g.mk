@@ -10,8 +10,8 @@ $(ARCHIVE)/$(NTFS_3G_SOURCE):
 	$(DOWNLOAD) $(NTFS_3G_URL)/$(NTFS_3G_SOURCE)
 
 NTFS_3G_PATCH  = \
-	001-fuseint-fix-path-mounted-on-musl.patch \
-	002-ntfs-3g-sysmacros.patch
+	0001-fuseint-fix-path-mounted-on-musl.patch \
+	0002-ntfs-3g-sysmacros.patch
 
 $(D)/ntfs-3g: bootstrap fuse $(ARCHIVE)/$(NTFS_3G_SOURCE)
 	$(START_BUILD)

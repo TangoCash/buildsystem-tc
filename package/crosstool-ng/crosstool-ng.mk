@@ -6,7 +6,7 @@ CROSSTOOL_NG_DIR     = crosstool-ng.git
 CROSSTOOL_NG_SOURCE  = crosstool-ng.git
 CROSSTOOL_NG_URL     = https://github.com/crosstool-ng
 CROSSTOOL_NG_ARCHIVE = $(ARCHIVE)/archive-crosstool-ng
-CROSSTOOL_NG_CONFIG  = crosstool-ng-$(BOXARCH)-$(CROSSTOOL_GCC_VER)
+CROSSTOOL_NG_CONFIG  = crosstool-ng-$(TARGET_ARCH)-$(CROSSTOOL_GCC_VER)
 CROSSTOOL_NG_BACKUP  = $(CROSSTOOL_NG_ARCHIVE)/$(CROSSTOOL_NG_CONFIG)-kernel-$(KERNEL_VER)-backup.tar.gz
 
 $(CROSSTOOL_NG_ARCHIVE):

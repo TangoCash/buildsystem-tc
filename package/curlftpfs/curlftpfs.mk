@@ -10,7 +10,7 @@ $(ARCHIVE)/$(CURLFTPFS_SOURCE):
 	$(DOWNLOAD) $(CURLFTPFS_URL)/$(CURLFTPFS_SOURCE)
 
 CURLFTPFS_PATCH  = \
-	curlftpfs.patch
+	0001-curlftpfs.patch
 
 $(D)/curlftpfs: bootstrap libcurl fuse glib2 $(ARCHIVE)/$(CURLFTPFS_SOURCE)
 	$(START_BUILD)

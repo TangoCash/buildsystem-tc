@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBFFI_SOURCE):
 	$(DOWNLOAD) $(LIBFFI_URL)/$(LIBFFI_SOURCE)
 
 LIBFFI_PATCH  = \
-	libffi.patch
+	0001-libffi.patch
 
 $(D)/libffi: bootstrap $(ARCHIVE)/$(LIBFFI_SOURCE)
 	$(START_BUILD)

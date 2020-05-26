@@ -10,7 +10,7 @@ $(ARCHIVE)/$(ALSA_UTILS_SOURCE):
 	$(DOWNLOAD) $(ALSA_UTILS_URL)/$(ALSA_UTILS_SOURCE)
 
 ALSA_UTILS_PATCH  = \
-	alsa-utils.patch
+	0001-alsa-utils.patch
 
 $(D)/alsa-utils: bootstrap ncurses alsa-lib $(ARCHIVE)/$(ALSA_UTILS_SOURCE)
 	$(START_BUILD)

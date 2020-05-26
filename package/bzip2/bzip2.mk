@@ -10,7 +10,7 @@ $(ARCHIVE)/$(BZIP2_SOURCE):
 	$(DOWNLOAD) $(BZIP2_URL)/$(BZIP2_SOURCE)
 
 BZIP2_PATCH  = \
-	bzip2.patch
+	0001-bzip2.patch
 
 $(D)/bzip2: bootstrap $(ARCHIVE)/$(BZIP2_SOURCE)
 	$(START_BUILD)

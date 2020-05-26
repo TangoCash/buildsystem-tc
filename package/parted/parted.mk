@@ -10,8 +10,8 @@ $(ARCHIVE)/$(PARTED_SOURCE):
 	$(DOWNLOAD) $(PARTED_URL)/$(PARTED_SOURCE)
 
 PARTED_PATCH  = \
-	fix-end_input-usage-in-do_resizepart.patch \
-	iconv.patch
+	0001-fix-end_input-usage-in-do_resizepart.patch \
+	0002-iconv.patch
 
 $(D)/parted: bootstrap e2fsprogs libiconv $(ARCHIVE)/$(PARTED_SOURCE)
 	$(START_BUILD)

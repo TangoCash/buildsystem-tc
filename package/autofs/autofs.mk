@@ -10,11 +10,11 @@ $(ARCHIVE)/$(AUTOFS_SOURCE):
 	$(DOWNLOAD) $(AUTOFS_URL)/$(AUTOFS_SOURCE)
 
 AUTOFS_PATCH  = \
-	autofs-5.0.7-include-linux-nfs.h-directly-in-rpc_sub.patch \
-	cross.patch \
-	fix_disable_ldap.patch \
-	force-STRIP-to-emtpy.patch \
-	pkgconfig-libnsl.patch
+	0001-autofs-5.0.7-include-linux-nfs.h-directly-in-rpc_sub.patch \
+	0002-cross.patch \
+	0003-fix_disable_ldap.patch \
+	0004-force-STRIP-to-emtpy.patch \
+	0005-pkgconfig-libnsl.patch
 
 $(D)/autofs: bootstrap libtirpc e2fsprogs openssl libxml2 libnsl $(ARCHIVE)/$(AUTOFS_SOURCE)
 	$(START_BUILD)

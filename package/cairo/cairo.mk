@@ -10,7 +10,7 @@ $(ARCHIVE)/$(CAIRO_SOURCE):
 	$(DOWNLOAD) $(CAIRO_URL)/$(CAIRO_SOURCE)
 
 CAIRO_PATCH  = \
-	get_bitmap_surface.patch
+	0001-get_bitmap_surface.patch
 
 $(D)/cairo: bootstrap fontconfig glib2 libpng pixman zlib $(ARCHIVE)/$(CAIRO_SOURCE)
 	$(START_BUILD)

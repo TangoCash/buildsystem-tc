@@ -10,11 +10,11 @@ $(ARCHIVE)/$(VSFTPD_SOURCE):
 	$(DOWNLOAD) $(VSFTPD_URL)/$(VSFTPD_SOURCE)
 
 VSFTPD_PATCH  = \
-	vsftpd.patch \
-	vsftpd-makefile-destdir.patch \
-	vsftpd-disable-capabilities.patch \
-	vsftpd-fixchroot.patch \
-	vsftpd-login-blank-password.patch
+	0001-vsftpd.patch \
+	0002-vsftpd-makefile-destdir.patch \
+	0003-vsftpd-disable-capabilities.patch \
+	0004-vsftpd-fixchroot.patch \
+	0005-vsftpd-login-blank-password.patch
 
 $(D)/vsftpd: bootstrap openssl $(ARCHIVE)/$(VSFTPD_SOURCE)
 	$(START_BUILD)

@@ -11,7 +11,7 @@ $(ARCHIVE)/$(HTOP_SOURCE):
 
 HTOP_PATCH  = \
 	0001-Use-pkg-config.patch \
-	002-htop-sysmacros.patch
+	0002-htop-sysmacros.patch
 
 $(D)/htop: bootstrap ncurses $(ARCHIVE)/$(HTOP_SOURCE)
 	$(START_BUILD)

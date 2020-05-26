@@ -10,7 +10,7 @@ $(ARCHIVE)/$(EXPAT_SOURCE):
 	$(DOWNLOAD) $(EXPAT_URL)/$(EXPAT_SOURCE)
 
 EXPAT_PATCH  = \
-	libtool-tag.patch
+	0001-libtool-tag.patch
 
 $(D)/expat: bootstrap $(ARCHIVE)/$(EXPAT_SOURCE)
 	$(START_BUILD)

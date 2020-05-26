@@ -11,8 +11,8 @@ $(ARCHIVE)/$(PIXMAN_SOURCE):
 
 PIXMAN_PATCH  = \
 	0001-ARM-qemu-related-workarounds-in-cpu-features-detecti.patch \
-	0001-test-utils-Check-for-FE_INVALID-definition-before-us.patch \
-	asm_include.patch
+	0002-test-utils-Check-for-FE_INVALID-definition-before-us.patch \
+	0003-asm_include.patch
 
 $(D)/pixman: bootstrap zlib libpng $(ARCHIVE)/$(PIXMAN_SOURCE)
 	$(START_BUILD)

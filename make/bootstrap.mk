@@ -27,6 +27,9 @@ preqs:
 #
 # directories
 #
+DIRECTORIES_VER = 2020-05-25
+DIRECTORIES_DIR = local
+
 $(D)/directories:
 	$(START_BUILD)
 	mkdir -p $(D)
@@ -58,7 +61,7 @@ $(D)/cross-libs: directories $(CROSSTOOL)
 	else \
 		cp -a $(CROSS_DIR)/$(TARGET)/lib/*so* $(TARGET_DIR)/lib; \
 	fi; \
-	if [ $(BOXARCH) = "aarch64" ]; then \
+	if [ $(TARGET_ARCH) = "aarch64" ]; then \
 		cd ${TARGET_DIR}; ln -sf lib lib64; \
 		cd ${TARGET_DIR}/usr; ln -sf lib lib64; \
 	fi
@@ -68,10 +71,10 @@ $(D)/cross-libs: directories $(CROSSTOOL)
 # bootstrap
 #
 BOOTSTRAP  = directories
-BOOTSTRAP += ccache
+BOOTSTRAP += host-ccache
 BOOTSTRAP += $(CROSSTOOL)
 BOOTSTRAP += cross-libs
-BOOTSTRAP += pkgconf
+BOOTSTRAP += host-pkgconf
 
 $(D)/bootstrap: $(BOOTSTRAP)
 	@touch $@

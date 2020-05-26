@@ -11,11 +11,11 @@ $(ARCHIVE)/$(LUA_SOURCE):
 	$(DOWNLOAD) $(LUA_URL)/ftp/$(LUA_SOURCE)
 
 LUA_PATCH  = \
-	lua-00-fix-lua-root.patch \
-	lua-01-remove-readline.patch \
-	lua-02-shared-library.patch \
-	lua-03-lua-pc.patch \
-	lua-04-crashfix.patch
+	0001-fix-lua-root.patch \
+	0002-remove-readline.patch \
+	0003-shared-library.patch \
+	0004-lua-pc.patch \
+	0005-crashfix.patch
 
 $(D)/lua: bootstrap host-lua ncurses $(ARCHIVE)/$(LUA_SOURCE)
 	$(START_BUILD)
@@ -46,8 +46,8 @@ HOST_LUA_DIR    = lua-$(HOST_LUA_VER)
 HOST_LUA_SOURCE = lua-$(LUA_VER).tar.gz
 
 HOST_LUA_PATCH  = \
-	lua-00-fix-lua-root.patch \
-	lua-01-remove-readline.patch
+	0001-fix-lua-root.patch \
+	0002-remove-readline.patch
 
 HOST_LUA_BINARY = $(HOST_DIR)/bin/lua
 

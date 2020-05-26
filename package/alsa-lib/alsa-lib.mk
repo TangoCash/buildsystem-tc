@@ -11,8 +11,8 @@ $(ARCHIVE)/$(ALSA_LIB_SOURCE):
 
 ALSA_LIB_PATCH  = \
 	0001-Don-t-use-fork-on-noMMU-platforms.patch \
-	alsa-lib.patch \
-	alsa-lib-link_fix.patch
+	0002-alsa-lib.patch \
+	0003-alsa-lib-link_fix.patch
 
 $(D)/alsa-lib: bootstrap $(ARCHIVE)/$(ALSA_LIB_SOURCE)
 	$(START_BUILD)

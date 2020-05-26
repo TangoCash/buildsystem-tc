@@ -10,10 +10,10 @@ $(ARCHIVE)/$(SYSVINIT_SOURCE):
 	$(DOWNLOAD) $(SYSVINIT_URL)/$(SYSVINIT_SOURCE)
 
 SYSVINIT_PATCH  = \
-	crypt-lib.patch \
-	change-INIT_FIFO.patch \
-	pidof-add-m-option.patch \
-	realpath.patch
+	0001-crypt-lib.patch \
+	0002-change-INIT_FIFO.patch \
+	0003-pidof-add-m-option.patch \
+	0004-realpath.patch
 
 $(D)/sysvinit: bootstrap $(ARCHIVE)/$(SYSVINIT_SOURCE)
 	$(START_BUILD)

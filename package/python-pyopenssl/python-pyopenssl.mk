@@ -10,7 +10,7 @@ $(ARCHIVE)/$(PYTHON_PYOPENSSL_SOURCE):
 	$(DOWNLOAD) $(PYTHON_PYOPENSSL_URL)/$(PYTHON_PYOPENSSL_SOURCE)
 
 PYTHON_PYOPENSSL_PATCH  = \
-	python-pyopenssl.patch
+	0001-python-pyopenssl.patch
 
 $(D)/python-pyopenssl: bootstrap python python-setuptools $(ARCHIVE)/$(PYTHON_PYOPENSSL_SOURCE)
 	$(START_BUILD)

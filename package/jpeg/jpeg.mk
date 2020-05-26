@@ -10,7 +10,7 @@ $(ARCHIVE)/$(JPEG_SOURCE):
 	$(DOWNLOAD) $(JPEG_URL)/$(JPEG_SOURCE)
 
 JPEG_PATCH  = \
-	jpeg.patch
+	0001-jpeg.patch
 
 $(D)/jpeg: bootstrap $(ARCHIVE)/$(JPEG_SOURCE)
 	$(START_BUILD)

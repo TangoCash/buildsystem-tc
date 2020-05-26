@@ -11,8 +11,8 @@ $(ARCHIVE)/$(KMOD_SOURCE):
 
 KMOD_PATCH  = \
 	0001-fix-O_CLOEXEC.patch \
-	avoid_parallel_tests.patch \
-	libkmod_pc_in.patch
+	0002-avoid_parallel_tests.patch \
+	0003-libkmod_pc_in.patch
 
 $(D)/kmod: bootstrap zlib $(ARCHIVE)/$(KMOD_SOURCE)
 	$(START_BUILD)

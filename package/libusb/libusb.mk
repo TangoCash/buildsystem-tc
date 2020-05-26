@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBUSB_SOURCE):
 	$(DOWNLOAD) $(LIBUSB_URL)/$(LIBUSB_SOURCE)
 
 LIBUSB_PATCH  = \
-	libusb.patch
+	0001-libusb.patch
 
 $(D)/libusb: bootstrap $(ARCHIVE)/$(LIBUSB_SOURCE)
 	$(START_BUILD)

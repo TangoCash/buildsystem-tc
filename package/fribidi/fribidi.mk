@@ -10,7 +10,7 @@ $(ARCHIVE)/$(FRIBIDI_SOURCE):
 	$(DOWNLOAD) $(FRIBIDI_URL)/$(FRIBIDI_SOURCE)
 
 FRIBIDI_PATCH  = \
-	fribidi.patch
+	0001-fribidi.patch
 
 $(D)/fribidi: bootstrap $(ARCHIVE)/$(FRIBIDI_SOURCE)
 	$(START_BUILD)

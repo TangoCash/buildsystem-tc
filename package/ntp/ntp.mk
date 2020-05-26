@@ -10,7 +10,7 @@ $(ARCHIVE)/$(NTP_SOURCE):
 	$(DOWNLOAD) $(NTP_URL)/$(NTP_SOURCE)
 
 NTP_PATCH  = \
-	ntp.patch
+	0001-ntp.patch
 
 $(D)/ntp: bootstrap $(ARCHIVE)/$(NTP_SOURCE)
 	$(START_BUILD)

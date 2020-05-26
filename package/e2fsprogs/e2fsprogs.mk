@@ -10,13 +10,13 @@ $(ARCHIVE)/$(E2FSPROGS_SOURCE):
 	$(DOWNLOAD) $(E2FSPROGS_URL)/$(E2FSPROGS_SOURCE)
 
 E2FSPROGS_PATCH  = \
-	000-e2fsprogs.patch \
-	001-exit_0_on_corrected_errors.patch \
-	002-dont-build-e4defrag.patch \
-	003-overridable-pc-exec-prefix.patch \
-	004-Revert-mke2fs-enable-the-metadata_csum-and-64bit-fea.patch \
-	006-mkdir_p.patch \
-	007-no-crond.patch
+	0001-e2fsprogs.patch \
+	0002-exit_0_on_corrected_errors.patch \
+	0003-dont-build-e4defrag.patch \
+	0004-overridable-pc-exec-prefix.patch \
+	0005-Revert-mke2fs-enable-the-metadata_csum-and-64bit-fea.patch \
+	0006-mkdir_p.patch \
+	0007-no-crond.patch
 
 $(D)/e2fsprogs: bootstrap util-linux $(ARCHIVE)/$(E2FSPROGS_SOURCE)
 	$(START_BUILD)

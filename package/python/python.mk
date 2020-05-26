@@ -10,10 +10,10 @@ $(ARCHIVE)/$(PYTHON_SOURCE):
 	$(DOWNLOAD) $(PYTHON_URL)/$(PYTHON_SOURCE)
 
 PYTHON_PATCH  = \
-	python.patch \
-	python-xcompile.patch \
-	python-revert_use_of_sysconfigdata.patch \
-	python-pgettext.patch
+	0001-python.patch \
+	0002-python-xcompile.patch \
+	0003-python-revert_use_of_sysconfigdata.patch \
+	0004-python-pgettext.patch
 
 PYTHON_BASE_DIR    = usr/lib/python$(basename $(PYTHON_VER))
 PYTHON_INCLUDE_DIR = usr/include/python$(basename $(PYTHON_VER))
@@ -86,7 +86,7 @@ HOST_PYTHON_DIR    = Python-$(HOST_PYTHON_VER)
 HOST_PYTHON_SOURCE = $(PYTHON_SOURCE)
 
 HOST_PYTHON_PATCH  = \
-	python.patch
+	0001-python.patch
 
 $(D)/host-python: bootstrap $(ARCHIVE)/$(PYTHON_SOURCE)
 	$(START_BUILD)

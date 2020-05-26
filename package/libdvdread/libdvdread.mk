@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBDVDREAD_SOURCE):
 	$(DOWNLOAD) $(LIBDVDREAD_URL)/$(LIBDVDREAD_SOURCE)
 
 LIBDVDREAD_PATCH  = \
-	libdvdread.patch
+	0001-libdvdread.patch
 
 $(D)/libdvdread: bootstrap $(ARCHIVE)/$(LIBDVDREAD_SOURCE)
 	$(START_BUILD)

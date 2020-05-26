@@ -2,10 +2,10 @@
 # neutrino-plugins
 #
 NEUTRINO_PLUGINS_VER     = git
-NEUTRINO_PLUGINS_DIR     = neutrino-plugins.$(NEUTRINO_PLUGINS_VER)
-NEUTRINO_PLUGINS_SOURCE  = neutrino-plugins.$(NEUTRINO_PLUGINS_VER)
+NEUTRINO_PLUGINS_DIR     = neutrino-plugins-max.$(NEUTRINO_PLUGINS_VER)
+NEUTRINO_PLUGINS_SOURCE  = neutrino-plugins-max.$(NEUTRINO_PLUGINS_VER)
 NEUTRINO_PLUGINS_URL     = $(MAX-GIT-GITHUB)
-NEUTRINO_PLUGINS_OBJ_DIR = $(BUILD_DIR)/neutrino-plugins
+NEUTRINO_PLUGINS_OBJ_DIR = $(BUILD_DIR)/neutrino-plugins-max
 
 NP_CONFIGURE_ADDITIONS = \
 	$(LOCAL_N_PLUGIN_BUILD_OPTIONS)
@@ -92,4 +92,53 @@ neutrino-plugins-clean:
 neutrino-plugins-distclean:
 	rm -rf $(NEUTRINO_PLUGINS_OBJ_DIR)
 	rm -f $(D)/neutrino-plugin*
+	rm -f $(D)/neutrino.config.status
+
+# -----------------------------------------------------------------------------
+
+#
+# neutrinohd2 plugins
+#
+NEUTRINO_HD2_PLUGINS_PATCHES =
+
+$(D)/neutrinohd2-plugins.do_prepare: | bootstrap neutrino.do_prepare neutrino.do_compile
+	$(START_BUILD)
+	rm -rf $(SOURCE_DIR)/neutrinohd2-plugins
+	ln -s $(SOURCE_DIR)/neutrinohd2.git/plugins $(SOURCE_DIR)/neutrinohd2-plugins
+	$(CD) $(SOURCE_DIR)/neutrinohd2-plugins; \
+		$(call apply_patches, $(NEUTRINO_HD2_PLUGINS_PATCHES))
+	@touch $@
+
+$(D)/neutrinohd2-plugins.config.status:
+	cd $(SOURCE_DIR)/neutrinohd2-plugins; \
+		$(CONFIGURE) \
+			--prefix= \
+			--with-target=cdk \
+			--with-boxtype=$(BOXMODEL) \
+			--with-plugindir=/var/tuxbox/plugins \
+			--with-datadir=/usr/share/tuxbox \
+			--with-configdir=/var/tuxbox/config \
+			--enable-silent-rules \
+			CPPFLAGS="$(CPPFLAGS) -I$(driverdir) -I$(TARGET_DIR)/include" \
+			LDFLAGS="$(TARGET_LDFLAGS)"
+ifeq ($(TINKER_OPTION), 0)
+	@touch $@
+endif
+
+$(D)/neutrinohd2-plugins.do_compile: neutrinohd2-plugins.config.status
+	$(MAKE) -C $(SOURCE_DIR)/neutrinohd2-plugins DESTDIR=$(TARGET_DIR) top_srcdir=$(SOURCE_DIR)/neutrinohd2
+	@touch $@
+
+$(D)/neutrinohd2-plugins: neutrinohd2-plugins.do_prepare neutrinohd2-plugins.do_compile
+	$(MAKE) -C $(SOURCE_DIR)/neutrinohd2-plugins install DESTDIR=$(TARGET_DIR) top_srcdir=$(SOURCE_DIR)/neutrinohd2
+	$(TOUCH)
+
+neutrinohd2-plugins-clean:
+	cd $(SOURCE_DIR)/neutrinohd2-plugins; \
+	$(MAKE) clean
+	rm -f $(D)/neutrinohd2-plugins
+	rm -f $(D)/neutrinohd2-plugins.config.status
+
+neutrinohd2-plugins-distclean:
+	rm -f $(D)/neutrinohd2-plugins*
 	rm -f $(D)/neutrino.config.status

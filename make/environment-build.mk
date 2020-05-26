@@ -35,7 +35,7 @@ RELEASE_IMAGE_DIR      = $(BASE_DIR)/release_image
 HELPERS_DIR            = $(BASE_DIR)/helpers
 OWN_FILES             ?= $(BASE_DIR)/own-files
 CROSS_BASE             = $(BASE_DIR)/cross
-CROSS_DIR              = $(CROSS_BASE)/$(BOXARCH)-$(CROSSTOOL_GCC_VER)-kernel-$(KERNEL_VER)
+CROSS_DIR              = $(CROSS_BASE)/$(TARGET_ARCH)-$(CROSSTOOL_GCC_VER)-kernel-$(KERNEL_VER)
 
 BUILD                 ?= $(shell /usr/share/libtool/config.guess 2>/dev/null || /usr/share/libtool/config/config.guess 2>/dev/null || /usr/share/misc/config.guess 2>/dev/null)
 
@@ -66,27 +66,33 @@ TINKER_OPTION         ?= 0
 # -----------------------------------------------------------------------------
 
 CCACHE                 = /usr/bin/ccache
-CCACHE_DIR             = $(HOME)/.ccache-bs-$(BOXARCH)-max
+CCACHE_DIR             = $(HOME)/.ccache-bs-$(TARGET_ARCH)-max
 export CCACHE_DIR
 
 # -----------------------------------------------------------------------------
 
-ifeq ($(BOXARCH), arm)
+ifeq ($(TARGET_ARCH), arm)
 TARGET                ?= arm-cortex-linux-gnueabihf
-BOXARCH               ?= arm
+TARGET_ARCH           ?= arm
 TARGET_ABI             = -mtune=cortex-a15 -mfloat-abi=hard -mfpu=neon-vfpv4 -march=armv7ve
+TARGET_ARCH           ?= arm
+TARGET_ENDIAN          = little
 endif
 
-ifeq ($(BOXARCH), aarch64)
+ifeq ($(TARGET_ARCH), aarch64)
 TARGET                ?= aarch64-unknown-linux-gnu
-BOXARCH               ?= aarch64
+TARGET_ARCH           ?= aarch64
 TARGET_ABI             =
+TARGET_ARCH           ?= aarch64
+TARGET_ENDIAN          = big
 endif
 
-ifeq ($(BOXARCH), mips)
+ifeq ($(TARGET_ARCH), mips)
 TARGET                ?= mipsel-unknown-linux-gnu
-BOXARCH               ?= mips
+TARGET_ARCH           ?= mips
 TARGET_ABI             = -march=mips32 -mtune=mips32
+TARGET_ARCH           ?= mips
+TARGET_ENDIAN          = little
 endif
 
 OPTIMIZATIONS         ?= size
@@ -248,7 +254,7 @@ MAKE_OPTS = \
 	RANLIB="$(TARGET_RANLIB)" \
 	READELF="$(TARGET_READELF)" \
 	STRIP="$(TARGET_STRIP)" \
-	ARCH=$(BOXARCH)
+	ARCH=$(TARGET_ARCH)
 
 BUILD_ENV = \
 	$(MAKE_OPTS) \
@@ -280,7 +286,7 @@ CMAKE_OPTS = \
 	-DENABLE_STATIC=OFF \
 	-DCMAKE_BUILD_TYPE="None" \
 	-DCMAKE_SYSTEM_NAME="Linux" \
-	-DCMAKE_SYSTEM_PROCESSOR="$(BOXARCH)" \
+	-DCMAKE_SYSTEM_PROCESSOR="$(TARGET_ARCH)" \
 	-DCMAKE_INSTALL_PREFIX="/usr" \
 	-DCMAKE_INSTALL_DOCDIR="/.remove" \
 	-DCMAKE_INSTALL_MANDIR="/.remove" \

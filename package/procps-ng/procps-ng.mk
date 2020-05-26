@@ -10,7 +10,7 @@ $(ARCHIVE)/$(PROCPS_NG_SOURCE):
 	$(DOWNLOAD) $(PROCPS_NG_URL)/$(PROCPS_NG_SOURCE)
 
 PROCPS_NG_PATCH  = \
-	no-tests-docs.patch
+	0001-no-tests-docs.patch
 
 BINDIR_PROGS = free pgrep pkill pmap pwdx slabtop skill snice tload top uptime vmstat w
 

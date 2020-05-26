@@ -11,9 +11,9 @@ $(ARCHIVE)/$(WIRELESS_TOOLS_SOURCE):
 
 WIRELESS_TOOLS_PATCH  = \
 	0001-remove-bzero.patch \
-	remove.ldconfig.call.patch \
-	avoid_strip.patch \
-	ldflags.patch
+	0002-remove.ldconfig.call.patch \
+	0003-avoid_strip.patch \
+	0004-ldflags.patch
 
 $(D)/wireless-tools: bootstrap $(ARCHIVE)/$(WIRELESS_TOOLS_SOURCE)
 	$(START_BUILD)

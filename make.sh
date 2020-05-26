@@ -80,23 +80,23 @@ case $1 in
 esac
 
 case "$REPLY" in
-	 1) BOXARCH="mips";BOXTYPE="mipsbox";BOXMODEL="vuduo";;
-	 2) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuduo4k";;
-	 3) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vusolo4k";;
-	 4) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuultimo4k";;
-	 5) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4k";;
-	 6) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4kse";;
-	 7) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="vuzero4k";;
-	11) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="bre2ze4k";;
-	21) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
-	22) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd60";;
-	23) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd61";;
-	30) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4k";;
-	31) BOXARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4kplus";;
-	40) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="h7";;
-	 *) BOXARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
+	 1) TARGET_ARCH="mips";BOXTYPE="mipsbox";BOXMODEL="vuduo";;
+	 2) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuduo4k";;
+	 3) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vusolo4k";;
+	 4) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuultimo4k";;
+	 5) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4k";;
+	 6) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuuno4kse";;
+	 7) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="vuzero4k";;
+	11) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="bre2ze4k";;
+	21) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
+	22) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="hd60";;
+	23) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="hd61";;
+	30) TARGET_ARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4k";;
+	31) TARGET_ARCH="aarch64";BOXTYPE="armbox";BOXMODEL="osmio4kplus";;
+	40) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="h7";;
+	 *) TARGET_ARCH="arm";BOXTYPE="armbox";BOXMODEL="hd51";;
 esac
-echo "BOXARCH=$BOXARCH" >> .config
+echo "TARGET_ARCH=$TARGET_ARCH" >> .config
 echo "BOXTYPE=$BOXTYPE" >> .config
 echo "BOXMODEL=$BOXMODEL" >> .config
 
@@ -145,13 +145,14 @@ echo "OPTIMIZATIONS=$OPTIMIZATIONS" >> .config
 ##############################################
 
 case $4 in
-	[1-4]) REPLY=$4;;
+	[1-5]) REPLY=$4;;
 	*)	echo -e "\nWhich Neutrino variant do you want to build?:"
 		echo "   1)  neutrino-ddt   "
 		echo "   2)  neutrino-max   "
 		echo "   3)  neutrino-ni    "
 		echo "   4)  neutrino-tangos"
-		read -p "Select Image to build (1-4)? [4] "
+		echo "   5)  neutrinohd2"
+		read -p "Select Image to build (1-5)? [4] "
 		REPLY="${REPLY:-4}";;
 esac
 
@@ -160,6 +161,7 @@ case "$REPLY" in
 	2) FLAVOUR="neutrino-max";;
 	3) FLAVOUR="neutrino-ni";;
 	4) FLAVOUR="neutrino-tangos";;
+	5) FLAVOUR="neutrinohd2";;
 	*) FLAVOUR="neutrino-tangos";;
 esac
 echo "FLAVOUR=$FLAVOUR" >> .config

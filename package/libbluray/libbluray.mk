@@ -10,7 +10,7 @@ $(ARCHIVE)/$(LIBBLURAY_SOURCE):
 	$(DOWNLOAD) $(LIBBLURAY_URL)/$(LIBBLURAY_SOURCE)
 
 LIBBLURAY_PATCH  = \
-	libbluray.patch
+	0001-libbluray.patch
 
 $(D)/libbluray: bootstrap $(ARCHIVE)/$(LIBBLURAY_SOURCE)
 	$(START_BUILD)

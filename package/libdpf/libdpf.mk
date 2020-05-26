@@ -7,7 +7,7 @@ LIBDPF_SOURCE = dpf-ax.$(LIBDPF_VER)
 LIBDPF_URL    = $(MAX-GIT-GITHUB)
 
 LIBDPF_PATCH  = \
-	crossbuild.patch
+	0001-crossbuild.patch
 
 $(D)/libdpf: bootstrap libusb-compat
 	$(START_BUILD)

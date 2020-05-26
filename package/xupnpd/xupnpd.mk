@@ -7,7 +7,7 @@ XUPNPD_SOURCE = xupnpd.git
 XUPNPD_URL    = https://github.com/clark15b
 
 XUPNPD_PATCH  =  \
-	xupnpd.patch
+	0001-xupnpd.patch
 
 $(D)/xupnpd: bootstrap lua openssl neutrino-plugins
 	$(START_BUILD)
