@@ -61,7 +61,7 @@ endif
 # -----------------------------------------------------------------------------
 
 IMAGE_BUILD_DIR = $(BUILD_DIR)/image-build
-ITYPE ?= usb
+ITYPE ?= multi_usb
 
 # -----------------------------------------------------------------------------
 
@@ -199,11 +199,11 @@ flash-image-multi-rootfs:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)
 	cp $(KERNEL_OUTPUT_DTB) $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/rootfs.tar
-	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)" > $(IMAGE_BUILD_DIR)/$(IMAGE_DIR)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(IMAGE_DIR)/rootfs.tar.bz2 $(IMAGE_DIR)/kernel.bin $(IMAGE_DIR)/$(IMAGE_NAME).img $(IMAGE_DIR)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).zip $(IMAGE_DIR)/rootfs.tar.bz2 $(IMAGE_DIR)/kernel.bin $(IMAGE_DIR)/$(IMAGE_NAME).img $(IMAGE_DIR)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -213,11 +213,11 @@ flash-image-online:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
 	cp $(KERNEL_OUTPUT_DTB) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
-		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -259,7 +259,7 @@ flash-image-hd60-multi-disk: atools $(ARCHIVE)/$(HD60_BOOTARGS_SRC) $(ARCHIVE)/$
 	if [ -e $(RELEASE_DIR)/boot/logo.img ]; then \
 		cp -rf $(RELEASE_DIR)/boot/logo.img $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
 	fi
-	echo "$(BOXMODEL)_multi_usb_$(DATE)_recovery_emmc" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)_recovery_emmc" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(HOST_DIR)/bin/make_ext4fs -l $(HD60_IMAGE_ROOTFS_SIZE) $(IMAGE_BUILD_DIR)/$(HD60_IMAGE_LINK) $(RELEASE_DIR)/..
 	$(HOST_DIR)/bin/ext2simg -zv $(IMAGE_BUILD_DIR)/$(HD60_IMAGE_LINK) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.fastboot.gz
 	dd if=/dev/zero of=$(IMAGE_BUILD_DIR)/$(BOXMODEL)/$(HD60_BOOT_IMAGE) bs=1024 count=$(HD60_BOOTOPTIONS_PARTITION_SIZE)
@@ -318,9 +318,9 @@ flash-image-hd60-multi-rootfs:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo "$(BOXMODEL)_multi_$(ITYPE)_$(DATE)_emmc" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)_emmc" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	echo "$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip" > $(IMAGE_BUILD_DIR)/unforce_$(BOXMODEL).txt; \
 	echo "Rename the unforce_$(BOXMODEL).txt to force_$(BOXMODEL).txt and move it to the root of your usb-stick" > $(IMAGE_BUILD_DIR)/force_$(BOXMODEL)_READ.ME; \
 	echo "When you enter the recovery menu then it will force to install the image $$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip in the image-slot1" >> $(IMAGE_BUILD_DIR)/force_$(BOXMODEL)_READ.ME; \
@@ -334,11 +334,11 @@ flash-image-hd60-online:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo $(BOXMODEL)_DDT_usb_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo $(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
-		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -380,7 +380,7 @@ flash-image-hd61-multi-disk: atools $(ARCHIVE)/$(HD61_BOOTARGS_SRC) $(ARCHIVE)/$
 	if [ -e $(RELEASE_DIR)/boot/logo.img ]; then \
 		cp -rf $(RELEASE_DIR)/boot/logo.img $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
 	fi
-	echo "$(BOXMODEL)_multi_usb_$(DATE)_recovery_emmc" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)_recovery_emmc" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(HOST_DIR)/bin/make_ext4fs -l $(HD61_IMAGE_ROOTFS_SIZE) $(IMAGE_BUILD_DIR)/$(HD61_IMAGE_LINK) $(RELEASE_DIR)/..
 	$(HOST_DIR)/bin/ext2simg -zv $(IMAGE_BUILD_DIR)/$(HD61_IMAGE_LINK) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.fastboot.gz
 	dd if=/dev/zero of=$(IMAGE_BUILD_DIR)/$(BOXMODEL)/$(HD61_BOOT_IMAGE) bs=1024 count=$(HD61_BOOTOPTIONS_PARTITION_SIZE)
@@ -439,9 +439,9 @@ flash-image-hd61-multi-rootfs:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo "$(BOXMODEL)_multi_$(ITYPE)_$(DATE)_emmc" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)_emmc" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	echo "$$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip" > $(IMAGE_BUILD_DIR)/unforce_$(BOXMODEL).txt; \
 	echo "Rename the unforce_$(BOXMODEL).txt to force_$(BOXMODEL).txt and move it to the root of your usb-stick" > $(IMAGE_BUILD_DIR)/force_$(BOXMODEL)_READ.ME; \
 	echo "When you enter the recovery menu then it will force to install the image $$(cat $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion).zip in the image-slot1" >> $(IMAGE_BUILD_DIR)/force_$(BOXMODEL)_READ.ME; \
@@ -455,11 +455,11 @@ flash-image-hd61-online:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/uImage
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo $(BOXMODEL)_DDT_usb_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo $(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE) > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
-		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 uImage imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -535,12 +535,12 @@ flash-image-osmio4k-multi-rootfs:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	echo "rename this file to 'force' to force an update without confirmation" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/noforce; \
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/kernel.bin $(BOXMODEL)/$(OSMIO4K_IMAGE_NAME).img $(BOXMODEL)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).zip $(BOXMODEL)/rootfs.tar.bz2 $(BOXMODEL)/kernel.bin $(BOXMODEL)/$(OSMIO4K_IMAGE_NAME).img $(BOXMODEL)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -550,12 +550,12 @@ flash-image-osmio4k-online:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXMODEL)
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(BOXMODEL)/kernel.bin
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(BOXMODEL)/rootfs.tar
-	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/imageversion
 	echo "rename this file to 'force' to force an update without confirmation" > $(IMAGE_BUILD_DIR)/$(BOXMODEL)/noforce; \
 	$(CD) $(IMAGE_BUILD_DIR)/$(BOXMODEL); \
-		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel.bin imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -603,16 +603,16 @@ flash-image-vu-multi-rootfs:
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel3_auto.bin
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel4_auto.bin
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
 	mv $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar.bz2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs1.tar.bz2
 	$(VU_FR)
 	echo "This file forces creating partitions." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/mkpart.update
 	echo "Dummy for update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
 	echo "Dummy for update." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar.bz2
-	echo "$(BOXMODEL)_DDT_multi_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(FLAVOUR)_$(ITYPE)_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_usb_$(DATE).zip $(VU_PREFIX)/rootfs*.tar.bz2 $(VU_PREFIX)/initrd_auto.bin $(VU_PREFIX)/kernel*_auto.bin $(VU_PREFIX)/*.update $(VU_PREFIX)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).zip $(VU_PREFIX)/rootfs*.tar.bz2 $(VU_PREFIX)/initrd_auto.bin $(VU_PREFIX)/kernel*_auto.bin $(VU_PREFIX)/*.update $(VU_PREFIX)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -623,13 +623,13 @@ flash-image-vu-rootfs:
 	cp $(BUILD_DIR)/$(VU_INITRD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/initrd_auto.bin
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
 	$(VU_FR)
 	echo "This file forces creating partitions." > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/mkpart.update
-	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).zip $(VU_PREFIX)/rootfs.tar.bz2 $(VU_PREFIX)/initrd_auto.bin $(VU_PREFIX)/kernel_auto.bin $(VU_PREFIX)/*.update $(VU_PREFIX)/imageversion
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).zip $(VU_PREFIX)/rootfs.tar.bz2 $(VU_PREFIX)/initrd_auto.bin $(VU_PREFIX)/kernel_auto.bin $(VU_PREFIX)/*.update $(VU_PREFIX)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -639,11 +639,11 @@ flash-image-vu-online:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(VU_PREFIX)
 	cp $(KERNEL_OUTPUT) $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/kernel_auto.bin
 	$(CD) $(RELEASE_DIR); \
-		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . >/dev/null 2>&1; \
+		tar -cvf $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar . > /dev/null 2>&1; \
 		bzip2 $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/rootfs.tar
-	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VU_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR)/$(VU_PREFIX); \
-		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_multi_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel_auto.bin imageversion
+		tar -cvzf $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).tgz rootfs.tar.bz2 kernel_auto.bin imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
@@ -670,8 +670,8 @@ flash-image-vuduo: host-mtd-utils
 	ubinize -o $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/root_cfe_auto.jffs2 -m 2048 -p 128KiB $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/ubinize.cfg
 	rm -f $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/root_cfe_auto.ubi
 	rm -f $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/ubinize.cfg
-	echo "$(BOXMODEL)_DDT_usb_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/imageversion
+	echo "$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE)" > $(IMAGE_BUILD_DIR)/$(VUDUO_PREFIX)/imageversion
 	$(CD) $(IMAGE_BUILD_DIR); \
-		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_usb_$(DATE).zip $(VUDUO_PREFIX)*
+		zip -r $(RELEASE_IMAGE_DIR)/$(BOXMODEL)_$(FLAVOUR)_$(ITYPE)_$(DATE).zip $(VUDUO_PREFIX)*
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
